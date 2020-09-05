@@ -1,0 +1,57 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: url(img/background.bmp);
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginbox{
+    width: 320px;
+    height: 360px;
+    background: url(img/background_box.bmp);    
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 130px 40px;
+}
+
+.loginbox input{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.loginbox input[type="text"], input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #c4c4c4;
+    border-top: 1px solid #c4c4c4;        
+    outline: none;
+    height: 35px;
+    color: #000000;
+    font-size: 14px;    
+    
+}
+
+.loginbox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #546cf3;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.loginbox a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+
+
