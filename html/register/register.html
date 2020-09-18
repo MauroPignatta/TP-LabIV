@@ -11,8 +11,8 @@
                 <form>                   
                     <input type="text" name="" placeholder="Enter username">    
                     <input type="email" name="" placeholder="Enter email">                    
-                    <input type="password" name="" placeholder="Enter password">
-                    <input type="password" name="" placeholder="Repeat password">
+                    <input type="password" placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                    <input type="password" name="" placeholder="Repeat password" >
 
                     <div class="g-recaptcha" data-sitekey="6LcePAATAAAAAGPRWgx90814DTjgt5sXnNbV5WaW"></div>
 

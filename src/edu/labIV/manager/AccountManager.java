@@ -29,13 +29,16 @@ public class AccountManager {
         return true;
     }
 
-    public boolean signIn(Account account){
+    public void signIn(Account account){
         boolean valid = accountValidator.validateAccount(account);
         if(valid){
-            dataBaseConnection.insertAccountQuery(account);
+            if(!dataBaseConnection.insertAccountQuery(account)){
+                //TODO mandar mensaje usuario ya existente
+            }else{
+                //TODO mandar mail de activacion de cuenta
+            }
+         }else{
+            //TODO datos incorrectos
         }
-
-        //TODO mandar mail de activacion de cuenta
-        return true;
     }
 }
