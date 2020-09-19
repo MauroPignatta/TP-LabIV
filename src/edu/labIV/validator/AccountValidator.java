@@ -15,15 +15,15 @@ public class AccountValidator {
         return valid;
     }
 
-    private boolean validUserName(String username){
+    public boolean validUserName(String username){
         return username != null && Pattern.matches("^([a-zA-Z0-9]+){4,}$", username);
     }
 
-    private boolean validPass(String password){
+    public boolean validPass(String password){
         return password != null && Pattern.matches("^[a-zA-Z@#$%^&+=](?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}[a-zA-Z0-9]$", password);
     }
 
-    private boolean validEmail(String email){
+    public boolean validEmail(String email){
         return email != null && Pattern.matches("^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$",email);
     }
 }

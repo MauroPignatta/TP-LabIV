@@ -10,30 +10,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountValidatorTest {
 
     Account account = new Account("Mariano", "adssdHDS1231@#&2", "mariano@kaimakamian.com", false);
+    AccountValidator accountValidator = new AccountValidator();
 
     @Test
-    void validateAccount() {
-
-        AccountValidator accountValidator = new AccountValidator();
+    void validateAccountTrue() {
         assertTrue(accountValidator.validateAccount(account));
+    }
 
+    @Test
+    void validateAccountFalse() {
+        Account invalidAccount = new Account("Pepito", "1234","mailinvalido",false);
+        assertFalse(accountValidator.validateAccount(invalidAccount));
     }
 
     @Test
     void validateEmail(){
-        boolean b = Pattern.matches("^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$", account.getEmail());
-        assertTrue(b);
+        assertTrue(accountValidator.validEmail(account.getEmail()));
     }
 
     @Test
     void validatePassword(){
-        boolean b = Pattern.matches("^[a-zA-Z@#$%^&+=](?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}[a-zA-Z0-9]$", account.getPassword());
-        assertTrue(b);
+        assertTrue(accountValidator.validPass(account.getPassword()));
     }
 
     @Test
     void validateUsername(){
-        boolean b = Pattern.matches("^([a-zA-Z0-9]+){4,}$", account.getUsername());
-        assertTrue(b);
+        assertTrue(accountValidator.validUserName(account.getUsername()));
     }
 }
