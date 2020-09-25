@@ -1,4 +1,5 @@
 out
 .idea
 *.iml
+*.bat
 diagrams/*.architect~
