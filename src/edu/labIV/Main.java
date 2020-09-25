@@ -9,12 +9,12 @@ public class Main {
     public static void main(String[] args) {
         DataBaseConnection dataBaseConnection = DataBaseConnection.getInstance();
 
-        //Account account = new Account("Yago", "1234", "yago@messina.com", false);
-        //AccountManager accountManager = new AccountManager();
-        //accountManager.signIn(account);
+        Account account = new Account("aA12345678", "pepe@gmail.com", false);
+        AccountManager accountManager = new AccountManager();
+        accountManager.signIn(account);
 
-        Account account = dataBaseConnection.selectAccountQuery("Yago");
-        System.out.println(account.getUsername() + " " + account.getEmail() + " " + account.getPassword() + " " + account.isActive());
+        //account = dataBaseConnection.selectAccountQuery();
+        //System.out.println(account.getEmail() + " " + account.getPassword() + " " + account.isActive());
 
     }
 

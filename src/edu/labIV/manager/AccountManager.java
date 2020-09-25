@@ -33,11 +33,14 @@ public class AccountManager {
         boolean valid = accountValidator.validateAccount(account);
         if(valid){
             if(!dataBaseConnection.insertAccountQuery(account)){
+                System.out.println("usuario existente");
                 //TODO mandar mensaje usuario ya existente
             }else{
+                System.out.println("usuario logueado");
                 //TODO mandar mail de activacion de cuenta
             }
          }else{
+            System.out.println("error de datos");
             //TODO datos incorrectos
         }
     }
