@@ -25,16 +25,16 @@ class AccountValidatorTest {
 
     @Test
     void validateEmail(){
-        assertTrue(accountValidator.validEmail(account.getEmail()));
+        assertTrue(accountValidator.validateEmail(account.getEmail()));
     }
 
     @Test
     void validatePassword(){
-        assertTrue(accountValidator.validPass(account.getPassword()));
+        assertTrue(accountValidator.validatePass(account.getPassword()));
     }
 
     @Test
     void validateUsername(){
-        assertTrue(accountValidator.validUserName(account.getUsername()));
+        assertTrue(accountValidator.validateUserName(account.getUsername()));
     }
 }
