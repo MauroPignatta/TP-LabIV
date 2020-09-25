@@ -14,7 +14,7 @@ public class AccountValidator {
     }
 
     public boolean validatePass(String password){
-        return password != null && Pattern.matches("^[a-zA-Z@#$%^&+=](?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}[a-zA-Z0-9]$", password);
+        return password != null && Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$", password);
     }
 
     public boolean validateEmail(String email){
