@@ -22,6 +22,6 @@
 
 ## Creadores y Desarrolladores
 
-1-	Mauro Pignatta
-2-	Yago Messina
-3-	Mariano Wiñar
+-	Mauro Pignatta
+-	Yago Messina
+-	Mariano Wiñar
