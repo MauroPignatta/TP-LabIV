@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class AccountDao implements Dao <Account>{
+
+    //TODO: Cuidado con los parametros que nos pasan. No comprobamos que sean null.
+
     private static final String ACC_TABLE = "account";
     private static final String ACC_ID = "account_id";
     private static final String ACC_EMAIL = "email";
@@ -21,11 +24,15 @@ public class AccountDao implements Dao <Account>{
         this.db = DataBaseConnection.getInstance();
     }
 
+    /** Persiste el dato en la base de datos.
+     * @param entity Cuenta a persistir.
+     * @return Booleano indicando si el dato se guardo correctamente.
+     */
     @Override
     public boolean save(Account entity) {
         //TODO obtener max id - CAMBIAR SQL TRANSACCION
         boolean executed = false;
-        String sql = "INSERT INTO "+ACC_TABLE+"("+ ACC_EMAIL +", "+ ACC_PASSWORD +", "+ ACC_ACTIVE +") VALUES(?,?,?)";
+        String sql = "INSERT INTO " + ACC_TABLE + "("+ ACC_EMAIL +", "+ ACC_PASSWORD +", "+ ACC_ACTIVE +") VALUES(?,?,?)";
         try{
             PreparedStatement statement = db.createPrepareStatement(sql);
             statement.setString(1, entity.getEmail());
@@ -80,6 +87,10 @@ public class AccountDao implements Dao <Account>{
         return executed;
     }
 
+    /** Elimina una cuanta de la base de datos
+     *  @param id id de la cuenta a buscar
+     *  @return True si se elimino correcamente, false si no se encuentra el id.
+     */
     @Override
     public boolean delete(int id) {
         boolean executed = false;

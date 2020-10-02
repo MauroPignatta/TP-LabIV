@@ -16,6 +16,7 @@ public class AccountManager {
 
     public boolean login(String email, String password){
         //TODO contador de intentos fallidos
+        //TODO Cambiar el estado a conectado.
         Account account = accountMapper.get(email);
         if(account != null &&  account.isActive()){
             return password.equals(account.getPassword());
@@ -23,30 +24,26 @@ public class AccountManager {
         return false;
     }
 
-//    public boolean logout(Account account){
-//
-//        //TODO accede a la bd para cambiar el estado
-//        return true;
-//    }
+   // public boolean logout(Account account){
+   //     //TODO accede a la bd para cambiar el estado
+   //     return true;
+   // }
 
     public boolean signIn(String email, String password){
-        //TODO verificar que la cuenta no exista
         Account account = new Account(email, password, false);
         boolean valid = accountValidator.validateAccount(account);
+        boolean saved = false;
 
-//        if(valid){
-//            if(!accountMapper.save(account)){
-//                System.out.println("usuario existente");
-//                //TODO mandar mensaje usuario ya existente
-//            }else{
-//                System.out.println("usuario registrado");
-//                //TODO mandar mail de activacion de cuenta
-//            }
-//         }else{
-//            System.out.println("error de datos");
-//            //TODO datos incorrectos
-//        }
-        return valid && accountMapper.save(account);
+       if(valid){
+           if(accountMapper.get(email) == null){
+                saved = accountMapper.save(account);
+                //TODO mandar mail de activacion de cuenta
+           }else{
+                //TODO mandar mensaje usuario ya existente
+           }
+        }
+
+        return valid && saved;
     }
 
     public boolean activateAccount(String email){

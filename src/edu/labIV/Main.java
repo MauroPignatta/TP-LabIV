@@ -12,7 +12,7 @@ public class Main {
         DataBaseConnection dataBaseConnection = DataBaseConnection.getInstance();
         AccountManager accountManager = new AccountManager();
 
-        System.out.println(accountManager.activateAccount("yago@messina.com"));
+        // System.out.println(accountManager.deleteAccount("mp@gmail.com"));
 
     }
 
