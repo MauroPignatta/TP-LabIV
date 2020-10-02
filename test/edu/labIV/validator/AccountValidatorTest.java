@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountValidatorTest {
 
-    Account account = new Account("aB12345678", "mauroj.pignatta@gmail.com", false);
+    Account account = new Account("mauroj.pignatta@gmail.com", "aB12345678", false);
     AccountValidator accountValidator = new AccountValidator();
 
     @Test
@@ -19,7 +19,7 @@ class AccountValidatorTest {
 
     @Test
     void validateAccountFalse() {
-        Account invalidAccount = new Account("1234","mailinvalido",false);
+        Account invalidAccount = new Account("mailinvalido","1234",false);
         assertFalse(accountValidator.validateAccount(invalidAccount));
     }
 
