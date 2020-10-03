@@ -1,0 +1,38 @@
+.body{
+    background-image: url(/img/matrix.jpg);
+}
+.login-dark {
+    background: linear-gradient(145deg, #575b5d, #252b2d);
+}
+.loguer{    
+    position: absolute;
+    margin: auto;
+    top: 0; left: 0; bottom: 0; right: 0;
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+}
+
+@media (min-width: 576px) {
+    .loguer {
+      max-width: 540px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .loguer {
+      max-width: 720px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .loguer {
+      max-width: 960px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .loguer {
+      max-width: 1140px;
+    }
+  }
