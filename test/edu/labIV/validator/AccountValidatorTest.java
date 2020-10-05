@@ -1,6 +1,10 @@
 package edu.labIV.validator;
 
 import edu.labIV.entity.Account;
+import edu.labIV.exceptions.AccountException;
+import edu.labIV.exceptions.InvalidAccountException;
+import edu.labIV.exceptions.InvalidEmailException;
+import edu.labIV.exceptions.InvalidPasswordException;
 import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
@@ -14,23 +18,23 @@ class AccountValidatorTest {
 
     @Test
     void validateAccountTrue() {
-        assertTrue(accountValidator.validateAccount(account));
+        assertDoesNotThrow(() -> accountValidator.validateAccount(account));
     }
 
     @Test
     void validateAccountFalse() {
         Account invalidAccount = new Account("mailinvalido","1234",false);
-        assertFalse(accountValidator.validateAccount(invalidAccount));
+        assertThrows(AccountException.class, () -> accountValidator.validateAccount(invalidAccount));
     }
 
     @Test
     void validateEmail(){
-        assertTrue(accountValidator.validateEmail(account.getEmail()));
+        assertDoesNotThrow(() -> accountValidator.validateEmail(account.getEmail()));
     }
 
     @Test
-    void validatePassword(){
-        assertTrue(accountValidator.validatePass(account.getPassword()));
+    void validatePassword()  {
+        assertDoesNotThrow(() -> accountValidator.validateEmail(account.getEmail()));
     }
 
 }

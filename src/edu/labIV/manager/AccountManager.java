@@ -1,6 +1,10 @@
 package edu.labIV.manager;
 
 import edu.labIV.entity.Account;
+import edu.labIV.exceptions.AccountException;
+import edu.labIV.exceptions.ExistingAccountException;
+import edu.labIV.exceptions.InvalidAccountException;
+import edu.labIV.exceptions.InvalidPasswordException;
 import edu.labIV.mapper.AccountMapper;
 import edu.labIV.validator.AccountValidator;
 
@@ -18,7 +22,7 @@ public class AccountManager {
         //TODO contador de intentos fallidos
         //TODO Cambiar el estado a conectado.
         Account account = accountMapper.get(email);
-        if(account != null &&  account.isActive()){
+        if(account != null && account.isActive()){
             return password.equals(account.getPassword());
         }
         return false;
@@ -29,21 +33,18 @@ public class AccountManager {
    //     return true;
    // }
 
-    public boolean signIn(String email, String password){
+    public boolean signIn(String email, String password) {
         Account account = new Account(email, password, false);
-        boolean valid = accountValidator.validateAccount(account);
         boolean saved = false;
-
-       if(valid){
-           if(accountMapper.get(email) == null){
-                saved = accountMapper.save(account);
-                //TODO mandar mail de activacion de cuenta
-           }else{
-                //TODO mandar mensaje usuario ya existente
-           }
+        try{
+            accountValidator.validateAccount(account);
+            saved = accountMapper.save(account);
+            //TODO mandar mail de activacion de cuenta
+        } catch (AccountException e){
+            e.printStackTrace();
         }
 
-        return valid && saved;
+        return saved;
     }
 
     public boolean activateAccount(String email){
@@ -54,14 +55,19 @@ public class AccountManager {
         return false;
     }
 
-    public boolean changePassword(String email, String password){
+    public boolean changePassword(String email, String newPassword){
         Account account = accountMapper.get(email);
-        if(accountValidator.validatePass(password)){
+        boolean pwChanged = false;
+        try {
+            accountValidator.validatePass(newPassword);
             if(account != null){
-                return accountMapper.update(email, password, account.isActive());
+                pwChanged = accountMapper.update(email, newPassword, account.isActive());
             }
+        } catch (InvalidPasswordException e) {
+            e.printStackTrace();
         }
-        return false;
+
+        return pwChanged;
     }
 
     public boolean deleteAccount(String email){

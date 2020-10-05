@@ -2,6 +2,9 @@ package edu.labIV.mapper;
 
 import edu.labIV.dao.AccountDao;
 import edu.labIV.entity.Account;
+import edu.labIV.exceptions.AccountException;
+import edu.labIV.exceptions.ExistingAccountException;
+import edu.labIV.exceptions.NullAccountException;
 
 public class AccountMapper {
 
@@ -16,12 +19,14 @@ public class AccountMapper {
      * @return - True Si la cuenta fue almacenada correctamente.
      *         - False Si falla al momento de guardar la cuenta.
      */
-    public boolean save(Account account){
-        boolean saved = false;
-        if (account != null){
-            saved = accountDao.save(account);
-        }
-        return saved;
+    public boolean save(Account account) throws AccountException {
+        if (account == null)
+            throw new NullAccountException("La cuenta es nula.");
+
+        if (get(account.getEmail()) != null)
+            throw new ExistingAccountException(account.getEmail());
+
+        return accountDao.save(account);
     }
 
     /** Elimina una cuenta de la base de datos.
@@ -31,7 +36,7 @@ public class AccountMapper {
      */
     public boolean delete(String email){
         int id = accountDao.getIdFromEmail(email);
-        return  accountDao.delete(id);
+        return accountDao.delete(id);
     }
 
     /** Obtiene una cuenta.
@@ -41,7 +46,7 @@ public class AccountMapper {
      */
     public Account get(String email){
         int id = accountDao.getIdFromEmail(email);
-        return  accountDao.get(id);
+        return accountDao.get(id);
     }
 
     /** Actualiza los datos de una cuenta.

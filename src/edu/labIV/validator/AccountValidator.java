@@ -1,23 +1,32 @@
 package edu.labIV.validator;
 
 import edu.labIV.entity.Account;
+import edu.labIV.exceptions.*;
 
 import java.util.regex.Pattern;
 
 public class AccountValidator {
 
-    public boolean validateAccount(Account account){
-
-        boolean valid = validatePass(account.getPassword());
-        valid &= validateEmail(account.getEmail());
-        return valid;
+    public void validateAccount(Account account) throws AccountException {
+        if(account == null)
+            throw new NullAccountException();
+        validatePass(account.getPassword());
+        validateEmail(account.getEmail());
     }
 
-    public boolean validatePass(String password){
-        return password != null && Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$", password);
+    public void validatePass(String password) throws InvalidPasswordException {
+        if (password == null)
+            throw new NullPointerException();
+
+        if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$", password))
+            throw new InvalidPasswordException(password);
     }
 
-    public boolean validateEmail(String email){
-        return email != null && Pattern.matches("^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$",email);
+    public void validateEmail(String email) throws InvalidEmailException{
+        if (email == null)
+            throw new NullPointerException();
+
+        if (!Pattern.matches("^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$",email))
+            throw new InvalidEmailException(email);
     }
 }
