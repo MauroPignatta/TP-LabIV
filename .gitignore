@@ -1,5 +1,9 @@
 out
+bin
 .idea
+.settings
+.classpath
+.project
 *.iml
 *.bat
 diagrams/*.architect~
