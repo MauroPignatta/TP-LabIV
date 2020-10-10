@@ -1,29 +1,3 @@
-/*
-function formLinks(btnLinks) {
-	alert('hola soy Links')
-}
-*/
-function formHistory(btnHistory) {
-	alert('hola soy History')
-}
-/*
-function formPosted(btnPosted) {
-	alert('hola soy Post')
-}
-*/
-function formPhotos(btnPhotos) {
-	alert('hola soy Photos')
-}
-
-function formMessage(btnMessage) {
-	alert('hola soy Message')
-}
-
-/*
-class dataLinks {
-	dataLinkName;
-}
-
 class UI {
 	addLinks(link) {
 		const linksList = document.getElementById('links-list');
@@ -45,7 +19,7 @@ class UI {
 	}
 
 	resetForm() {
-    	document.getElementById("links-form").reset();
+    	document.getElementById("form-Text-Area").reset();
   	}
 
 	showMessage(info, cssClass) {
@@ -58,20 +32,14 @@ class UI {
 	    // Remove the Message after al segundo y medio
 	    setTimeout(function () {
 	      document.querySelector(".alert").remove();
-	    }, 3000);
+	    }, 2500);
 	}
 }
 
 // DOM EVENTS
 
-//Funcion que toma la accion del boton Save y guarda el contenido en una variable
-document.getElementById('links-form').addEventListener('submit', function(e) {	
-	e.preventDefault();	
-	dataLinkName = 	document.getElementById('linkName').value;		
-});
-
 // funcion que al presionar eliminar link lo destruye
-document.getElementById('print-links').addEventListener('click', function(e) {
+document.getElementById('links-list').addEventListener('click', function(e) {
 	const ui = new UI();
 	ui.deleteLinks(e.target);
 	e.preventDefault();
@@ -79,7 +47,22 @@ document.getElementById('print-links').addEventListener('click', function(e) {
 
 // funcion que me trae del HTML central a formLinks	
 function formLinks(btnLinks) {	
-	window.location.href = "../forms/formLinksAdd.html";
+	//window.location.href = "../forms/formLinksAdd.html";	
+	let dataLinkName = 	document.getElementById('Textarea1').value;	
+	const ui = new UI();
+	if (dataLinkName === "") {
+		ui.showMessage("Please insert data in this field", "danger");
+		danger();
+	}else{				
+		ui.addLinks(dataLinkName);	
+		ui.showMessage("Link Added Succsssfully", "success");		
+		correct();		
+	}
+	ui.resetForm();
+};
+
+function formPosted(btnPosted) {
+	alert('estoy en linksssssssss')
 }
 
 // funcion que nos lleva de nuevo al HTML central
@@ -87,22 +70,7 @@ function formReturn(btnReturn) {
 	window.location.href = "../index.html";
 	printLinks();
 	alert("DONDE ESTOY")
-}
-
-// funcion que imprime el link en el espacio de Links HTML Central
-function printLinks() {
-	const ui = new UI();
-	if (this.dataLinkName === "") {
-		ui.showMessage("Please insert data in this field", "danger");
-		danger();
-	}else{				
-		ui.addLinks(this.dataLinkName);	
-		ui.showMessage("Link Added Succsssfully", "success");		
-		correct();		
-	}		
-}
-
-
+};
 
 /* BOTONES Y FUNCIONES DE MENSAJES DE RESPUESTA */
 
@@ -111,7 +79,7 @@ function danger(){
     //error
     type: 'error',
     title: 'Error',
-    text: '¡Algo salió mal!',  
+    text: '¡Algo salió mal! Debes completar el campo',  
 	});
 }
 
@@ -120,16 +88,16 @@ function correct(){
         type: 'success',
         title: 'Éxito',
         text: '¡Perfecto!',        
-	});	
+	});
 }
 
 $("#btn0").click(function(){
     alert("Mensaje con Alert");    
 });
 
-//ejemplo básico
+//Básico
 $("#btn1").click(function(){
-    Swal.fire('Ejemplo basico de Sweet Alert 2');
+    Swal.fire('Llename con Info');
 });	
 
 //con opción de TYPE  //tipos de popups: error, success, warning, info, question
