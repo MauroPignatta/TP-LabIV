@@ -18,11 +18,11 @@ public class Account {
     }
 
     public boolean compare(Account account){
-        boolean b = false;
-        b = account.getPassword().equals(this.password);
-        b &= account.getEmail().equals(this.email);
-        b &= account.isActive() == this.active;
-        return b;
+        boolean isSameAccount = false;
+        isSameAccount = account.getPassword().equals(this.password);
+        isSameAccount &= account.getEmail().equals(this.email);
+        isSameAccount &= account.isActive() == this.active;
+        return isSameAccount;
     }
 
     public void setActive(boolean active) {
