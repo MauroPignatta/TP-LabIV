@@ -1,13 +1,10 @@
 package edu.labIV.validator;
 
 import edu.labIV.entity.Account;
+
 import edu.labIV.exceptions.AccountException;
-import edu.labIV.exceptions.InvalidAccountException;
-import edu.labIV.exceptions.InvalidEmailException;
-import edu.labIV.exceptions.InvalidPasswordException;
 import org.junit.jupiter.api.Test;
 
-import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 

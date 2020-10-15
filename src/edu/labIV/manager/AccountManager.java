@@ -2,8 +2,6 @@ package edu.labIV.manager;
 
 import edu.labIV.entity.Account;
 import edu.labIV.exceptions.AccountException;
-import edu.labIV.exceptions.ExistingAccountException;
-import edu.labIV.exceptions.InvalidAccountException;
 import edu.labIV.exceptions.InvalidPasswordException;
 import edu.labIV.mapper.AccountMapper;
 import edu.labIV.validator.AccountValidator;

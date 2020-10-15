@@ -1,8 +1,6 @@
 package edu.labIV.db;
 
-import edu.labIV.entity.Account;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 
 public class DataBaseConnection {

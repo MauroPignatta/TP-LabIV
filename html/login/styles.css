@@ -24,7 +24,7 @@ body{
     margin-bottom: 15px;
 }
 
-.loginbox input[type="text"], input[type="password"]
+.loginbox input[type="text"], input[type="password"], input[type="email"]
 {
     border: none;
     border-bottom: 1px solid #c4c4c4;

@@ -1,5 +1,6 @@
 package edu.labIV.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidPasswordException extends InvalidAccountException {
 
     public InvalidPasswordException(String password) {

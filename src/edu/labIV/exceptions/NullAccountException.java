@@ -1,5 +1,6 @@
 package edu.labIV.exceptions;
 
+@SuppressWarnings("serial")
 public class NullAccountException extends AccountException {
 
     public NullAccountException() {
