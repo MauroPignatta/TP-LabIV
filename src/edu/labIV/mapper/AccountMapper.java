@@ -2,9 +2,8 @@ package edu.labIV.mapper;
 
 import edu.labIV.dao.AccountDao;
 import edu.labIV.entity.Account;
-import edu.labIV.exceptions.AccountException;
-import edu.labIV.exceptions.ExistingAccountException;
-import edu.labIV.exceptions.NullAccountException;
+import edu.labIV.exception.AccountException;
+import edu.labIV.exception.ExistingAccountException;
 
 public class AccountMapper {
 
@@ -20,12 +19,6 @@ public class AccountMapper {
      *         - False Si falla al momento de guardar la cuenta.
      */
     public boolean save(Account account) throws AccountException {
-        if (account == null)
-            throw new NullAccountException("La cuenta es nula.");
-
-        if (get(account.getEmail()) != null)
-            throw new ExistingAccountException(account.getEmail());
-
         return accountDao.save(account);
     }
 
@@ -50,20 +43,15 @@ public class AccountMapper {
     }
 
     /** Actualiza los datos de una cuenta.
-     * @param email e-mail de la cuenta a actualizar. 
-     * @param password contraseña.
-     * @param active indica si la cuenta esta activada o no.
      * @return - True si alguno de los datos se modifico correctamente.
      *         - False En caso que ningun dato haya sido modificado o que no se encuentren
      *         la cuenta no exista.
      */
-    public boolean update(String email, String password, boolean active){
+    public boolean update(Account newAccount){
         boolean updated = false;
 
-        int id = accountDao.getIdFromEmail(email);
+        int id = accountDao.getIdFromEmail(newAccount.getEmail());
         Account oldAccount = accountDao.get(id);
-
-        Account newAccount = new Account(email, password, active);
 
         if(!oldAccount.compare(newAccount)) {
             updated = accountDao.update(id, newAccount);

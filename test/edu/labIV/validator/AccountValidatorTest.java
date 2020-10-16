@@ -2,7 +2,8 @@ package edu.labIV.validator;
 
 import edu.labIV.entity.Account;
 
-import edu.labIV.exceptions.AccountException;
+import edu.labIV.exception.AccountException;
+import edu.labIV.exception.ExistingAccountException;
 import org.junit.jupiter.api.Test;
 
 
@@ -10,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountValidatorTest {
 
-    Account account = new Account("mauroj.pignatta@gmail.com", "aB12345678", false);
+    Account account = new Account("mauroj.pignatta@gmail.com", "aB12345678", false, Account.TRIES);
+    Account invalidAccount = new Account("mailinvalido","1234",false, Account.TRIES);
     AccountValidator accountValidator = new AccountValidator();
 
     @Test
@@ -20,8 +22,12 @@ class AccountValidatorTest {
 
     @Test
     void validateAccountFalse() {
-        Account invalidAccount = new Account("mailinvalido","1234",false);
         assertThrows(AccountException.class, () -> accountValidator.validateAccount(invalidAccount));
+    }
+
+    @Test
+    void validateNotExistingAccount(){
+        assertThrows(ExistingAccountException.class, () -> accountValidator.validateExistingAccount(account));
     }
 
     @Test

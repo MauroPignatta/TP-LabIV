@@ -1,8 +1,7 @@
 package edu.labIV.validator;
 
 import edu.labIV.entity.Account;
-import edu.labIV.exceptions.*;
-
+import edu.labIV.exception.*;
 import java.util.regex.Pattern;
 
 public class AccountValidator {
@@ -12,6 +11,11 @@ public class AccountValidator {
             throw new NullAccountException();
         validatePass(account.getPassword());
         validateEmail(account.getEmail());
+    }
+
+    public void validateExistingAccount(Account account) throws ExistingAccountException {
+        if (account != null)
+            throw new ExistingAccountException(account.getEmail());
     }
 
     public void validatePass(String password) throws InvalidPasswordException {
@@ -28,5 +32,17 @@ public class AccountValidator {
 
         if (!Pattern.matches("^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$",email))
             throw new InvalidEmailException(email);
+    }
+
+    public void validateIsActive(Account account) throws InactiveAccount {
+        if(!account.isActive()){
+            throw new InactiveAccount();
+        }
+    }
+
+    public void validateCorrectPassword(String password, String password1) throws WrongPasswordExcepcion {
+        if(!password.equals(password1)){
+            throw new WrongPasswordExcepcion();
+        }
     }
 }

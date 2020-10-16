@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class AccountDao implements Dao <Account>{
+public class AccountDao extends Dao<Account> {
 
     //TODO: Cuidado con los parametros que nos pasan. No comprobamos que sean null.
 
@@ -17,12 +17,7 @@ public class AccountDao implements Dao <Account>{
     private static final String ACC_EMAIL = "email";
     private static final String ACC_PASSWORD = "password";
     private static final String ACC_ACTIVE = "active";
-
-    private DataBaseConnection db;
-
-    public AccountDao() {
-        this.db = DataBaseConnection.getInstance();
-    }
+    private static final String ACC_TRIES = "available_tries";
 
     /** Persiste el dato en la base de datos.
      * @param entity Cuenta a persistir.
@@ -32,12 +27,13 @@ public class AccountDao implements Dao <Account>{
     public boolean save(Account entity) {
         //TODO obtener max id - CAMBIAR SQL TRANSACCION
         boolean executed = false;
-        String sql = "INSERT INTO " + ACC_TABLE + "("+ ACC_EMAIL +", "+ ACC_PASSWORD +", "+ ACC_ACTIVE +") VALUES(?,?,?)";
+        String sql = "INSERT INTO " + ACC_TABLE + "("+ ACC_EMAIL +", "+ ACC_PASSWORD +", "+ ACC_ACTIVE +", "+ ACC_TRIES +") VALUES(?,?,?,?)";
         try{
             PreparedStatement statement = db.createPrepareStatement(sql);
             statement.setString(1, entity.getEmail());
             statement.setString(2, entity.getPassword());
             statement.setBoolean(3, entity.isActive());
+            statement.setInt(4, entity.getAvailableTries());
             executed = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,10 +48,10 @@ public class AccountDao implements Dao <Account>{
      */
     @Override
     public boolean update(int id, Account entity) {
-        //TODO esto esta raro
         boolean updated = false;
         updated = updatePassword(id, entity.getPassword());
         updated |= updateActive(id, entity.isActive());
+        updated |= updateTries(id, entity.getAvailableTries());
         return updated;
     }
 
@@ -87,6 +83,21 @@ public class AccountDao implements Dao <Account>{
         return executed;
     }
 
+    private boolean updateTries(int id, int tries){
+        boolean executed = false;
+        String sql = "UPDATE " + ACC_TABLE + " SET " + ACC_TRIES + " = ? WHERE " + ACC_ID + " = ?";
+        try{
+            PreparedStatement statement = db.createPrepareStatement(sql);
+            statement.setInt(1, tries);
+            statement.setInt(2, id);
+            executed = statement.executeUpdate() == 1;
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return executed;
+    }
+
+
     /** Elimina una cuanta de la base de datos
      *  @param id id de la cuenta a buscar
      *  @return True si se elimino correcamente, false si no se encuentra el id.
@@ -117,9 +128,11 @@ public class AccountDao implements Dao <Account>{
             ResultSet resultSet = statement.executeQuery(sql);
             if(resultSet.next()){
                 account = new Account();
+                account.setId(id);
                 account.setEmail(resultSet.getString(ACC_EMAIL));
                 account.setPassword(resultSet.getString(ACC_PASSWORD));
                 account.setActive(resultSet.getBoolean(ACC_ACTIVE));
+                account.setAvailableTries(resultSet.getInt(ACC_TRIES));
             }
         }catch (SQLException ex){
             ex.printStackTrace();

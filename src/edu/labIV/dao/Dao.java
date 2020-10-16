@@ -1,12 +1,22 @@
 package edu.labIV.dao;
 
-public interface Dao <T> {
+import edu.labIV.db.DataBaseConnection;
 
-    boolean save(T entity);
+public abstract class Dao <T> {
 
-    boolean update(int id, T entity);
+    protected DataBaseConnection db;
 
-    boolean delete(int id);
+    public Dao() {
+        this.db = DataBaseConnection.getInstance();
+    }
 
-    T get(int id);
+    abstract boolean save(T entity);
+
+    abstract boolean update(int id, T entity);
+
+    abstract boolean delete(int id);
+
+    abstract T get(int id);
 }
+
+
