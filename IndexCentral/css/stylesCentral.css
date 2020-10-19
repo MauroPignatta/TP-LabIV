@@ -196,36 +196,39 @@ div.imagen img:hover{
     background-size: cover;
     background-repeat: repeat;  
 }
+#btnDelete{
+    border-radius: 100%;
+}
 
 
 /* MEDIAS QUERIES*/
 
 @media (min-width: 450px) {
-    .columna1, .columna2, .columna3{
+    .columna1, .columna2, .columna3, .botons{
       max-width: 380px;
     }    
   }
 
 @media (min-width: 600px) {
-    .columna1, .columna2, .columna3{
+    .columna1, .columna2, .columna3, .botons{
       max-width: 540px;
     }
   }
   
   @media (min-width: 768px) {
-    .columna1, .columna2, .columna3{
+    .columna1, .columna2, .columna3, .botons{
       max-width: 720px;
     }
   }  
   
   @media (min-width: 992px) {
-    .columna1, .columna2, .columna3{
+    .columna1, .columna2, .columna3, .botons{
       max-width: 960px;
     }
   }
   
   @media (min-width: 1200px) {
-    .columna1, .columna2, .columna3{
+    .columna1, .columna2, .columna3, .botons{
       max-width: 100%;
     }
   }

@@ -10,7 +10,7 @@ class UI {
 		element.innerHTML = `
             			<div class="card-body text-center mb-2">
 						 ${link}
-				<a href="#" class="btn btn-danger" name="delete">Delete</a>
+				<a href="#" class="btn btn-danger" id="btnDelete" name="delete">X</a>
 			</div>
         `;
 		linksList.appendChild(element);		
@@ -45,7 +45,7 @@ class UI {
 									</button>
 								</div>
 								<div class="col">
-									<a href="#" class="btn btn-danger" name="delete">Delete</a>
+									<a href="#" class="btn btn-danger" id="btnDelete" name="delete">X</a>
 								</div>
                             </div>
                         </div>				
@@ -143,7 +143,6 @@ function formPosted(btnPosted) {
 
 function danger(){
 	Swal.fire({
-    //error
     type: 'error',
     title: 'Error',
     text: '¡Algo salió mal! Debes completar el campo',  
@@ -156,28 +155,4 @@ function correct(){
         title: 'Éxito',
         text: '¡Perfecto!',        
 	});
-}
-
-$("#btn0").click(function(){
-    alert("Mensaje con Alert");    
-});
-
-//Básico
-$("#btn1").click(function(){
-    Swal.fire('Llename con Info');
-});	
-
-//con opción de TYPE  //tipos de popups: error, success, warning, info, question
-$("#btn2").click(function(){
-    /*Swal.fire({
-        //error
-        type: 'error',
-        title: 'Error',
-        text: '¡Algo salió mal!',        
-    });*/
-    Swal.fire({        
-        type: 'success',
-        title: 'Éxito',
-        text: '¡Perfecto!',        
-    });
-});
+};
