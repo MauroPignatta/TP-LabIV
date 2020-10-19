@@ -1,39 +1,23 @@
-class ElementsFotos {
-	dataHistory;
-	dataPostPhotos;	
-}
+const ui1 = new UI();
+const publicaciones = new ElementsFotos();
 var idFotos = 0;
+var image = new Image();
 
-class UIFotos {
-	addHistoryPhotos(dato,foto){}
-
-	deleteLinks(element) {
-		if (element.name === "delete") {
-			element.parentElement.parentElement.remove();
-			correct();
-		}
-	}
-	
-}
 // PODRIA SER UNA FOTO, FOTO Y TEXTO, O TEXTO SOLO
-
 function formHistory(btnHistory) {
-	alert('hola soy History');
 	postPhotos(1);
 }
 function formPhotos(btnPhotos) {
-	alert('hola soy Photos');
 	postPhotos(2);
 }
 
 // SUPERVISA LOCAL STORAGE DEL PC
 function postPhotos(num) {
 	if (storageAvailable('localStorage')) {
-		// Yippee! We can use localStorage awesomeness
 		taked(num);
 	}
 	else {
-		noStorage();
+		ui1.noStorage();
 	}
 }
 
@@ -62,32 +46,27 @@ function storageAvailable(type) {
 }
 
 // funcion que realiza de acuerdo al tipo de publicacion que debe hacer
-function taked(numero) {
-	const ui = new UIFotos();
-	const publicaciones = new ElementsFotos();
+function taked(numero) {	
 	publicaciones.dataHistory = document.getElementById("Textarea1").value;
 	publicaciones.dataPostPhotos = document.getElementById("Textarea1").value;
 	Textarea1.value = "";
+	idFotos=1
+
+	if (publicaciones.dataHistory === "" || publicaciones.dataPostPhotos === ""){
+		ui1.danger();
+	}
 
 	switch (numero) {
 		case 1:
-			if (publicaciones.dataHistory === "") {
-				danger();
-			} else {
-				ui.addHistoryPhotos(publicaciones.dataHistory);
-				correct();
-			}
+			ui1.addHistoryPhotos(publicaciones.dataHistory, idFotos);
+			ui1.correct();
 			break;
 		case 2:
-			if (publicaciones.dataPostPhotos === "") {
-				danger();
-			} else {
-				addPostPhotos(publicaciones.dataPostPhotos);
-				correct();
-			}
+			addPostPhotos(publicaciones.dataPostPhotos, idFotos);
+			ui1.correct();
 			break;
 		default:
-			danger();
+			ui1.danger();
 			break;
 	}
 };
@@ -99,10 +78,10 @@ function addPostPhotos(dato) {
 	element.innerHTML = `
 			<div class="card my-3">
 						<div class="card userName d-flex justify-content-center">
-                            <p><b>Nombre del Usuario</b></p>
+							<p><b>Nombre del Usuario</b></p>
 						</div>
 						<div class="card-img">							
-							<img id="imgPreview" value="idFotos" src="" alt="Preview">
+							<img id="idFotos" src="" alt="Preview">
 						</div>
 						<div class="card my-3 card-body pt-0 pb-2">
 							${dato}
@@ -136,11 +115,12 @@ function addPostPhotos(dato) {
 }
 
 function addFotoDiv(){
+								
 	const recentImageDataUrl = localStorage.getItem("recent-image");
 
 	if (recentImageDataUrl) {
-		document.querySelector("#imgPreview").setAttribute("src", recentImageDataUrl);
-	}	
+		document.querySelector("#idFotos").setAttribute("src", recentImageDataUrl);
+	}
 }
 
 /*
@@ -159,46 +139,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // funcion que al presionar eliminar link lo destruye
 document.getElementById('publicacionesPost').addEventListener('click', function (e) {
-	const ui = new UIFotos();
-	ui.deleteLinks(e.target);
+	ui1.deletePost(e.target);
+	ui1.correct();
 	e.preventDefault();
 });
 
 // funcion que capta la img y la guarda en localStorage
 document.querySelector('#fileFoto').addEventListener('change', (e)=>{	
-	const reader = new FileReader();
-	idFotos++;
+	const reader = new FileReader();	
 
 	reader.addEventListener("load", () => {
-		localStorage.setItem("recent-image", reader.result);
-		localStorage.setItem("idAddFotos", idFotos);
+		if (idFotos==0){
+			localStorage.setItem("recent-image", reader.result); /*recent-image*/	
+			idFotos++;
+			localStorage.setItem("idsFot", idFotos);
+		}else{
+			idFotos = parseInt(localStorage.getItem("idsFot"));
+			localStorage.removeItem("idFotos");
+			console.log(idFotos)
+			idFotos++;
+			localStorage.setItem("recent-image", reader.result); /*recent-image*/
+			localStorage.setItem("idsFot", idFotos);
+		}
+		
 	});
 
 	reader.readAsDataURL(e.target.files[0]);
 });	
 
-/* BOTONES Y FUNCIONES DE MENSAJES DE RESPUESTA */
-
-function noStorage() {
-	Swal.fire({
-		type: 'error',
-		title: 'Error',
-		text: '¡No puedes utilizar Local Storage para almacenar imágenes :(',
-	});
-}
-
-function danger() {
-	Swal.fire({
-		type: 'error',
-		title: 'Error',
-		text: '¡Algo salió mal! Debes completar el campo :(',
-	});
-}
-
-function correct() {
-	Swal.fire({
-		type: 'success',
-		title: 'Éxito',
-		text: '¡Perfecto! :)',
-	});
+function showImages(num){
+	for (let i=0; i<localStorage.length; i++){
+		if (i===num){
+			let res = localStorage.getItem(localStorage.key(i))
+			image.src = res;
+		}		
+	}
 }
