@@ -1,4 +1,4 @@
-package edu.labIV;
+package edu.labIV.logger;
 
 import java.io.*;
 

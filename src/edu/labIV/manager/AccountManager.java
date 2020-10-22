@@ -1,6 +1,6 @@
 package edu.labIV.manager;
 
-import edu.labIV.Logger;
+import edu.labIV.logger.Logger;
 import edu.labIV.entity.Account;
 import edu.labIV.exception.AccountException;
 import edu.labIV.exception.InactiveAccount;
