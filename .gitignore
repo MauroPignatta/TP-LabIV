@@ -4,6 +4,7 @@ bin
 .settings
 .classpath
 .project
+.tomcatplugin
 *.iml
 *.bat
 diagrams/*.architect~
