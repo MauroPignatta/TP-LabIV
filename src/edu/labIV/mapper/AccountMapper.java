@@ -18,7 +18,7 @@ public class AccountMapper {
      * @return - True Si la cuenta fue almacenada correctamente.
      *         - False Si falla al momento de guardar la cuenta.
      */
-    public boolean save(Account account) throws AccountException {
+    public boolean save(Account account) {
         return accountDao.save(account);
     }
 

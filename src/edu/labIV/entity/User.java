@@ -8,15 +8,16 @@ public class User {
     private String name;
     private String lastname;
     private LocalDate birthdate;
+    private String status;
 
     public User() {
     }
 
-    public User(int id, String name, String lastname, LocalDate birthdate) {
-        this.id = id;
+    public User(String name, String lastname, LocalDate birthdate) {
         this.name = name;
         this.lastname = lastname;
         this.birthdate = birthdate;
+        this.status = UserStatus.OFFLINE;
     }
 
     public int getId() {
@@ -49,5 +50,13 @@ public class User {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

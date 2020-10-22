@@ -1,8 +1,6 @@
 package edu.labIV.dao;
 
-import edu.labIV.db.DataBaseConnection;
 import edu.labIV.entity.Account;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +23,6 @@ public class AccountDao extends Dao<Account> {
      */
     @Override
     public boolean save(Account entity) {
-        //TODO obtener max id - CAMBIAR SQL TRANSACCION
         boolean executed = false;
         String sql = "INSERT INTO " + ACC_TABLE + "("+ ACC_EMAIL +", "+ ACC_PASSWORD +", "+ ACC_ACTIVE +", "+ ACC_TRIES +") VALUES(?,?,?,?)";
         try{

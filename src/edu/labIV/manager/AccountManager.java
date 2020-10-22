@@ -20,7 +20,8 @@ public class AccountManager {
         this.logger = Logger.getInstance();
     }
 
-    public void login(String email, String password){
+    public boolean login(String email, String password){
+        boolean isConnected = false;
         Account account = accountMapper.get(email);
         if(account.getAvailableTries() == 0){
             //TODO mandar formulario para cambiar contraseña
@@ -29,9 +30,9 @@ public class AccountManager {
             accountValidator.validateAccount(account);
             accountValidator.validateIsActive(account);
             accountValidator.validateCorrectPassword(account.getPassword(), password);
-            //accountMapper.login(account); //actualizar que el usuario esta conectado
             account.setAvailableTries(Account.TRIES);
             accountMapper.update(account);
+            isConnected = true;
         }catch (InactiveAccount e) {
             logger.logError(e.getError());
         }catch (WrongPasswordExcepcion e){
@@ -41,7 +42,7 @@ public class AccountManager {
         }catch (AccountException e) {
             logger.logError(e.getError());
         }
-        //TODO Cambiar el estado a conectado.
+        return isConnected;
 }
 
    // public boolean logout(Account account){
@@ -89,4 +90,8 @@ public class AccountManager {
         return accountMapper.delete(email);
     }
 
+    public Account getAccount(String email){
+        Account account = accountMapper.get(email);
+        return account;
+    }
 }
