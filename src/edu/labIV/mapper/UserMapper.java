@@ -27,6 +27,10 @@ public class UserMapper {
         return userDao.get(id);
     }
 
+    public List<User> getAll(){
+    	return userDao.getAll();
+    }
+
   
     public boolean update(User user) {
         boolean updated = false;

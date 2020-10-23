@@ -72,4 +72,27 @@ public class UserDao extends Dao<User> {
         }
         return user;
     }
+
+    public List<User> getAll() {
+        User user = null;
+        List<User> list = null;
+        String sql = "SELECT * FROM " + USR_TABLE + ";";
+        try{
+            Statement statement = db.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            list = new ArrayList<>();
+            while(resultSet.next()){
+                user = new User();
+                user.setId(resultSet.getInt(USR_ID));
+                user.setName(resultSet.getString(USR_NAME));
+                user.setLastname(resultSet.getString(USR_LAST_NAME));
+                user.setStatus(resultSet.getString(USR_STATUS));
+                user.setBirthdate((LocalDate) resultSet.getObject(USR_BIRTH_DATE));
+                list.add(user);
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return user;
+    }
 }
