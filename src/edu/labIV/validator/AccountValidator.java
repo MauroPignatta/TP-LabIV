@@ -20,7 +20,7 @@ public class AccountValidator {
 
     public void validatePass(String password) throws InvalidPasswordException {
         if (password == null)
-            throw new NullPointerException();
+            throw new InvalidPasswordException("null");
 
         if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$", password))
             throw new InvalidPasswordException(password);
@@ -28,7 +28,7 @@ public class AccountValidator {
 
     public void validateEmail(String email) throws InvalidEmailException{
         if (email == null)
-            throw new NullPointerException();
+            throw new InvalidEmailException("null");
 
         if (!Pattern.matches("^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$",email))
             throw new InvalidEmailException(email);
