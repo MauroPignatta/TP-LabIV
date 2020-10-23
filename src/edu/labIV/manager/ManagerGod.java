@@ -15,12 +15,20 @@ public class ManagerGod {
         this.userManager = new UserManager();
     }
 
-    public void login(String email, String password){
-
+    public void logIn(String email, String password){
         if(accountManager.login(email, password)){
-            userManager.updateStatus(email, UserStatus.ONLINE);
+            Account account = accountManager.getAccount(email);
+            User user = userManager.getUser(account.getId());
+            user.setStatus(UserStatus.ONLINE);
+            userManager.updateUser(user);
         }
+    }
 
+    public void logOut(String email){
+        Account account = accountManager.getAccount(email);
+        User user = userManager.getUser(account.getId());
+        user.setStatus(UserStatus.OFFLINE);
+        userManager.updateUser(user);
     }
 
     public void delete(String email){
@@ -31,10 +39,13 @@ public class ManagerGod {
     }
 
     public void signIn(String email, String password, User user){
-        accountManager.signIn(email, password);
-        Account account = accountManager.getAccount(email);
-        user.setId(account.getId());
-        userManager.saveUser(user);
+        if(accountManager.signIn(email, password)){
+            Account account = accountManager.getAccount(email);
+            user.setId(account.getId());
+            if(!userManager.saveUser(user)){
+                accountManager.deleteAccount(user.getId());
+            }
+        }
     }
 
 }

@@ -5,6 +5,8 @@ import edu.labIV.entity.User;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao extends Dao<User> {
 
@@ -36,7 +38,68 @@ public class UserDao extends Dao<User> {
 
     @Override
     boolean update(int id, User entity) {
-        return false;
+        boolean updated = false;
+        updated = updateName(id, entity.getName());
+        updated |= updateLastName(id, entity.getLastname());
+        updated |= updateBirthDate(id, entity.getBirthdate());
+        updated |= updateStatus(id, entity.getStatus());
+        return updated;
+    }
+
+    private boolean updateStatus(int id, String status) {
+        boolean executed = false;
+        String sql = "UPDATE " + USR_TABLE + " SET " + USR_STATUS + " = ? WHERE " + USR_ID + " = ?";
+        try{
+            PreparedStatement statement = db.createPrepareStatement(sql);
+            statement.setString(1, status);
+            statement.setInt(2, id);
+            executed = statement.executeUpdate() == 1;
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return executed;
+    }
+
+    private boolean updateBirthDate(int id, LocalDate birthdate) {
+        boolean executed = false;
+        String sql = "UPDATE " + USR_TABLE + " SET " + USR_BIRTH_DATE + " = ? WHERE " + USR_ID + " = ?";
+        try{
+            PreparedStatement statement = db.createPrepareStatement(sql);
+            statement.setObject(1, birthdate);
+            statement.setInt(2, id);
+            executed = statement.executeUpdate() == 1;
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return executed;
+    }
+
+    private boolean updateLastName(int id, String lastname) {
+        boolean executed = false;
+        String sql = "UPDATE " + USR_TABLE + " SET " + USR_LAST_NAME + " = ? WHERE " + USR_ID + " = ?";
+        try{
+            PreparedStatement statement = db.createPrepareStatement(sql);
+            statement.setString(1, lastname);
+            statement.setInt(2, id);
+            executed = statement.executeUpdate() == 1;
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return executed;
+    }
+
+    private boolean updateName(int id, String name) {
+        boolean executed = false;
+        String sql = "UPDATE " + USR_TABLE + " SET " + USR_NAME+ " = ? WHERE " + USR_ID + " = ?";
+        try{
+            PreparedStatement statement = db.createPrepareStatement(sql);
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            executed = statement.executeUpdate() == 1;
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return executed;
     }
 
     @Override
@@ -65,7 +128,7 @@ public class UserDao extends Dao<User> {
                 user.setName(resultSet.getString(USR_NAME));
                 user.setLastname(resultSet.getString(USR_LAST_NAME));
                 user.setStatus(resultSet.getString(USR_STATUS));
-                user.setBirthdate((LocalDate) resultSet.getObject(USR_BIRTH_DATE));
+                user.setBirthdate(resultSet.getObject(USR_BIRTH_DATE, LocalDate.class));
             }
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -74,25 +137,27 @@ public class UserDao extends Dao<User> {
     }
 
     public List<User> getAll() {
-        User user = null;
-        List<User> list = null;
+        User user;
+        List<User> userList = null;
         String sql = "SELECT * FROM " + USR_TABLE + ";";
         try{
             Statement statement = db.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
-            list = new ArrayList<>();
+            userList = new ArrayList<>();
             while(resultSet.next()){
                 user = new User();
                 user.setId(resultSet.getInt(USR_ID));
                 user.setName(resultSet.getString(USR_NAME));
                 user.setLastname(resultSet.getString(USR_LAST_NAME));
                 user.setStatus(resultSet.getString(USR_STATUS));
-                user.setBirthdate((LocalDate) resultSet.getObject(USR_BIRTH_DATE));
-                list.add(user);
+                user.setBirthdate(resultSet.getObject(USR_BIRTH_DATE, LocalDate.class));
+                userList.add(user);
             }
         }catch (SQLException ex){
             ex.printStackTrace();
         }
-        return user;
+        return userList;
     }
+
+
 }

@@ -1,21 +1,45 @@
 package edu.labIV.manager;
 
+import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
+import edu.labIV.exception.UserException;
+import edu.labIV.logger.Logger;
 import edu.labIV.mapper.UserMapper;
+import edu.labIV.validator.UserValidator;
 
 public class UserManager {
 
     private UserMapper userMapper;
+    private Logger logger;
+    private UserValidator userValidator;
 
     public UserManager() {
         this.userMapper = new UserMapper();
+        logger = Logger.getInstance();
+        userValidator = new UserValidator();
     }
 
-    public void saveUser(User user) {
-        userMapper.save(user);
+    public boolean saveUser(User user) {
+        boolean isSaved = false;
+        try {
+            userValidator.validateUser(user);
+            userMapper.save(user);
+            isSaved = true;
+        } catch (UserException ex) {
+            logger.logError(ex.getError());
+        }
+        return isSaved;
     }
 
-    public void updateStatus(String email, String status) {
-        //TODO llamar a update
+    public User getUser(int id){
+        return userMapper.get(id);
+    }
+
+    public void deleteUser(int id){
+        userMapper.delete(id);
+    }
+
+    public void updateUser(User user) {
+        userMapper.update(user);
     }
 }

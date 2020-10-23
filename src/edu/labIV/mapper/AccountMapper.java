@@ -24,11 +24,15 @@ public class AccountMapper {
 
     /** Elimina una cuenta de la base de datos.
      * @param email e-mail de la cuenta a eliminar.
-     * @return - True si la cuenta fue eliminada exitosamente 
+     * @return - True si la cuenta fue eliminada exitosamente
      *         - False en caso no haya ninguna cuanta vinculada con el email.
      */
     public boolean delete(String email){
         int id = accountDao.getIdFromEmail(email);
+        return accountDao.delete(id);
+    }
+
+    public boolean delete(int id){
         return accountDao.delete(id);
     }
 
@@ -48,6 +52,7 @@ public class AccountMapper {
      *         la cuenta no exista.
      */
     public boolean update(Account newAccount){
+        //TODO trigger
         boolean updated = false;
 
         int id = accountDao.getIdFromEmail(newAccount.getEmail());

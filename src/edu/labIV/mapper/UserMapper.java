@@ -3,6 +3,8 @@ package edu.labIV.mapper;
 import edu.labIV.dao.UserDao;
 import edu.labIV.entity.User;
 
+import java.util.List;
+
 
 public class UserMapper {
     

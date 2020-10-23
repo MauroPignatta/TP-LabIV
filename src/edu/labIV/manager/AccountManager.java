@@ -43,23 +43,21 @@ public class AccountManager {
             logger.logError(e.getError());
         }
         return isConnected;
-}
+    }
 
-   // public boolean logout(Account account){
-   //     //TODO accede a la bd para cambiar el estado
-   //     return true;
-   // }
-
-    public void signIn(String email, String password) {
+    public boolean signIn(String email, String password) {
+        boolean isSigned = false;
         Account account = new Account(email, password, false, Account.TRIES);
         try{
             accountValidator.validateAccount(account);
             accountValidator.validateExistingAccount(accountMapper.get(account.getEmail()));
             accountMapper.save(account);
+            isSigned = true;
             //TODO mandar mail de activacion de cuenta
         } catch (AccountException e){
             logger.logError(e.getError());
         }
+        return isSigned;
     }
 
     public void activateAccount(String email){
@@ -88,6 +86,10 @@ public class AccountManager {
 
     public boolean deleteAccount(String email){
         return accountMapper.delete(email);
+    }
+
+    public boolean deleteAccount(int id){
+        return accountMapper.delete(id);
     }
 
     public Account getAccount(String email){

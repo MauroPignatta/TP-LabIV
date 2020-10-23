@@ -23,6 +23,7 @@ public class Account {
     }
 
     public boolean compare(Account account){
+        //TODO eliminar por trigger en mapper/dao
         boolean isSameAccount = false;
         isSameAccount = account.getPassword().equals(this.password);
         isSameAccount &= account.getEmail().equals(this.email);
