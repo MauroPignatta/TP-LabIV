@@ -15,7 +15,6 @@ public class Main {
         User user = new User("Yago", "Messina", LocalDate.of(2001,5,10));
         managerGod.signIn("yago@messina.com", "Aa12345678", user);
 
-
     }
 
 }

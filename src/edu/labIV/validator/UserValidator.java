@@ -19,8 +19,15 @@ public class UserValidator {
         validateBirthDate(user.getBirthdate());
     }
 
-    private void validateBirthDate(LocalDate birthdate) throws InvalidUserBirthDateException {
+    public void validateBirthDate(LocalDate birthdate) throws InvalidUserBirthDateException {
         String format = "yyyy-MM-dd";
+
+        if(birthdate == null)
+            throw new InvalidUserBirthDateException("null");
+
+        if(birthdate.isAfter(LocalDate.now()))
+            throw new InvalidUserBirthDateException(birthdate.toString());
+
         try {
             DateFormat df = new SimpleDateFormat(format);
             df.setLenient(false);
@@ -31,12 +38,20 @@ public class UserValidator {
         }
     }
 
-    private void validateLastName(String lastname) throws InvalidLastNameException {
+    public void validateLastName(String lastname) throws InvalidLastNameException {
         if(lastname == null)
             throw new InvalidLastNameException("null");
         if(validateString(lastname)){
             throw new InvalidLastNameException(lastname);
         }
+    }
+
+    public void validateName(String name) throws InvalidNameException {
+        if(name == null)
+            throw new InvalidNameException("null");
+
+        if(validateString(name))
+            throw new InvalidNameException(name);
     }
 
     private boolean validateString(String string) {
@@ -46,13 +61,5 @@ public class UserValidator {
             isValid = true;
 
         return isValid;
-    }
-
-    private void validateName(String name) throws InvalidNameException {
-        if(name == null)
-            throw new InvalidNameException("null");
-
-        if(validateString(name))
-            throw new InvalidNameException(name);
     }
 }
