@@ -45,11 +45,21 @@ public class AccountDao extends Dao<Account> {
      */
     @Override
     public boolean update(int id, Account entity) {
-        boolean updated = false;
-        updated = updatePassword(id, entity.getPassword());
-        updated |= updateActive(id, entity.isActive());
-        updated |= updateTries(id, entity.getAvailableTries());
-        return updated;
+        boolean executed = false;
+        String sql = "UPDATE " + ACC_TABLE + " SET " +  ACC_PASSWORD + " = ?," +
+                ACC_ACTIVE + " = ?," + ACC_TRIES + " = ?" +
+                " WHERE " + ACC_ID + " = ?";
+        try{
+            PreparedStatement statement = db.createPrepareStatement(sql);
+            statement.setString(1, entity.getPassword());
+            statement.setBoolean(2, entity.isActive());
+            statement.setInt(3, entity.getAvailableTries());
+            statement.setInt(4, id);
+            executed = statement.executeUpdate() == 1;
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return executed;
     }
 
     private boolean updatePassword(int id, String password){

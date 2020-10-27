@@ -37,64 +37,18 @@ public class UserDao extends Dao<User> {
     }
 
     @Override
-    boolean update(int id, User entity) {
-        boolean updated = false;
-        updated = updateName(id, entity.getName());
-        updated |= updateLastName(id, entity.getLastname());
-        updated |= updateBirthDate(id, entity.getBirthdate());
-        updated |= updateStatus(id, entity.getStatus());
-        return updated;
-    }
-
-    private boolean updateStatus(int id, String status) {
+    public boolean update(int id, User entity) {
         boolean executed = false;
-        String sql = "UPDATE " + USR_TABLE + " SET " + USR_STATUS + " = ? WHERE " + USR_ID + " = ?";
+        String sql = "UPDATE " + USR_TABLE + " SET " + USR_STATUS + " = ?," + USR_NAME + " = ?," +
+                    USR_LAST_NAME + " = ?," + USR_BIRTH_DATE + " = ?" +
+                " WHERE " + USR_ID + " = ?";
         try{
             PreparedStatement statement = db.createPrepareStatement(sql);
-            statement.setString(1, status);
-            statement.setInt(2, id);
-            executed = statement.executeUpdate() == 1;
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-        return executed;
-    }
-
-    private boolean updateBirthDate(int id, LocalDate birthdate) {
-        boolean executed = false;
-        String sql = "UPDATE " + USR_TABLE + " SET " + USR_BIRTH_DATE + " = ? WHERE " + USR_ID + " = ?";
-        try{
-            PreparedStatement statement = db.createPrepareStatement(sql);
-            statement.setObject(1, birthdate);
-            statement.setInt(2, id);
-            executed = statement.executeUpdate() == 1;
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-        return executed;
-    }
-
-    private boolean updateLastName(int id, String lastname) {
-        boolean executed = false;
-        String sql = "UPDATE " + USR_TABLE + " SET " + USR_LAST_NAME + " = ? WHERE " + USR_ID + " = ?";
-        try{
-            PreparedStatement statement = db.createPrepareStatement(sql);
-            statement.setString(1, lastname);
-            statement.setInt(2, id);
-            executed = statement.executeUpdate() == 1;
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-        return executed;
-    }
-
-    private boolean updateName(int id, String name) {
-        boolean executed = false;
-        String sql = "UPDATE " + USR_TABLE + " SET " + USR_NAME+ " = ? WHERE " + USR_ID + " = ?";
-        try{
-            PreparedStatement statement = db.createPrepareStatement(sql);
-            statement.setString(1, name);
-            statement.setInt(2, id);
+            statement.setString(1, entity.getStatus());
+            statement.setString(2, entity.getName());
+            statement.setString(3, entity.getLastname());
+            statement.setObject(4, entity.getBirthdate());
+            statement.setInt(5, id);
             executed = statement.executeUpdate() == 1;
         }catch (SQLException ex){
             ex.printStackTrace();

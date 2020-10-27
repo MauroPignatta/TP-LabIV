@@ -48,4 +48,13 @@ public class ManagerGod {
         }
     }
 
+    /* Agrego para poder usar las funciones de todos los managers */
+
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
+    }
 }
