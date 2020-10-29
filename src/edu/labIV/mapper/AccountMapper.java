@@ -51,17 +51,9 @@ public class AccountMapper {
      *         - False En caso que ningun dato haya sido modificado o que no se encuentren
      *         la cuenta no exista.
      */
-    public boolean update(Account newAccount){
-        //TODO trigger
-        boolean updated = false;
-
-        int id = accountDao.getIdFromEmail(newAccount.getEmail());
-        Account oldAccount = accountDao.get(id);
-
-        if(!oldAccount.compare(newAccount)) {
-            updated = accountDao.update(id, newAccount);
-        }
-
-        return updated;
+    public boolean update(Account account){
+        return accountDao.update(account);
     }
+
+
 }

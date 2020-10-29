@@ -37,7 +37,7 @@ public class UserDao extends Dao<User> {
     }
 
     @Override
-    public boolean update(int id, User entity) {
+    public boolean update(User entity) {
         boolean executed = false;
         String sql = "UPDATE " + USR_TABLE + " SET " + USR_STATUS + " = ?," + USR_NAME + " = ?," +
                     USR_LAST_NAME + " = ?," + USR_BIRTH_DATE + " = ?" +
@@ -48,7 +48,7 @@ public class UserDao extends Dao<User> {
             statement.setString(2, entity.getName());
             statement.setString(3, entity.getLastname());
             statement.setObject(4, entity.getBirthdate());
-            statement.setInt(5, id);
+            statement.setInt(5, entity.getId());
             executed = statement.executeUpdate() == 1;
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -67,6 +67,11 @@ public class UserDao extends Dao<User> {
             ex.printStackTrace();
         }
         return executed;
+    }
+
+    @Override
+    protected boolean delete(int id, int id2) {
+        return false;
     }
 
     @Override
@@ -90,6 +95,11 @@ public class UserDao extends Dao<User> {
         return user;
     }
 
+    @Override
+    protected User get(int id, int id2) {
+        return null;
+    }
+
     public List<User> getAll() {
         User user;
         List<User> userList = null;
@@ -111,6 +121,11 @@ public class UserDao extends Dao<User> {
             ex.printStackTrace();
         }
         return userList;
+    }
+
+    @Override
+    protected List<User> getAll(int id) {
+        return null;
     }
 
 

@@ -11,6 +11,10 @@ public class Friend {
         this.status = status;
     }
 
+    public Friend() {
+
+    }
+
     public int getUserId() {
         return userId;
     }

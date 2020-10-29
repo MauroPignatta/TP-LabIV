@@ -7,6 +7,8 @@ import edu.labIV.logger.Logger;
 import edu.labIV.mapper.UserMapper;
 import edu.labIV.validator.UserValidator;
 
+import java.util.List;
+
 public class UserManager {
 
     private UserMapper userMapper;
@@ -41,5 +43,9 @@ public class UserManager {
 
     public void updateUser(User user) {
         userMapper.update(user);
+    }
+
+    public List<User> getUserList(){
+        return userMapper.getAll();
     }
 }

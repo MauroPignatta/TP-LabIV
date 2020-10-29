@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class AccountDao extends Dao<Account> {
 
@@ -44,7 +45,7 @@ public class AccountDao extends Dao<Account> {
      * @return Devuelve true si se actualiza un dato correctamente o false en caso de que falle el update.
      */
     @Override
-    public boolean update(int id, Account entity) {
+    public boolean update(Account entity) {
         boolean executed = false;
         String sql = "UPDATE " + ACC_TABLE + " SET " +  ACC_PASSWORD + " = ?," +
                 ACC_ACTIVE + " = ?," + ACC_TRIES + " = ?" +
@@ -54,56 +55,13 @@ public class AccountDao extends Dao<Account> {
             statement.setString(1, entity.getPassword());
             statement.setBoolean(2, entity.isActive());
             statement.setInt(3, entity.getAvailableTries());
-            statement.setInt(4, id);
+            statement.setInt(4, entity.getId());
             executed = statement.executeUpdate() == 1;
         }catch (SQLException ex){
             ex.printStackTrace();
         }
         return executed;
     }
-
-    private boolean updatePassword(int id, String password){
-        boolean executed = false;
-        String sql = "UPDATE " + ACC_TABLE + " SET " + ACC_PASSWORD + " = ? WHERE " + ACC_ID + " = ?";
-        try{
-            PreparedStatement statement = db.createPrepareStatement(sql);
-            statement.setString(1, password);
-            statement.setInt(2, id);
-            executed = statement.executeUpdate() == 1;
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-        return executed;
-    }
-
-    private  boolean updateActive(int id, Boolean active){
-        boolean executed = false;
-        String sql = "UPDATE " + ACC_TABLE + " SET " + ACC_ACTIVE + " = ? WHERE " + ACC_ID + " = ?";
-        try{
-            PreparedStatement statement = db.createPrepareStatement(sql);
-            statement.setBoolean(1, active);
-            statement.setInt(2, id);
-            executed = statement.executeUpdate() == 1;
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-        return executed;
-    }
-
-    private boolean updateTries(int id, int tries){
-        boolean executed = false;
-        String sql = "UPDATE " + ACC_TABLE + " SET " + ACC_TRIES + " = ? WHERE " + ACC_ID + " = ?";
-        try{
-            PreparedStatement statement = db.createPrepareStatement(sql);
-            statement.setInt(1, tries);
-            statement.setInt(2, id);
-            executed = statement.executeUpdate() == 1;
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-        return executed;
-    }
-
 
     /** Elimina una cuanta de la base de datos
      *  @param id id de la cuenta a buscar
@@ -120,6 +78,11 @@ public class AccountDao extends Dao<Account> {
             ex.printStackTrace();
         }
         return executed;
+    }
+
+    @Override
+    protected boolean delete(int id, int id2) {
+        return false;
     }
 
     /** Obtiene una cuenta de la base de datos
@@ -145,6 +108,21 @@ public class AccountDao extends Dao<Account> {
             ex.printStackTrace();
         }
         return account;
+    }
+
+    @Override
+    protected Account get(int id, int id2) {
+        return null;
+    }
+
+    @Override
+    protected List<Account> getAll() {
+        return null;
+    }
+
+    @Override
+    protected List<Account> getAll(int id) {
+        return null;
     }
 
     /** Obtiene el id de una cuenta

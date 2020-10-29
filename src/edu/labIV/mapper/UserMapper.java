@@ -30,6 +30,6 @@ public class UserMapper {
     }
   
     public boolean update(User user) {
-        return userDao.update(user.getId(), user);
+        return userDao.update(user);
     }
 }

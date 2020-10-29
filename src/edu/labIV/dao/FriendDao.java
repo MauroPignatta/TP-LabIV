@@ -1,10 +1,17 @@
 package edu.labIV.dao;
 
+import edu.labIV.entity.Account;
 import edu.labIV.entity.Friend;
+import edu.labIV.entity.FriendStatus;
+import edu.labIV.entity.User;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FriendDao extends Dao<Friend> {
 
@@ -14,9 +21,9 @@ public class FriendDao extends Dao<Friend> {
     private static final String FRI_STATUS = "status";
 
     @Override
-    boolean save(Friend entity) {
+    public boolean save(Friend entity) {
         boolean executed = false;
-        String sql = "INSERT INTO " + FRI_TABLE + "("+ FRI_USER_ID +", "+ FRI_FRIEND_ID + ")  VALUES(?,?,?)";
+        String sql = "INSERT INTO " + FRI_TABLE + "("+ FRI_USER_ID +", "+ FRI_FRIEND_ID +", "+ FRI_STATUS +")  VALUES(?,?,?)";
         try{
             PreparedStatement statement = db.createPrepareStatement(sql);
             statement.setInt(1, entity.getUserId());
@@ -30,10 +37,10 @@ public class FriendDao extends Dao<Friend> {
     }
 
     @Override
-    boolean update(int id, Friend entity) {
+    public boolean update(Friend entity) {
         boolean executed = false;
         String sql = "UPDATE " + FRI_TABLE + " SET " + FRI_STATUS + " = ?" +
-                " WHERE " + FRI_USER_ID + " = ?" + "AND" + FRI_FRIEND_ID + " = ?";
+                " WHERE " + FRI_USER_ID + " = ?" + " AND " + FRI_FRIEND_ID + " = ?";
         try{
             PreparedStatement statement = db.createPrepareStatement(sql);
             statement.setString(1, entity.getStatus());
@@ -47,10 +54,15 @@ public class FriendDao extends Dao<Friend> {
     }
 
     @Override
-    boolean delete(int id) {
+    protected  boolean delete(int id) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int userId, int friendId) {
         boolean executed = false;
-        String sql = "DELETE FROM " + FRI_TABLE + " WHERE " + FRI_USER_ID + " = " + entity.getUserId() +
-                "AND" + FRI_FRIEND_ID + " = " + entity.getFriendId();
+        String sql = "DELETE FROM " + FRI_TABLE + " WHERE " + FRI_USER_ID + " = " + userId +
+                " AND " + FRI_FRIEND_ID + " = " + friendId;
         try{
             Statement statement = db.createStatement();
             executed = statement.executeUpdate(sql) == 1;
@@ -61,7 +73,50 @@ public class FriendDao extends Dao<Friend> {
     }
 
     @Override
-    Friend get(int id) {
+    protected Friend get(int id) {
         return null;
+    }
+
+    @Override
+    public Friend get(int userId, int friendId) {
+        Friend friend = null;
+        String sql = "SELECT * FROM "+ FRI_TABLE +" WHERE " + FRI_USER_ID + " = '" + userId+ "'" +
+                " AND " + FRI_FRIEND_ID + " = '" + friendId + "'";
+        try{
+            Statement statement = db.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            if(resultSet.next()){
+                friend = new Friend(userId, friendId, resultSet.getString(FRI_STATUS));
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return friend;
+    }
+
+    @Override
+    protected List<Friend> getAll() {
+        return null;
+    }
+
+    public List<Friend> getAll(int id) {
+        Friend friend;
+        List<Friend> friendList = null;
+        String sql = "SELECT * FROM " + FRI_TABLE + " WHERE " + FRI_USER_ID + " = " + id + ";";
+        try {
+            Statement statement = db.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            friendList = new ArrayList<>();
+            while (resultSet.next()) {
+                friend = new Friend();
+                friend.setUserId(resultSet.getInt(FRI_USER_ID));
+                friend.setFriendId(resultSet.getInt(FRI_FRIEND_ID));
+                friend.setStatus(resultSet.getString(FRI_STATUS));
+                friendList.add(friend);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return friendList;
     }
 }
