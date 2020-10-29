@@ -30,7 +30,7 @@ public class FriendDao extends Dao<Friend> {
     }
 
     @Override
-    boolean update(Friend entity) {
+    boolean update(int id, Friend entity) {
         boolean executed = false;
         String sql = "UPDATE " + FRI_TABLE + " SET " + FRI_STATUS + " = ?" +
                 " WHERE " + FRI_USER_ID + " = ?" + "AND" + FRI_FRIEND_ID + " = ?";
@@ -47,7 +47,7 @@ public class FriendDao extends Dao<Friend> {
     }
 
     @Override
-    boolean delete(Friend entity) {
+    boolean delete(int id) {
         boolean executed = false;
         String sql = "DELETE FROM " + FRI_TABLE + " WHERE " + FRI_USER_ID + " = " + entity.getUserId() +
                 "AND" + FRI_FRIEND_ID + " = " + entity.getFriendId();
