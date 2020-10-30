@@ -102,12 +102,11 @@ public class UserDao extends Dao<User> {
 
     public List<User> getAll() {
         User user;
-        List<User> userList = null;
+        List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM " + USR_TABLE + ";";
         try{
             Statement statement = db.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
-            userList = new ArrayList<>();
             while(resultSet.next()){
                 user = new User();
                 user.setId(resultSet.getInt(USR_ID));

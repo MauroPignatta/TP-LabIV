@@ -101,12 +101,11 @@ public class FriendDao extends Dao<Friend> {
 
     public List<Friend> getAll(int id) {
         Friend friend;
-        List<Friend> friendList = null;
+        List<Friend> friendList = new ArrayList<>();
         String sql = "SELECT * FROM " + FRI_TABLE + " WHERE " + FRI_USER_ID + " = " + id + ";";
         try {
             Statement statement = db.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
-            friendList = new ArrayList<>();
             while (resultSet.next()) {
                 friend = new Friend();
                 friend.setUserId(resultSet.getInt(FRI_USER_ID));

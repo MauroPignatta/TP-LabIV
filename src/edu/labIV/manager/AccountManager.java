@@ -31,8 +31,7 @@ public class AccountManager {
             accountValidator.validateIsActive(account);
             accountValidator.validateCorrectPassword(account.getPassword(), password);
             account.setAvailableTries(Account.TRIES);
-            accountMapper.update(account);
-            isConnected = true;
+            isConnected = accountMapper.update(account);
         }catch (InactiveAccount e) {
             logger.logError(e.getError());
         }catch (WrongPasswordExcepcion e){
@@ -51,8 +50,7 @@ public class AccountManager {
         try{
             accountValidator.validateAccount(account);
             accountValidator.validateExistingAccount(accountMapper.get(account.getEmail()));
-            accountMapper.save(account);
-            isSigned = true;
+            isSigned = accountMapper.save(account);
             //TODO mandar mail de activacion de cuenta
         } catch (AccountException e){
             logger.logError(e.getError());

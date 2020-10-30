@@ -25,8 +25,7 @@ public class UserManager {
         boolean isSaved = false;
         try {
             userValidator.validateUser(user);
-            userMapper.save(user);
-            isSaved = true;
+            isSaved = userMapper.save(user);
         } catch (UserException ex) {
             logger.logError(ex.getError());
         }

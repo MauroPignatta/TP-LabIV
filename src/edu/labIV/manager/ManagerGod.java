@@ -1,6 +1,5 @@
 package edu.labIV.manager;
 
-import com.sun.xml.internal.ws.config.metro.dev.FeatureReader;
 import edu.labIV.entity.Account;
 import edu.labIV.entity.Friend;
 import edu.labIV.entity.User;
@@ -15,11 +14,13 @@ public class ManagerGod {
     private AccountManager accountManager;
     private UserManager userManager;
     private FriendManager friendManager;
+    private PostManager postManager;
 
     public ManagerGod() {
         this.accountManager = new AccountManager();
         this.userManager = new UserManager();
         this.friendManager = new FriendManager();
+        this.postManager = new PostManager();
     }
 
     public void logIn(String email, String password){
@@ -87,4 +88,6 @@ public class ManagerGod {
     public FriendManager getFriendManager(){
         return friendManager;
     }
+
+    public PostManager getPostManager(){return postManager;}
 }

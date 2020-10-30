@@ -74,13 +74,13 @@
     <column id="COL18" populated="true" UUID="70ebfcaf-4341-4e00-9032-bccc7eccb4da" autoIncrement="false" autoIncrementSequenceName="account_New Column_seq" defaultValue="" name="account_id" nullable="0" physicalName="account_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
-    <column id="COL19" populated="true" UUID="b9a82e32-3da9-4004-8d61-a13345833e70" autoIncrement="true" autoIncrementSequenceName="publication_feed_id_seq" defaultValue="" name="post_id" nullable="0" physicalName="post_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL19" populated="true" UUID="b9a82e32-3da9-4004-8d61-a13345833e70" autoIncrement="false" autoIncrementSequenceName="publication_feed_id_seq" defaultValue="" name="publication_id" nullable="0" physicalName="publication_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
     <column id="COL20" populated="true" UUID="4386c401-1f33-4e35-a186-4715ac256e25" autoIncrement="false" autoIncrementSequenceName="post_date_seq" defaultValue="" name="date" nullable="0" physicalName="date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
      <remarks></remarks>
     </column>
-    <column id="COL21" populated="true" UUID="841a8a17-e742-40e6-8ad2-4c8cca2d008f" autoIncrement="false" autoIncrementSequenceName="feed_New Column_seq" defaultValue="" name="text" nullable="0" physicalName="text" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL21" populated="true" UUID="841a8a17-e742-40e6-8ad2-4c8cca2d008f" autoIncrement="false" autoIncrementSequenceName="feed_New Column_seq" defaultValue="" name="publication" nullable="0" physicalName="publication" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     <column id="COL22" populated="true" UUID="9d31ad58-a812-4ac7-bcbb-106983a4e32c" autoIncrement="false" autoIncrementSequenceName="post_url_seq" defaultValue="" name="url" nullable="1" physicalName="url" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -92,7 +92,7 @@
     <folder id="FOLTAB172" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB174" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX23" populated="true" UUID="60f9861f-cd71-476f-9516-c759317da268" clustered="false" name="post_pk" physicalName="post_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX23" populated="true" UUID="60f9861f-cd71-476f-9516-c759317da268" clustered="false" name="publication_pk" physicalName="feed_pk" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC24" populated="true" UUID="87b4886d-035b-4e2d-817a-9aa7421bbf67" ascendingOrDescending="UNSPECIFIED" column-ref="COL18" name="account_id" physicalName="account_id" />
      <index-column id="IDC25" populated="true" UUID="687045e3-1acb-48e2-99bd-dc4792600392" ascendingOrDescending="UNSPECIFIED" column-ref="COL19" name="post_id" physicalName="post_id" />
     </index>
@@ -140,7 +140,7 @@
  <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="152" y="262" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB9" x="440" y="262" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB17" x="448" y="453" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB17" x="444" y="451" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB26" x="733" y="275" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-link relationship-ref="REL33" pkConnection="0.494949494949495" fkConnection="0.494949494949495" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL35" pkConnection="0.5208333333333334" fkConnection="0.4791666666666667" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
