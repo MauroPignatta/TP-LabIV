@@ -21,15 +21,6 @@ public class Account {
 
     }
 
-    public boolean compare(Account account){
-        //TODO eliminar por trigger en mapper/dao
-        boolean isSameAccount = account.getPassword().equals(this.password);
-        isSameAccount &= account.getEmail().equals(this.email);
-        isSameAccount &= account.isActive() == this.active;
-        isSameAccount &= account.getAvailableTries() == this.availableTries;
-        return isSameAccount;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
     }

@@ -38,16 +38,6 @@ public class FriendMapper {
         return friendList;
     }
 
-   /* public List<Friend> getAllPending(int userId){
-        List<Friend> pendingList = new ArrayList<>();
-        for(Friend friend : friendDao.getAll(userId)){
-            if(friend.getStatus().equals(FriendStatus.PENDING)){
-                pendingList.add(friend);
-            }
-        }
-        return pendingList;
-    }*/
-
     public List<Friend> getAll(int userId){
         return friendDao.getAll(userId);
     }

@@ -4,12 +4,13 @@ import java.io.*;
 
 public class Logger {
 
+    private static final String LOG_PATH = "log/ErrorLog.txt";
+
     private static Logger logger;
     private  BufferedWriter bufferedWriter;
-    private static final String PATH = "log/ErrorLog.txt";
 
     private Logger() {
-        openFile();
+        openLog();
     }
 
     public static Logger getInstance(){
@@ -19,8 +20,8 @@ public class Logger {
         return logger;
     }
 
-    private void openFile(){
-        File log = new File(PATH);
+    private void openLog(){
+        File log = new File(LOG_PATH);
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(log));
         } catch (IOException e) {
@@ -39,7 +40,7 @@ public class Logger {
     }
 
     //no esta en uso
-    public void closeFile(){
+    public void closeLog(){
         try {
             bufferedWriter.close();
         } catch (IOException e) {
