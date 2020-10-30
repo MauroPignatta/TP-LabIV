@@ -34,24 +34,6 @@ public class DataBaseConnection {
         }
     }
 
-//    public boolean insertAccountQuery(Account account){
-//        //TODO obtener max id
-//        String sql = "INSERT INTO account(email, password, active) VALUES(?,?,?)";
-//        boolean executed = false;
-//        try{
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setString(1, account.getEmail());
-//            statement.setString(2, account.getPassword());
-//            statement.setBoolean(3, account.isActive());
-//            statement.execute();
-//            executed = true;
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return executed;
-//    }
-
     public PreparedStatement createPrepareStatement(String sql) throws SQLException{
         return connection.prepareStatement(sql);
     }
@@ -59,23 +41,4 @@ public class DataBaseConnection {
     public Statement createStatement() throws SQLException {
           return connection.createStatement();
     }
-
-
-   /* public Account selectAccountQuery(String id){
-        String sql = "SELECT * FROM account WHERE username = '"+username+"'";
-        Account account = new Account();
-        try{
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()){
-                account.setUsername(resultSet.getString("username"));
-                account.setPassword(resultSet.getString("password"));
-                account.setEmail(resultSet.getString("email" ));
-                account.setActive(resultSet.getBoolean("active"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return account;
-    }*/
 }
