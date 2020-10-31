@@ -7,5 +7,6 @@ bin
 .tomcatplugin
 *.iml
 *.bat
+config/*.ini
 diagrams/*.architect~
 log

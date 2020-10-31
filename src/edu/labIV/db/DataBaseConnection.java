@@ -1,19 +1,24 @@
 package edu.labIV.db;
 
+import edu.labIV.cfg.*;
 
 import java.sql.*;
 
+
 public class DataBaseConnection {
-
-    private final String USERNAME = "hlhgkjat";
-    private final String PASSWORD = "9K4eyR23HfFlgzzXWze2ES1AiSyoaHoT";
-    private final String URL = "jdbc:postgresql://motty.db.elephantsql.com:5432/hlhgkjat";
-
-    private Connection connection;
 
     private static DataBaseConnection instance;
 
+    private String username;
+    private String password;
+    private String url;
+
+    private Connection connection;
+
     private DataBaseConnection() {
+        username = Config.get(ConfigSection.DATABASE, ConfigKey.DB_USER);
+        password = Config.get(ConfigSection.DATABASE, ConfigKey.DB_PASS);
+        url = Config.get(ConfigSection.DATABASE, ConfigKey.DB_URL);
         connect();
     }
 
@@ -27,7 +32,7 @@ public class DataBaseConnection {
     private void connect(){
         try{
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            connection = DriverManager.getConnection(url, username, password);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

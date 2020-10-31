@@ -25,21 +25,22 @@ public class AccountManager {
         Account account = accountMapper.get(email);
         if(account.getAvailableTries() == 0){
             //TODO mandar formulario para cambiar contraseña
-        }
-        try{
-            accountValidator.validateAccount(account);
-            accountValidator.validateIsActive(account);
-            accountValidator.validateCorrectPassword(account.getPassword(), password);
-            account.setAvailableTries(Account.TRIES);
-            isConnected = accountMapper.update(account);
-        }catch (InactiveAccount e) {
-            logger.logError(e.getError());
-        }catch (WrongPasswordExcepcion e){
-            logger.logError(e.getError());
-            account.setAvailableTries(account.getAvailableTries() - 1);
-            accountMapper.update(account);
-        }catch (AccountException e) {
-            logger.logError(e.getError());
+        } else {
+            try{
+                accountValidator.validateAccount(account);
+                accountValidator.validateIsActive(account);
+                accountValidator.validateCorrectPassword(account.getPassword(), password);
+                account.setAvailableTries(Account.TRIES);
+                isConnected = accountMapper.update(account);
+            }catch (InactiveAccount e) {
+                logger.logError(e.getError());
+            }catch (WrongPasswordExcepcion e){
+                logger.logError(e.getError());
+                account.setAvailableTries(account.getAvailableTries() - 1);
+                accountMapper.update(account);
+            }catch (AccountException e) {
+                logger.logError(e.getError());
+            }
         }
         return isConnected;
     }
@@ -91,7 +92,6 @@ public class AccountManager {
     }
 
     public Account getAccount(String email){
-        Account account = accountMapper.get(email);
-        return account;
+        return accountMapper.get(email);
     }
 }

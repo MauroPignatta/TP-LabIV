@@ -9,8 +9,6 @@ import java.util.List;
 
 public class AccountDao extends Dao<Account> {
 
-    //TODO: Cuidado con los parametros que nos pasan. No comprobamos que sean null.
-
     private static final String ACC_TABLE = "account";
     private static final String ACC_ID = "account_id";
     private static final String ACC_EMAIL = "email";
@@ -18,10 +16,6 @@ public class AccountDao extends Dao<Account> {
     private static final String ACC_ACTIVE = "active";
     private static final String ACC_TRIES = "available_tries";
 
-    /** Persiste el dato en la base de datos.
-     * @param entity Cuenta a persistir.
-     * @return Booleano indicando si el dato se guardo correctamente.
-     */
     @Override
     public boolean save(Account entity) {
         boolean executed = false;
@@ -39,11 +33,6 @@ public class AccountDao extends Dao<Account> {
         return executed;
     }
 
-    /** Actualiza todos los campos de account.
-     * @param id id de la cuenta a actualizar.
-     * @param entity entidad account con los datos a reemplazar.
-     * @return Devuelve true si se actualiza un dato correctamente o false en caso de que falle el update.
-     */
     @Override
     public boolean update(Account entity) {
         boolean executed = false;
@@ -63,10 +52,6 @@ public class AccountDao extends Dao<Account> {
         return executed;
     }
 
-    /** Elimina una cuanta de la base de datos
-     *  @param id id de la cuenta a buscar
-     *  @return True si se elimino correcamente, false si no se encuentra el id.
-     */
     @Override
     public boolean delete(int id) {
         boolean executed = false;
@@ -85,10 +70,6 @@ public class AccountDao extends Dao<Account> {
         return false;
     }
 
-    /** Obtiene una cuenta de la base de datos
-     *  @param id id de la cuenta a buscar
-     *  @return Devuelve la cuenta. En caso de no haber cuenta vinculada al id devuelve null.
-     */
     @Override
     public Account get(int id) {
         Account account = null;
@@ -125,10 +106,6 @@ public class AccountDao extends Dao<Account> {
         return null;
     }
 
-    /** Obtiene el id de una cuenta
-     *  @param email email de la cuenta a buscar el id
-     *  @return id de la cuenta. En caso de no haber id vinculado al email devuelve 0.
-     */
     public int getIdFromEmail(String email){
         int id = 0;
         String sql = "SELECT " + ACC_ID + " FROM " + ACC_TABLE + " WHERE " + ACC_EMAIL + " = '" + email + "'";

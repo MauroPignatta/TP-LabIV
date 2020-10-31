@@ -57,21 +57,29 @@ public class ManagerGod {
     }
 
     public List<User> getAddableUser(int userId){
-        //TODO esta feito
         List<User> addableUserList = new ArrayList<>();
         List<Friend> friendList = friendManager.getAll(userId);
-        List <Integer> friendIdList = new ArrayList<>();
-        for(Friend friend : friendList){
-            friendIdList.add(friend.getFriendId());
-        }
-        for(User user : userManager.getUserList()){
-            if(userId != user.getId()){
-                if(friendList.size() == 0 || !friendIdList.contains(user.getId())){
-                    addableUserList.add(user);
+        List<Integer> friendIdList = getFriendsIds(friendList);
+
+        for( User currentUser : userManager.getUserList()){
+            if( userId != currentUser.getId()){
+                boolean isFriend = friendIdList.contains(currentUser.getId());
+                if(!isFriend){
+                    addableUserList.add(currentUser);
                 }
             }
         }
+
         return addableUserList;
+    }
+
+    private List<Integer> getFriendsIds(List<Friend> friendList){
+        List<Integer> friendIdList = new ArrayList<>();
+        if (friendList != null)
+            for(Friend friend : friendList){
+                friendIdList.add(friend.getFriendId());
+            }
+        return friendIdList;
     }
 
 
