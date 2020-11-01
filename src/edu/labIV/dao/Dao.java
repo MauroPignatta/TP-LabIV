@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class Dao <T> {
 
-    protected DataBaseConnection db;
+    protected final DataBaseConnection db;
 
     public Dao() {
         this.db = DataBaseConnection.getInstance();

@@ -1,6 +1,5 @@
 package edu.labIV.dao;
 
-import edu.labIV.entity.Friend;
 import edu.labIV.entity.Post;
 
 import java.sql.PreparedStatement;

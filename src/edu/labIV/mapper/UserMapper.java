@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserMapper {
     
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public UserMapper() {
         this.userDao = new UserDao();

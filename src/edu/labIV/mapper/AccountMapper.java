@@ -2,12 +2,10 @@ package edu.labIV.mapper;
 
 import edu.labIV.dao.AccountDao;
 import edu.labIV.entity.Account;
-import edu.labIV.exception.AccountException;
-import edu.labIV.exception.ExistingAccountException;
 
 public class AccountMapper {
 
-    private AccountDao accountDao;
+    private final AccountDao accountDao;
 
     public AccountMapper() {
         this.accountDao = new AccountDao();

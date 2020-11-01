@@ -1,5 +1,4 @@
 package edu.labIV.exception;
-;
 
 public class NoResponseUrlException extends PostException {
 

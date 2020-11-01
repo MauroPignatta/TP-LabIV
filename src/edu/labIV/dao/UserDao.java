@@ -1,6 +1,5 @@
 package edu.labIV.dao;
 
-import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
 
 import java.sql.*;

@@ -9,9 +9,9 @@ public class DataBaseConnection {
 
     private static DataBaseConnection instance;
 
-    private String username;
-    private String password;
-    private String url;
+    private final String username;
+    private final String password;
+    private final String url;
 
     private Connection connection;
 

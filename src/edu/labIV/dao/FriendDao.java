@@ -1,15 +1,11 @@
 package edu.labIV.dao;
 
-import edu.labIV.entity.Account;
 import edu.labIV.entity.Friend;
-import edu.labIV.entity.FriendStatus;
-import edu.labIV.entity.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

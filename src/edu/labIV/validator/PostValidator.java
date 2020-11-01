@@ -17,7 +17,7 @@ public class PostValidator {
         validateUrl(post.getUrl());
     }
 
-    private void validateUrl(String urls) throws PostException {
+    public void validateUrl(String urls) throws PostException {
         if (urls != null) {
             try {
                 URL url = new URL(urls);
@@ -33,12 +33,12 @@ public class PostValidator {
         }
     }
 
-    private void validateText(String text) throws PostException {
+    public void validateText(String text) throws PostException {
         if (text == null)
             throw new NullTextException();
         if(text.isEmpty() || text.trim().isEmpty())
             throw new EmptyTextException();
-        if(text.length() > Post.MAX_TEXT_LENGHT)
+        if(text.length() > Post.MAX_TEXT_LENGTH)
             throw new LongTextException(text.length());
     }
 }

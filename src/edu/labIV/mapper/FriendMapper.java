@@ -10,7 +10,7 @@ import java.util.List;
 
 public class FriendMapper {
 
-    private FriendDao friendDao;
+    private final FriendDao friendDao;
 
     public FriendMapper() {
         this.friendDao = new FriendDao();

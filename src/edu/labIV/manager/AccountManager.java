@@ -1,5 +1,6 @@
 package edu.labIV.manager;
 
+import edu.labIV.factory.entity.AccountFactory;
 import edu.labIV.logger.Logger;
 import edu.labIV.entity.Account;
 import edu.labIV.exception.AccountException;
@@ -10,14 +11,14 @@ import edu.labIV.validator.AccountValidator;
 
 public class AccountManager {
 
-    private AccountValidator accountValidator;
-    private AccountMapper accountMapper;
-    private Logger logger;
+    private final AccountValidator accountValidator;
+    private final AccountMapper accountMapper;
+    private final Logger logger;
 
-    public AccountManager() {
-        this.accountValidator = new AccountValidator();
-        this.accountMapper = new AccountMapper();
-        this.logger = Logger.getInstance();
+    public AccountManager(AccountValidator accountValidator, AccountMapper accountMapper, Logger logger) {
+        this.accountValidator = accountValidator;
+        this.accountMapper = accountMapper;
+        this.logger = logger;
     }
 
     public boolean login(String email, String password){
@@ -35,9 +36,9 @@ public class AccountManager {
             }catch (InactiveAccount e) {
                 logger.logError(e.getError());
             }catch (WrongPasswordExcepcion e){
-                logger.logError(e.getError());
                 account.setAvailableTries(account.getAvailableTries() - 1);
                 accountMapper.update(account);
+                logger.logError(e.getError());
             }catch (AccountException e) {
                 logger.logError(e.getError());
             }
@@ -47,7 +48,8 @@ public class AccountManager {
 
     public boolean signIn(String email, String password) {
         boolean isSigned = false;
-        Account account = new Account(email, password, false, Account.TRIES);
+        AccountFactory factory = new AccountFactory();
+        Account account = factory.createNewAccount(email, password);
         try{
             accountValidator.validateAccount(account);
             accountValidator.validateExistingAccount(accountMapper.get(account.getEmail()));

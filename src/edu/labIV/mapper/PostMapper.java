@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PostMapper {
 
-    private PostDao postDao;
+    private final PostDao postDao;
 
     public PostMapper() {
         this.postDao = new PostDao();

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Post {
 
-    public final static int MAX_TEXT_LENGHT = 111;
+    public final static int MAX_TEXT_LENGTH = 140;
 
     private int userId;
     private int postId;
@@ -21,15 +21,13 @@ public class Post {
     }
 
     public Post(int userId, String text, String url, LocalDateTime date) {
-        this.userId = userId;     ;
+        this.userId = userId;
         this.text = text;
         this.url = url;
         this.date = date;
     }
 
-    public Post() {
-
-    }
+    public Post() {}
 
     public int getUserId() {
         return userId;

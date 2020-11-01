@@ -10,14 +10,14 @@ import java.util.List;
 
 public class PostManager {
 
-    private PostMapper postMapper;
-    private Logger logger;
-    private PostValidator postValidator;
+    private final PostValidator postValidator;
+    private final PostMapper postMapper;
+    private final Logger logger;
 
-    public PostManager() {
-        this.postMapper = new PostMapper();
-        this.logger = Logger.getInstance();
-        this.postValidator = new PostValidator();
+    public PostManager(PostValidator postValidator, PostMapper postMapper, Logger logger) {
+        this.postMapper = postMapper;
+        this.logger = logger;
+        this.postValidator = postValidator;
     }
 
     public boolean savePost(Post post){

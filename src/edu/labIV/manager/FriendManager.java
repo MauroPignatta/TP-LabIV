@@ -2,22 +2,20 @@ package edu.labIV.manager;
 
 import edu.labIV.entity.Friend;
 import edu.labIV.entity.FriendStatus;
-import edu.labIV.entity.User;
 import edu.labIV.mapper.FriendMapper;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.List;
 
 public class FriendManager {
 
-    private FriendMapper friendMapper;
+    private final FriendMapper friendMapper;
 
-    public FriendManager() {
-        this.friendMapper = new FriendMapper();
+    public FriendManager(FriendMapper friendMapper) {
+        this.friendMapper = friendMapper;
     }
 
     public boolean sendFriendRequest(Friend sender) {
-        boolean sent = false;
+        boolean sent;
         sender.setStatus(FriendStatus.PENDING);
         Friend receiver = new Friend(sender.getFriendId(), sender.getUserId(), FriendStatus.RECEIVED);
         sent = friendMapper.save(sender);
@@ -26,7 +24,7 @@ public class FriendManager {
     }
 
     public boolean acceptRequest(Friend receiver){
-        boolean accepted = false;
+        boolean accepted;
         receiver.setStatus(FriendStatus.FRIEND);
         Friend sender = new Friend(receiver.getFriendId(), receiver.getUserId(), FriendStatus.FRIEND);
         accepted = friendMapper.update(receiver);
@@ -51,7 +49,7 @@ public class FriendManager {
     }
 
     public boolean deleteFriend(int userId, int friendId){
-        boolean deleted = false;
+        boolean deleted;
         deleted = friendMapper.delete(userId, friendId);
         deleted &= friendMapper.delete(friendId, userId);
         return deleted;

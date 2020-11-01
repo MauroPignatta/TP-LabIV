@@ -4,7 +4,6 @@ import edu.labIV.entity.User;
 import edu.labIV.exception.InvalidLastNameException;
 import edu.labIV.exception.InvalidNameException;
 import edu.labIV.exception.InvalidUserBirthDateException;
-import edu.labIV.exception.UserException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserValidatorTest {
 
-    private UserValidator userValidator = new UserValidator();
+    private final UserValidator userValidator = new UserValidator();
 
     @Test
     void validUser(){

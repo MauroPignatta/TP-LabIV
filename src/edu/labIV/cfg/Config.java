@@ -12,7 +12,7 @@ public class Config {
 
     public static void init(){
         try {
-            ini = new Ini(new File("config/config.ini"));
+            ini = new Ini(new File("config/config.devs"));
         } catch (IOException e) {
             e.printStackTrace();
         }

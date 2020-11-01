@@ -11,7 +11,7 @@ public enum ConfigKey {
     MAIL_SERVER( "server"),
     MAIL_PORT( "port");
 
-    private String key;
+    private final String key;
 
     ConfigKey(String key) {
         this.key = key;

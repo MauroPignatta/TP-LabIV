@@ -4,6 +4,7 @@ import edu.labIV.entity.Account;
 import edu.labIV.entity.Friend;
 import edu.labIV.entity.User;
 import edu.labIV.entity.UserStatus;
+import edu.labIV.factory.manager.ManagerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +12,17 @@ import java.util.List;
 public class ManagerGod {
     //TODO cambiar nombre a la clase xd jaja lol mariano (profesor) te amo <3. por: Yago
 
-    private AccountManager accountManager;
-    private UserManager userManager;
-    private FriendManager friendManager;
-    private PostManager postManager;
+    private final AccountManager accountManager;
+    private final UserManager userManager;
+    private final FriendManager friendManager;
+    private final PostManager postManager;
 
     public ManagerGod() {
-        this.accountManager = new AccountManager();
-        this.userManager = new UserManager();
-        this.friendManager = new FriendManager();
-        this.postManager = new PostManager();
+        ManagerFactory factory = new ManagerFactory();
+        this.accountManager = factory.createAccountManager();
+        this.userManager = factory.createUserManager();
+        this.friendManager = factory.createFriendManager();
+        this.postManager = factory.createPostManager();
     }
 
     public void logIn(String email, String password){
@@ -56,7 +58,7 @@ public class ManagerGod {
         }
     }
 
-    public List<User> getAddableUser(int userId){
+    public List<User> getAddableUserList(int userId){
         List<User> addableUserList = new ArrayList<>();
         List<Friend> friendList = friendManager.getAll(userId);
         List<Integer> friendIdList = getFriendsIds(friendList);

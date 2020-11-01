@@ -1,6 +1,5 @@
 package edu.labIV.manager;
 
-import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
 import edu.labIV.exception.UserException;
 import edu.labIV.logger.Logger;
@@ -11,14 +10,14 @@ import java.util.List;
 
 public class UserManager {
 
-    private UserMapper userMapper;
-    private Logger logger;
-    private UserValidator userValidator;
+    private final UserValidator userValidator;
+    private final UserMapper userMapper;
+    private final Logger logger;
 
-    public UserManager() {
-        this.userMapper = new UserMapper();
-        logger = Logger.getInstance();
-        userValidator = new UserValidator();
+    public UserManager(UserValidator userValidator, UserMapper userMapper, Logger logger) {
+        this.userValidator = userValidator;
+        this.userMapper = userMapper;
+        this.logger = logger;
     }
 
     public boolean saveUser(User user) {
