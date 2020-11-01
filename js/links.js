@@ -23,24 +23,24 @@ document.getElementById('publicacionesPost').addEventListener('click', function(
 });
 
 // funcion que realiza de acuerdo al tipo de publicacion que debe hacer
-function take(numero){		
-	asignaciones.dataLinkName = document.getElementById("Textarea1").value;		
-	asignaciones.dataPostName = document.getElementById("Textarea1").value;
+function take(numero){
+	var dataLinkName = document.getElementById("Textarea1").value;		
+	var dataPostName = document.getElementById("Textarea1").value;
 	Textarea1.value = "";	
 
-	if (asignaciones.dataLinkName === "" || asignaciones.dataPostName === ""){
+	if (dataLinkName === "" || dataPostName === ""){
 		ui.showMessage("Please insert data in this field", "danger");
 		ui.danger();
 	}
 
 	switch(numero){
 		case 1:
-			ui.addLinks(asignaciones.dataLinkName);
+			ui.addLinks(dataLinkName);
 			ui.showMessage("Link Added Succsssfully", "success");
 			ui.correct();		
 			break;
 		case 2:
-			ui.addPost(asignaciones.dataPostName);
+			ui.addPost(dataPostName);
 			ui.showMessage("Link Added Succsssfully", "success");
 			ui.correct();
 			break;

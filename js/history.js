@@ -44,21 +44,21 @@ function storageAvailable(type) {
 
 // funcion que realiza de acuerdo al tipo de publicacion que debe hacer
 function taked(numero) {	
-	publicaciones.dataHistory = document.getElementById("Textarea1").value;
-	publicaciones.dataPostPhotos = document.getElementById("Textarea1").value;
+	var dataHistory = document.getElementById("Textarea1").value;
+	var dataPostPhotos = document.getElementById("Textarea1").value;
 	Textarea1.value = "";	
 
-	if (publicaciones.dataHistory === "" || publicaciones.dataPostPhotos === ""){
+	if (dataHistory === "" || dataPostPhotos === ""){
 		ui.danger();
 	}
 
 	switch (numero) {
 		case 1:
-			ui.addHistoryPhotos(publicaciones.dataHistory);
+			ui.addHistoryPhotos(dataHistory);
 			ui.correct();
 			break;
 		case 2:
-			createPostPhotos(publicaciones.dataPostPhotos);
+			createPostPhotos(dataPostPhotos);
 			/*ui1.addPostPhotos(publicaciones.dataPostPhotos);*/
 			ui.correct();
 			break;
@@ -69,8 +69,9 @@ function taked(numero) {
 };
 
 function createPostPhotos(dato){
-	const recentImageDataUrl = localStorage.getItem("recent-image");
+	const recentImageDataUrl = localStorage.getItem("recent-image");	
 	let postFoto = {
+		name: "Mariano",
 		texto: dato,
 		img: recentImageDataUrl
 	}
@@ -78,20 +79,23 @@ function createPostPhotos(dato){
 	localStoragePhotosList(photosLists)
 	ui.addPostPhotos(dato)
 	
+	/*
 	if (recentImageDataUrl) {
 		document.querySelector("#image-preview").setAttribute("src", recentImageDataUrl);
 	}
+	*/
 	
 }
 
 function getPhotosList() {
 	var storedList = localStorage.getItem('elementList');
+	var listPhotos = [];
 	if (storedList == null) {
-		photosLists = [];
+		listPhotos = [];
 	} else {
-		photosLists = JSON.parse(storedList);
+		listPhotos = JSON.parse(storedList);
 	}
-	return photosLists;
+	return listPhotos;
 }
 
 function localStoragePhotosList(photosLists) {
