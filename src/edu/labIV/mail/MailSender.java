@@ -1,20 +1,21 @@
 package edu.labIV.mail;
 
-import edu.labIV.cfg.*;
+import edu.labIV.cfg.Config;
+import edu.labIV.cfg.ConfigKey;
+import edu.labIV.cfg.ConfigSection;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.Transport;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.Session;
 import javax.mail.internet.MimeMultipart;
-import javax.swing.text.html.HTML;
+import java.util.Properties;
 
 public class MailSender {
 

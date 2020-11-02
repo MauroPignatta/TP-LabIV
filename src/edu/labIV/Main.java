@@ -1,7 +1,6 @@
 package edu.labIV;
 
 
-import edu.labIV.entity.User;
 import edu.labIV.mail.MailSender;
 import edu.labIV.mail.RegisterMail;
 import edu.labIV.manager.ManagerGod;
@@ -12,9 +11,9 @@ public class Main {
 
         ManagerGod managerGod = new ManagerGod();
 
-        String body = RegisterMail.getRegisterMailBody("Mariano");
+        String body = RegisterMail.getRegisterMailBody("Yago", "https://google.com");
         try {
-            MailSender.sendMail("winarmarianoj@gmail.com", "Test", body);
+            MailSender.sendMail("yago.messina@gmail.com", "Test", body);
         } catch (Exception e) {
             e.printStackTrace();
         }

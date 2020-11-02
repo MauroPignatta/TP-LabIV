@@ -24,10 +24,11 @@ public class RegisterMail {
         isInitialized = true;
     }
 
-    public static String getRegisterMailBody(String userName){
+    public static String getRegisterMailBody(String userName, String url){
         if(!isInitialized)
             init();
-        return htmlContent.replace("$USER$", userName);
+        String html = htmlContent.replace("$USER$", userName);
+        return html.replace("$URL$", url);
     }
 
 }
