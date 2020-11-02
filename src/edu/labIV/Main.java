@@ -2,6 +2,8 @@ package edu.labIV;
 
 
 import edu.labIV.entity.User;
+import edu.labIV.mail.MailContentType;
+import edu.labIV.mail.MailSender;
 import edu.labIV.manager.ManagerGod;
 
 public class Main {

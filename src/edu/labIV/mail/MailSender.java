@@ -27,7 +27,7 @@ public class MailSender {
         isInitilized = true;
     }
 
-    public static void sendMail(String recipient, String subject, String body) throws Exception {
+    public static void sendMail(String recipient, String subject, String body, MailContentType type) throws Exception {
         if (!isInitilized)
             init();
 
@@ -46,7 +46,8 @@ public class MailSender {
         message.setFrom(address);
         message.addRecipient(Message.RecipientType.TO, address);
         message.setSubject(subject);
-        message.setText(body);
+        //message.setText(body);
+        message.setContent(body, type.getType());
         Transport transport = session.getTransport(protocol);
         transport.connect(host, account, pass);
         transport.sendMessage(message, message.getAllRecipients());
