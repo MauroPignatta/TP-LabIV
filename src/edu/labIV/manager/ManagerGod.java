@@ -25,8 +25,8 @@ public class ManagerGod {
         this.postManager = factory.createPostManager();
     }
 
-    public void logIn(String email, String password){
-        if(accountManager.login(email, password)){
+    public void logIn(String email, String encryptedPassword){
+        if(accountManager.login(email, encryptedPassword)){
             Account account = accountManager.getAccount(email);
             User user = userManager.getUser(account.getId());
             user.setStatus(UserStatus.ONLINE);

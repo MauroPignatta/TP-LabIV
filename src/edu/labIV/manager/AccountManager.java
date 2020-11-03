@@ -7,6 +7,7 @@ import edu.labIV.exception.AccountException;
 import edu.labIV.exception.InactiveAccount;
 import edu.labIV.exception.WrongPasswordExcepcion;
 import edu.labIV.mapper.AccountMapper;
+import edu.labIV.util.PasswordEncryptor;
 import edu.labIV.validator.AccountValidator;
 
 public class AccountManager {
@@ -21,8 +22,9 @@ public class AccountManager {
         this.logger = logger;
     }
 
-    public boolean login(String email, String password){
+    public boolean login(String email, String encryptedPassword){
         boolean isConnected = false;
+        PasswordEncryptor encryptor = new PasswordEncryptor();
         Account account = accountMapper.get(email);
         if(account.getAvailableTries() == 0){
             //TODO mandar formulario para cambiar contraseña
@@ -30,7 +32,8 @@ public class AccountManager {
             try{
                 accountValidator.validateAccount(account);
                 accountValidator.validateIsActive(account);
-                accountValidator.validateCorrectPassword(account.getPassword(), password);
+                String password = encryptor.decodePassword(encryptedPassword);
+                accountValidator.validateCorrectPassword(password, account.getPassword());
                 account.setAvailableTries(Account.TRIES);
                 isConnected = accountMapper.update(account);
             }catch (InactiveAccount e) {
@@ -50,9 +53,12 @@ public class AccountManager {
         boolean isSigned = false;
         AccountFactory factory = new AccountFactory();
         Account account = factory.createNewAccount(email, password);
+        PasswordEncryptor encryptor = new PasswordEncryptor();
         try{
             accountValidator.validateAccount(account);
             accountValidator.validateExistingAccount(accountMapper.get(account.getEmail()));
+            String securePassword = encryptor.generateSecurePassword(password);
+            account.setPassword(securePassword);
             isSigned = accountMapper.save(account);
             //TODO mandar mail de activacion de cuenta
         } catch (AccountException e){
@@ -74,10 +80,12 @@ public class AccountManager {
 
     public void changePassword(String email, String newPassword){
         Account account = accountMapper.get(email);
+        PasswordEncryptor encryptor = new PasswordEncryptor();
         try {
             accountValidator.validatePass(newPassword);
             accountValidator.validateAccount(account);
-            account.setPassword(newPassword);
+            String securedPassword = encryptor.generateSecurePassword(newPassword);
+            account.setPassword(securedPassword);
             account.setAvailableTries(Account.TRIES);
             accountMapper.update(account);
         } catch (AccountException e) {

@@ -2,6 +2,8 @@ package edu.labIV.validator;
 
 import edu.labIV.entity.Account;
 import edu.labIV.exception.*;
+import edu.labIV.util.PasswordEncryptor;
+
 import java.util.regex.Pattern;
 
 public class AccountValidator {
@@ -40,8 +42,9 @@ public class AccountValidator {
         }
     }
 
-    public void validateCorrectPassword(String password, String password1) throws WrongPasswordExcepcion {
-        if(!password.equals(password1)){
+    public void validateCorrectPassword(String password, String securedPassword) throws WrongPasswordExcepcion {
+        PasswordEncryptor encryptor = new PasswordEncryptor();
+        if(!encryptor.verifyPassword(password, securedPassword)){
             throw new WrongPasswordExcepcion();
         }
     }
