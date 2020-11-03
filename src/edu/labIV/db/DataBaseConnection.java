@@ -16,9 +16,9 @@ public class DataBaseConnection {
     private Connection connection;
 
     private DataBaseConnection() {
-        username = Config.get(ConfigSection.DATABASE, ConfigKey.DB_USER);
-        password = Config.get(ConfigSection.DATABASE, ConfigKey.DB_PASS);
-        url = Config.get(ConfigSection.DATABASE, ConfigKey.DB_URL);
+        username = Config.getString(ConfigSection.DATABASE, ConfigKey.DB_USER);
+        password = Config.getString(ConfigSection.DATABASE, ConfigKey.DB_PASS);
+        url = Config.getString(ConfigSection.DATABASE, ConfigKey.DB_URL);
         connect();
     }
 

@@ -19,10 +19,14 @@ public class Config {
         isInitialized = true;
     }
 
-    public static String get(ConfigSection section, ConfigKey key){
+    public static String getString(ConfigSection section, ConfigKey key){
         if(!isInitialized)
             init();
         return ini.get(section.name(), key.getKey());
+    }
+
+    public static int getInt(ConfigSection section, ConfigKey key){
+        return Integer.parseInt( getString(section, key) );
     }
 
 }

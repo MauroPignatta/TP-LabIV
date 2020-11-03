@@ -1,9 +1,9 @@
 package edu.labIV;
 
-
 import edu.labIV.mail.MailSender;
 import edu.labIV.mail.RegisterMail;
 import edu.labIV.manager.ManagerGod;
+import edu.labIV.util.PasswordEncryptor;
 
 public class Main {
 
@@ -11,9 +11,9 @@ public class Main {
 
         ManagerGod managerGod = new ManagerGod();
 
-        String body = RegisterMail.getRegisterMailBody("Yago", "https://google.com");
+        String body = RegisterMail.getRegisterMailBody("Mauro", "https://google.com");
         try {
-            MailSender.sendMail("yago.messina@gmail.com", "Test", body);
+            MailSender.sendMail("mauritto10@gmail.com", "Test", body);
         } catch (Exception e) {
             e.printStackTrace();
         }

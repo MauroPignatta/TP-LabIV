@@ -9,3 +9,8 @@ password=iu*q5GMv4c7J#a%Sx*q^
 protocol=smtp
 server=smtp.gmail.com
 port=587
+
+[ENCRYPTOR]
+salt=aF3nJC45kFJ3GJNZ8q3R
+iterations=10000
+key_length=256

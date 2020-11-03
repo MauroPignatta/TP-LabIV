@@ -28,11 +28,11 @@ public class MailSender {
     private static DataSource logoSource;
 
     private static void init(){
-        account = Config.get(ConfigSection.MAIL, ConfigKey.MAIL_USER);
-        pass = Config.get(ConfigSection.MAIL, ConfigKey.MAIL_PASS);
-        protocol = Config.get(ConfigSection.MAIL, ConfigKey.MAIL_PROTOCOL);
-        host = Config.get(ConfigSection.MAIL, ConfigKey.MAIL_SERVER);
-        port = Config.get(ConfigSection.MAIL, ConfigKey.MAIL_PORT);
+        account = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_USER);
+        pass = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_PASS);
+        protocol = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_PROTOCOL);
+        host = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_SERVER);
+        port = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_PORT);
         logoSource = new FileDataSource("res/logo/logo.jpg");
         isInitilized = true;
     }
