@@ -19,28 +19,31 @@ import java.util.Properties;
 
 public class MailSender {
 
-    private static String account;
-    private static String pass;
-    private static String protocol;
-    private static String host;
-    private static String port;
-    private static boolean isInitilized;
-    private static DataSource logoSource;
+    private static MailSender instance;
 
-    private static void init(){
-        account = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_USER);
-        pass = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_PASS);
-        protocol = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_PROTOCOL);
-        host = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_SERVER);
-        port = Config.getString(ConfigSection.MAIL, ConfigKey.MAIL_PORT);
+    private String account;
+    private String pass;
+    private String protocol;
+    private String host;
+    private String port;
+    private DataSource logoSource;
+
+    private MailSender(){
+        account = Config.getInstance().getString(ConfigSection.MAIL, ConfigKey.MAIL_USER);
+        pass = Config.getInstance().getString(ConfigSection.MAIL, ConfigKey.MAIL_PASS);
+        protocol = Config.getInstance().getString(ConfigSection.MAIL, ConfigKey.MAIL_PROTOCOL);
+        host = Config.getInstance().getString(ConfigSection.MAIL, ConfigKey.MAIL_SERVER);
+        port = Config.getInstance().getString(ConfigSection.MAIL, ConfigKey.MAIL_PORT);
         logoSource = new FileDataSource("res/logo/logo.jpg");
-        isInitilized = true;
     }
 
-    public static void sendMail(String recipient, String subject, String body) throws Exception {
-        if (!isInitilized)
-            init();
+    public static MailSender getInstance() {
+        if(instance == null)
+            instance = new MailSender();
+        return instance;
+    }
 
+    public void sendMail(String recipient, String subject, String body) throws Exception {
         Properties props = System.getProperties();
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", account);

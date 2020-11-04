@@ -18,9 +18,9 @@ public class PasswordEncryptor {
     private final int KEY_LENGTH;
 
     public PasswordEncryptor() {
-        FIXED_SALT = Config.getString(ConfigSection.ENCRYPTOR, ConfigKey.ENC_SALT);
-        ITERATIONS = Config.getInt(ConfigSection.ENCRYPTOR, ConfigKey.ENC_ITERATIONS);
-        KEY_LENGTH = Config.getInt(ConfigSection.ENCRYPTOR, ConfigKey.ENC_KEY_LENGTH);
+        FIXED_SALT = Config.getInstance().getString(ConfigSection.ENCRYPTOR, ConfigKey.ENC_SALT);
+        ITERATIONS = Config.getInstance().getInt(ConfigSection.ENCRYPTOR, ConfigKey.ENC_ITERATIONS);
+        KEY_LENGTH = Config.getInstance().getInt(ConfigSection.ENCRYPTOR, ConfigKey.ENC_KEY_LENGTH);
     }
 
     private byte[] hash(char[] password) {
