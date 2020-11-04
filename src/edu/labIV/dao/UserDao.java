@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDao extends Dao<User> {
 
-    private static final String USR_TABLE = "public.user";
+    private static final String USR_TABLE = "tplab.user";
     private static final String USR_ID = "account_id";
     private static final String USR_NAME = "name";
     private static final String USR_LAST_NAME = "last_name";

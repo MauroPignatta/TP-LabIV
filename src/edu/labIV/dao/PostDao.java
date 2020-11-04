@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PostDao extends Dao<Post> {
 
-    private static final String POST_TABLE = "post";
+    private static final String POST_TABLE = "tplab.post";
     private static final String POST_ID = "post_id";
     private static final String POST_USER_ID = "account_id";
     private static final String POST_TEXT = "text";

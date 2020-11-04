@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AccountDao extends Dao<Account> {
 
-    private static final String ACC_TABLE = "account";
+    private static final String ACC_TABLE = "tplab.account";
     private static final String ACC_ID = "account_id";
     private static final String ACC_EMAIL = "email";
     private static final String ACC_PASSWORD = "password";

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FriendDao extends Dao<Friend> {
 
-    private static final String FRI_TABLE = "friend";
+    private static final String FRI_TABLE = "tplab.friend";
     private static final String FRI_USER_ID = "account_id";
     private static final String FRI_FRIEND_ID = "friend_id";
     private static final String FRI_STATUS = "status";
