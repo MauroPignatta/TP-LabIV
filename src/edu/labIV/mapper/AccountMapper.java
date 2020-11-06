@@ -44,6 +44,15 @@ public class AccountMapper {
         return accountDao.get(id);
     }
 
+    /** Obtiene una cuenta.
+     * @param id id de la cuenta.
+     * @return Cuenta obtenida de la base de datos.
+     *         En caso que no haya cuentas vinculadas al email, devuelve null.
+     */
+    public Account get(int id){
+        return accountDao.get(id);
+    }
+
     /** Actualiza los datos de una cuenta.
      * @return - True si alguno de los datos se modifico correctamente.
      *         - False En caso que ningun dato haya sido modificado o que no se encuentren

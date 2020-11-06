@@ -25,16 +25,19 @@ public class ManagerGod {
         this.postManager = factory.createPostManager();
     }
 
-    public void logIn(String email, String encryptedPassword){
-        if(accountManager.login(email, encryptedPassword)){
+    public boolean logIn(String email, String encryptedPassword){
+        boolean hasLoggedIn = false;
+        if(hasLoggedIn = accountManager.login(email, encryptedPassword)){
             Account account = accountManager.getAccount(email);
             User user = userManager.getUser(account.getId());
             user.setStatus(UserStatus.ONLINE);
             userManager.updateUser(user);
         }
+        return hasLoggedIn;
     }
 
     public void logOut(String email){
+        //TODO: Hay que verificar que el mail exista sino rompe
         Account account = accountManager.getAccount(email);
         User user = userManager.getUser(account.getId());
         user.setStatus(UserStatus.OFFLINE);
@@ -42,20 +45,24 @@ public class ManagerGod {
     }
 
     public void delete(String email){
-        //TODO implementar trigger
-        /*if(userManager.deleteUser(email)){
-            accountManager.deleteAccount(email);
-        }*/
+        accountManager.deleteAccount(email);
     }
 
-    public void signIn(String email, String password, User user){
+    public void delete(int id){
+        accountManager.deleteAccount(id);
+    }
+
+    public boolean signIn(String email, String password, User user){
+        boolean hasSignIn = true;
         if(accountManager.signIn(email, password)){
             Account account = accountManager.getAccount(email);
             user.setId(account.getId());
             if(!userManager.saveUser(user)){
                 accountManager.deleteAccount(user.getId());
+                hasSignIn = false;
             }
         }
+        return hasSignIn;
     }
 
     public List<User> getAddableUserList(int userId){
@@ -83,7 +90,6 @@ public class ManagerGod {
             }
         return friendIdList;
     }
-
 
     /* Agrego para poder usar las funciones de todos los managers */
 

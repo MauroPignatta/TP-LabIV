@@ -104,4 +104,8 @@ public class AccountManager {
     public Account getAccount(String email){
         return accountMapper.get(email);
     }
+
+    public Account getAccount(int id){
+        return accountMapper.get(id);
+    }
 }
