@@ -4,6 +4,7 @@ import edu.labIV.entity.User;
 import edu.labIV.exception.InvalidLastNameException;
 import edu.labIV.exception.InvalidNameException;
 import edu.labIV.exception.InvalidUserBirthDateException;
+import edu.labIV.exception.UserException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -84,6 +85,36 @@ class UserValidatorTest {
     void invalidBirthAfterNow(){
         LocalDate date = LocalDate.of(2021, 11, 24);
         assertThrows(InvalidUserBirthDateException.class, () -> userValidator.validateBirthDate(date));
+    }
+
+    @Test
+    void invalidProfilePicturePath(){
+        String path = ("pepe"); // No existe el directorio.
+        assertThrows(UserException.class, () -> userValidator.validatePicturePath(path));
+    }
+
+    @Test
+    void invalidProfilePicture(){
+        String path = ("res/mail/activation.html"); // No es una imagen.
+        assertThrows(UserException.class, () -> userValidator.validatePicturePath(path));
+    }
+
+    @Test
+    void validProfilePictureNull(){
+        String path = (null); // Null es un valor valido.
+        assertDoesNotThrow(() -> userValidator.validatePicturePath(path));
+    }
+
+    @Test
+    void validProfilePictureEmpty(){
+        String path = (""); // es valida una cadena vacia.
+        assertDoesNotThrow(() -> userValidator.validatePicturePath(path));
+    }
+
+    @Test
+    void validProfilePicture(){
+        String path = ("res/logo/logo.jpg"); // La imagen esta en un formato correcto.
+        assertDoesNotThrow(() -> userValidator.validatePicturePath(path));
     }
 
 }

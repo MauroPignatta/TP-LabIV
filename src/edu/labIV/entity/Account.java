@@ -1,24 +1,28 @@
 package edu.labIV.entity;
 
+import edu.labIV.cfg.Config;
+import edu.labIV.cfg.ConfigKey;
+import edu.labIV.cfg.ConfigSection;
+
 public class Account {
+
+    public static final int TRIES = Config.getInstance().getLoginAttempts();
 
     private int id;
     private String password;
     private String email;
     private boolean active;
-    private int availableTries;
-
-    public static final int TRIES = 5;
-
-    public Account(String email, String password, boolean active, int availableTries) {
-        this.password = password;
-        this.email = email;
-        this.active = active;
-        this.availableTries = availableTries;
-    }
+    private int attempts;
 
     public Account(){
 
+    }
+
+    public Account(String email, String password, boolean active, int attempts) {
+        setEmail(email);
+        setActive(active);
+        setAttempts(attempts);
+        setPassword(password);
     }
 
     public void setActive(boolean active) {
@@ -45,12 +49,12 @@ public class Account {
         return active;
     }
 
-    public int getAvailableTries() {
-        return availableTries;
+    public int getAttempts() {
+        return attempts;
     }
 
-    public void setAvailableTries(int availableTries) {
-        this.availableTries = availableTries;
+    public void setAttempts(int attempts) {
+        this.attempts = attempts;
     }
 
     public int getId() {

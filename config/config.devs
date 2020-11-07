@@ -14,3 +14,9 @@ port=587
 salt=aF3nJC45kFJ3GJNZ8q3R
 iterations=10000
 key_length=256
+
+[ACCOUNT]
+attempts=5
+
+[POST]
+buffer=140

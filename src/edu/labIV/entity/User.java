@@ -6,18 +6,25 @@ public class User {
 
     private int id;
     private String name;
+    private String status;
     private String lastname;
     private LocalDate birthdate;
-    private String status;
+    private String profilePicturePath;
 
     public User() {
     }
 
     public User(String name, String lastname, LocalDate birthdate) {
-        this.name = name;
-        this.lastname = lastname;
-        this.birthdate = birthdate;
-        this.status = UserStatus.OFFLINE;
+        setName(name);
+        setLastname(lastname);
+        setBirthdate(birthdate);
+        setStatus(UserStatus.OFFLINE);
+        setProfilePicturePath("");
+    }
+
+    public User(String name, String lastname, LocalDate birthdate, String picturePath) {
+        this(name, lastname, birthdate);
+        setProfilePicturePath(picturePath);
     }
 
     public int getId() {
@@ -60,4 +67,11 @@ public class User {
         this.status = status;
     }
 
+    public String getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    public void setProfilePicturePath(String path) {
+        this.profilePicturePath = path;
+    }
 }

@@ -3,6 +3,7 @@ package edu.labIV.validator;
 import edu.labIV.entity.User;
 import edu.labIV.exception.*;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ public class UserValidator {
         validateName(user.getName());
         validateLastName(user.getLastname());
         validateBirthDate(user.getBirthdate());
+        validatePicturePath(user.getProfilePicturePath());
     }
 
     public void validateBirthDate(LocalDate birthdate) throws InvalidUserBirthDateException {
@@ -61,5 +63,17 @@ public class UserValidator {
             isValid = true;
 
         return isValid;
+    }
+
+    public void validatePicturePath(String path) throws UserException {
+        if (path != null && !path.trim().isEmpty()) {
+            File f = new File(path);
+
+            if(!f.exists())
+                throw new InvalidProfilePictureException(path);
+
+            if(!Pattern.matches("(.)+\\.(jpg|png|jpeg)$", path))
+                throw new NotAPictureException(path);
+        }
     }
 }

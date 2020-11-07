@@ -19,6 +19,46 @@ public class Config {
         }
     }
 
+    public int getLoginAttempts(){
+        return getInt(ConfigSection.ACCOUNT, ConfigKey.ACC_ATTEMPTS);
+    }
+
+    public String getDataBaseUsername(){
+        return getString(ConfigSection.DATABASE, ConfigKey.DB_USER);
+    }
+
+    public String getDataBasePassword(){
+        return getString(ConfigSection.DATABASE, ConfigKey.DB_PASS);
+    }
+
+    public String getDataBaseURL(){
+        return getString(ConfigSection.DATABASE, ConfigKey.DB_URL);
+    }
+
+    public String getMailAccount(){
+        return getString(ConfigSection.MAIL, ConfigKey.MAIL_USER);
+    }
+
+    public String getMailPassword(){
+        return getString(ConfigSection.MAIL, ConfigKey.MAIL_PASS);
+    }
+
+    public String getMailProtocol(){
+        return getString(ConfigSection.MAIL, ConfigKey.MAIL_PROTOCOL);
+    }
+
+    public String getMailHost(){
+        return getString(ConfigSection.MAIL, ConfigKey.MAIL_SERVER);
+    }
+
+    public String getMailPort(){
+        return getString(ConfigSection.MAIL, ConfigKey.MAIL_PORT);
+    }
+
+    public int getPostBufferSize(){
+        return getInt(ConfigSection.POST, ConfigKey.POST_BUFFER);
+    }
+
     public static Config getInstance(){
         if(instance == null)
             instance = new Config();

@@ -1,15 +1,17 @@
 package edu.labIV.entity;
 
+import edu.labIV.cfg.Config;
+
 import java.time.LocalDateTime;
 
 public class Post {
 
-    public final static int MAX_TEXT_LENGTH = 140;
+    public final static int MAX_TEXT_LENGTH = Config.getInstance().getPostBufferSize();
 
     private int userId;
     private int postId;
     private String text;
-    private String url;
+    private String imagePath;
     private LocalDateTime date;
 
     public LocalDateTime getDate() {
@@ -20,11 +22,11 @@ public class Post {
         this.date = date;
     }
 
-    public Post(int userId, String text, String url, LocalDateTime date) {
-        this.userId = userId;
-        this.text = text;
-        this.url = url;
-        this.date = date;
+    public Post(int userId, String text, String imagePath, LocalDateTime date) {
+        setUserId(userId);
+        setText(text);
+        setDate(date);
+        setImagePath(imagePath);
     }
 
     public Post() {}
@@ -53,12 +55,12 @@ public class Post {
         this.text = text;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
 }

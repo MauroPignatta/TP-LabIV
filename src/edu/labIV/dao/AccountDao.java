@@ -25,7 +25,7 @@ public class AccountDao extends Dao<Account> {
             statement.setString(1, entity.getEmail());
             statement.setString(2, entity.getPassword());
             statement.setBoolean(3, entity.isActive());
-            statement.setInt(4, entity.getAvailableTries());
+            statement.setInt(4, entity.getAttempts());
             executed = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class AccountDao extends Dao<Account> {
             PreparedStatement statement = db.createPrepareStatement(sql);
             statement.setString(1, entity.getPassword());
             statement.setBoolean(2, entity.isActive());
-            statement.setInt(3, entity.getAvailableTries());
+            statement.setInt(3, entity.getAttempts());
             statement.setInt(4, entity.getId());
             executed = statement.executeUpdate() == 1;
         }catch (SQLException ex){
@@ -83,7 +83,7 @@ public class AccountDao extends Dao<Account> {
                 account.setEmail(resultSet.getString(ACC_EMAIL));
                 account.setPassword(resultSet.getString(ACC_PASSWORD));
                 account.setActive(resultSet.getBoolean(ACC_ACTIVE));
-                account.setAvailableTries(resultSet.getInt(ACC_TRIES));
+                account.setAttempts(resultSet.getInt(ACC_TRIES));
             }
         }catch (SQLException ex){
             ex.printStackTrace();

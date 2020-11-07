@@ -3,9 +3,11 @@ package edu.labIV.validator;
 import edu.labIV.entity.Post;
 import edu.labIV.exception.*;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.regex.Pattern;
 
 
 public class PostValidator {
@@ -14,22 +16,18 @@ public class PostValidator {
         if (post == null)
             throw new NullPostException();
         validateText(post.getText());
-        validateUrl(post.getUrl());
+        validateImagePath(post.getImagePath());
     }
 
-    public void validateUrl(String urls) throws PostException {
-        if (urls != null) {
-            try {
-                URL url = new URL(urls);
-                InputStream i = null;
-                try {
-                    i = url.openStream();
-                } catch (Exception ex) {
-                    throw new NoResponseUrlException(urls);
-                }
-            } catch (MalformedURLException e) {
-                throw new InvalidUrlException(urls);
-            }
+    public void validateImagePath(String path) throws PostException {
+        if (path != null && !path.trim().isEmpty()) {
+            File f = new File(path);
+
+            if(!f.exists())
+                throw new InvalidImagePath(path);
+
+            if(!Pattern.matches("(.)+\\.(jpg|png|jpeg)$", path))
+                throw new NotAnImageException(path);
         }
     }
 

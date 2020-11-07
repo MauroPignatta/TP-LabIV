@@ -12,7 +12,9 @@ public enum ConfigKey {
     MAIL_PORT("port"),
     ENC_SALT("salt"),
     ENC_ITERATIONS("iterations"),
-    ENC_KEY_LENGTH("key_length");
+    ENC_KEY_LENGTH("key_length"),
+    ACC_ATTEMPTS("attempts"),
+    POST_BUFFER("buffer");
 
     private final String key;
 

@@ -26,7 +26,7 @@ public class AccountManager {
         boolean isConnected = false;
         PasswordEncryptor encryptor = new PasswordEncryptor();
         Account account = accountMapper.get(email);
-        if(account.getAvailableTries() == 0){
+        if(account.getAttempts() == 0){
             //TODO mandar formulario para cambiar contraseña
         } else {
             try{
@@ -34,12 +34,12 @@ public class AccountManager {
                 accountValidator.validateIsActive(account);
                 String password = encryptor.decodePassword(encryptedPassword);
                 accountValidator.validateCorrectPassword(password, account.getPassword());
-                account.setAvailableTries(Account.TRIES);
+                account.setAttempts(Account.TRIES);
                 isConnected = accountMapper.update(account);
             }catch (InactiveAccount e) {
                 logger.logError(e.getError());
             }catch (WrongPasswordExcepcion e){
-                account.setAvailableTries(account.getAvailableTries() - 1);
+                account.setAttempts(account.getAttempts() - 1);
                 accountMapper.update(account);
                 logger.logError(e.getError());
             }catch (AccountException e) {
@@ -86,7 +86,7 @@ public class AccountManager {
             accountValidator.validateAccount(account);
             String securedPassword = encryptor.generateSecurePassword(newPassword);
             account.setPassword(securedPassword);
-            account.setAvailableTries(Account.TRIES);
+            account.setAttempts(Account.TRIES);
             accountMapper.update(account);
         } catch (AccountException e) {
             logger.logError(e.getError());

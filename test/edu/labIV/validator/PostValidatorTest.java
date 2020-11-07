@@ -27,17 +27,17 @@ class PostValidatorTest {
 
     @Test
     public void validURL() {
-        assertDoesNotThrow(() -> postValidator.validateUrl("https://google.com"));
+        assertDoesNotThrow(() -> postValidator.validateImagePath("https://google.com"));
     }
 
     @Test
     public void invalidURLNoResponse() {
-        assertThrows(exceptionClass, () -> postValidator.validateUrl("https://NoExistente.com.ar"));
+        assertThrows(exceptionClass, () -> postValidator.validateImagePath("https://NoExistente.com.ar"));
     }
 
     @Test
     public void invalidURLFormat() {
-        assertThrows(exceptionClass, () -> postValidator.validateUrl("google"));
+        assertThrows(exceptionClass, () -> postValidator.validateImagePath("google"));
     }
 
     @Test

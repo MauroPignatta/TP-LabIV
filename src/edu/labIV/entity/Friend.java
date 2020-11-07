@@ -6,9 +6,9 @@ public class Friend {
     private String status;
 
     public Friend(int userId, int friendId, String status) {
-        this.userId = userId;
-        this.friendId = friendId;
-        this.status = status;
+        setUserId(userId);
+        setFriendId(friendId);
+        setStatus(status);
     }
 
     public Friend() {

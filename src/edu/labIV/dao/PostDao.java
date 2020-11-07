@@ -16,19 +16,19 @@ public class PostDao extends Dao<Post> {
     private static final String POST_ID = "post_id";
     private static final String POST_USER_ID = "account_id";
     private static final String POST_TEXT = "text";
-    private static final String POST_URL = "url";
+    private static final String POST_IMAGE = "image_path";
     private static final String POST_DATE = "date";
 
     @Override
     public boolean save(Post entity) {
         boolean executed = false;
-        String sql = "INSERT INTO " + POST_TABLE + "(" + POST_USER_ID +", "+ POST_TEXT +", "+ POST_URL +", "+
+        String sql = "INSERT INTO " + POST_TABLE + "(" + POST_USER_ID +", "+ POST_TEXT +", "+ POST_IMAGE +", "+
                 POST_DATE +")  VALUES(?,?,?,?)";
         try{
             PreparedStatement statement = db.createPrepareStatement(sql);
             statement.setInt(1, entity.getUserId());
             statement.setString(2, entity.getText());
-            statement.setString(3, entity.getUrl());
+            statement.setString(3, entity.getImagePath());
             statement.setObject(4, entity.getDate());
             executed = statement.executeUpdate() == 1;
         } catch (SQLException e) {
@@ -80,7 +80,7 @@ public class PostDao extends Dao<Post> {
                 post.setPostId(postId);
                 post.setDate(resultSet.getObject(POST_DATE, LocalDateTime.class));
                 post.setText(resultSet.getString(POST_TEXT));
-                post.setUrl(resultSet.getString(POST_URL));
+                post.setImagePath(resultSet.getString(POST_IMAGE));
             }
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -107,7 +107,7 @@ public class PostDao extends Dao<Post> {
                 post.setPostId(resultSet.getInt(POST_ID));
                 post.setDate(resultSet.getObject(POST_DATE, LocalDateTime.class));
                 post.setText(resultSet.getString(POST_TEXT));
-                post.setUrl(resultSet.getString(POST_URL));
+                post.setImagePath(resultSet.getString(POST_IMAGE));
                 postList.add(post);
             }
         } catch (SQLException ex) {
