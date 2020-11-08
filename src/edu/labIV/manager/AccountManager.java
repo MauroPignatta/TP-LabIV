@@ -24,7 +24,6 @@ public class AccountManager {
 
     public boolean login(String email, String encryptedPassword){
         boolean isConnected = false;
-        PasswordEncryptor encryptor = new PasswordEncryptor();
         Account account = accountMapper.get(email);
         if(account.getAttempts() == 0){
             //TODO mandar formulario para cambiar contraseña
@@ -32,8 +31,7 @@ public class AccountManager {
             try{
                 accountValidator.validateAccount(account);
                 accountValidator.validateIsActive(account);
-                String password = encryptor.decodePassword(encryptedPassword);
-                accountValidator.validateCorrectPassword(password, account.getPassword());
+                accountValidator.validateCorrectPassword(encryptedPassword, account.getPassword());
                 account.setAttempts(Account.TRIES);
                 isConnected = accountMapper.update(account);
             }catch (InactiveAccount e) {

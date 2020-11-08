@@ -53,8 +53,8 @@ public class ManagerGod {
     }
 
     public boolean signIn(String email, String password, User user){
-        boolean hasSignIn = true;
-        if(accountManager.signIn(email, password)){
+        boolean hasSignIn;
+        if(hasSignIn = accountManager.signIn(email, password)){
             Account account = accountManager.getAccount(email);
             user.setId(account.getId());
             if(!userManager.saveUser(user)){

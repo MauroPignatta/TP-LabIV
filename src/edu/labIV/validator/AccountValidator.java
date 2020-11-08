@@ -42,9 +42,9 @@ public class AccountValidator {
         }
     }
 
-    public void validateCorrectPassword(String password, String securedPassword) throws WrongPasswordExcepcion {
+    public void validateCorrectPassword(String encryptedPassword, String securedPassword) throws WrongPasswordExcepcion {
         PasswordEncryptor encryptor = new PasswordEncryptor();
-        if(!encryptor.verifyPassword(password, securedPassword)){
+        if(!encryptor.verifyPassword(encryptedPassword, securedPassword)){
             throw new WrongPasswordExcepcion();
         }
     }

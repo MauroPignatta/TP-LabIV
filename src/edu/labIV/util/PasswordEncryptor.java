@@ -46,7 +46,8 @@ public class PasswordEncryptor {
         return new String(Base64.getDecoder().decode(password));
     }
 
-    public boolean verifyPassword(String password, String securedPassword) {
+    public boolean verifyPassword(String encryptedPassword, String securedPassword) {
+        String password = decodePassword(encryptedPassword);
         String newSecurePassword = generateSecurePassword(password);
         return newSecurePassword.equalsIgnoreCase(securedPassword);
     }
