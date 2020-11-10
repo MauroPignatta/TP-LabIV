@@ -1,141 +1,54 @@
-var photosLists = [];
-localStorage.clear();
-
-// PODRIA SER UNA FOTO, FOTO Y TEXTO, O TEXTO SOLO
-function formHistory(btnHistory) {
-	postPhotos(1);
-}
+// AL PRESIONAR EL BOTON
 function formPhotos(btnPhotos) {
-	postPhotos(2);
+	taked();
 }
 
-// SUPERVISA LOCAL STORAGE DEL PC
-function postPhotos(num) {
-	if (storageAvailable('localStorage')) {
-		taked(num);
-	}
-	else {		
-		ui.noStorage();
-	}
-}
-function storageAvailable(type) {
-	try {
-		var storage = window[type],
-			x = '__storage_test__';
-		storage.setItem(x, x);
-		storage.removeItem(x);
-		return true;
-	}
-	catch (e) {
-		return e instanceof DOMException && (
-			// everything except Firefox
-			e.code === 22 ||
-			// Firefox
-			e.code === 1014 ||
-			// test name field too, because code might not be present
-			// everything except Firefox
-			e.name === 'QuotaExceededError' ||
-			// Firefox
-			e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-			// acknowledge QuotaExceededError only if there's something already stored
-			storage.length !== 0;
-	}
-}
-
-// funcion que realiza de acuerdo al tipo de publicacion que debe hacer
-function taked(numero) {	
-	var dataHistory = document.getElementById("Textarea1").value;
+// funcion que toma el texto publicado, y si esta correcto continúa
+function taked() {
 	var dataPostPhotos = document.getElementById("Textarea1").value;
 	Textarea1.value = "";	
 
-	if (dataHistory === "" || dataPostPhotos === ""){
+	if (dataPostPhotos === ""){
 		ui.danger();
-	}
-
-	switch (numero) {
-		case 1:
-			ui.addHistoryPhotos(dataHistory);
-			ui.correct();
-			break;
-		case 2:
-			createPostPhotos(dataPostPhotos);
-			/*ui1.addPostPhotos(publicaciones.dataPostPhotos);*/
-			ui.correct();
-			break;
-		default:
-			ui.danger();
-			break;
+	}else{
+		createPostPhotos(dataPostPhotos);
+		ui.correct();
 	}
 };
 
+// funcion que recibe el texto, y agrega la Foto publicada.
 function createPostPhotos(dato){
-	const recentImageDataUrl = localStorage.getItem("recent-image");	
+	const urlPhotos = "http://localhost:8081/Devs/rest/service/login";
+		recentImageDataUrl = localStorage.getItem("recent-image");
+	localStorage.removeItem("recent-image");
+
+	var phName = document.getElementById("firstNameProfile").value + " " + document.getElementById("lastNameProfile").value;
+	
 	let postFoto = {
-		name: "Mariano",
+		name: phName,
 		texto: dato,
 		img: recentImageDataUrl
 	}
-	photosLists.push(postFoto)
-	localStoragePhotosList(photosLists)
-	ui.addPostPhotos(dato)
-	
-	/*
-	if (recentImageDataUrl) {
-		document.querySelector("#image-preview").setAttribute("src", recentImageDataUrl);
-	}
-	*/
-	
+
+	var resulAjaxPostPhotos = JSON.parse(op.sendPostJson(postFoto, urlPhotos));
+	if (resulAjaxPostPhotos.result){
+        requestPhotos();
+    }else{
+        ui.invalidAdd('Hubo un error al generar el post, intenta nuevamente por favor. Gracias.');
+    }
 }
 
-function getPhotosList() {
-	var storedList = localStorage.getItem('elementList');
-	var listPhotos = [];
-	if (storedList == null) {
-		listPhotos = [];
-	} else {
-		listPhotos = JSON.parse(storedList);
-	}
-	return listPhotos;
+// Funcion que pide al back la lista de posteos del usuario para mostrar en el sitio
+function requestPhotos(){
+	const urlPostList = "http://localhost:8081/Devs/rest/service/login";   
+    	  resulAjaxGetPostList = JSON.parse(op.sendGetJson(urlPostList));
+   	
+ 	if (resulAjaxGetPostList == null) {
+ 		ui.invalidAdd('La Lista de Photos llego vacía.');
+ 	} else {
+ 		ui.addPostPhotos(resulAjaxGetPostList);	
+ 	}    
 }
-
-function localStoragePhotosList(photosLists) {
-	localStorage.setItem('elementList', JSON.stringify(photosLists));
-}
-
-
-
-
-/*
-function addObject(element) {
-
-	let idFotos = parseInt(localStorage.getItem("idsFot"));
-	console.log(idFotos)
-
-	localStorage.setItem("idFotos", element);
-	localStorage.setItem("idsFot", idFotos);
-}
-*/
-
-function showImages(num) {
-	for (let i = 0; i < localStorage.length; i++) {
-		if (i === num) {
-			let res = localStorage.getItem(localStorage.key(i))
-			image.src = res;
-		}
-	}
-}
-
-/*
-document.addEventListener("DOMContentLoaded", () => {
-		const recentImageDataUrl = localStorage.getItem("recent-image");
-
-		if (recentImageDataUrl) {
-			document.querySelector("#imgPreview").setAttribute("src", recentImageDataUrl);
-		}
-
-		localStorage.removeItem("recent-image");
-	});
-*/
 
 // DOM EVENTS
 
@@ -154,4 +67,3 @@ document.querySelector('#fileFoto').addEventListener('change', (e)=>{
 	});
 	reader.readAsDataURL(e.target.files[0]);
 });	
-

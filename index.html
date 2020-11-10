@@ -11,12 +11,26 @@
     <link rel="stylesheet" href="css/sweetalert2.min.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/efectos.js"></script>
 
     <title>DEVS</title>
 </head>
 
 <body>
 
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/efectos.js"></script>
+    <script src="js/friendsUsers.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/links.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/photos.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/uiFunctions.js"></script>
+    
 	<!--Comienzo del Header-->
     <header>
         <div class="container">
@@ -29,19 +43,21 @@
                             <img src="img/logo.png" alt="">
                             <a class="nav-link" href="#"></a> 
                             <div class=" iconsMenu collapse navbar-collapse right hide-on-med-and-down" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">                                
+                                <ul class="navbar-nav mr-auto">
                                     <a class="nav-link" href="#inicio"><img src="icons/hogar.png" alt=""></a>
-                                    <a class="nav-link" href="friends.html"><img src="icons/contactos.png" alt=""></a>
-                                    <a class="nav-link" href="#inicio"><img src="icons/mensaje.png" alt=""></a>
+                                    <a id="profiles" class="nav-link" href="profile.html"><img src="icons/perfil.png" alt=""></a>
+                                    <a id="contactos" class="nav-link" href="friends.html"><img src="icons/contactos.png" alt=""></a>
                                     <a class="nav-link" href="https://radio.x-team.com/"><img src="icons/radio.png" alt="" target="_blank"></a>
-                                    <a class="nav-link" href="users.html"><img src="icons/buscar.png" alt=""></a>
+                                    <a id="buscar" class="nav-link" href="users.html"><img src="icons/buscar.png" alt=""></a>
+                                    <a id="solicitud" class="nav-link" href="toMe.html"><img src="icons/solicitud.png" alt=""></a>
+                                    <a id="logout" class="nav-link" href=""><img src="icons/logout.png" alt=""></a>
                                 </ul> 
 
                                 <form class="form-inline my-2 my-lg-0">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar en Devs</button>
+                                    <a id="dia" class="nav-link" href=""><img src="icons/dia.png" alt=""></a>
+                                    <a id="noche" class="nav-link" href=""><img src="icons/noche.png" alt=""></a>
                                 </form>
-
+                                
                             </div>
                         </nav>
                         <!--Fin de la Barra de Menu-->
@@ -61,16 +77,7 @@
                 <section class="columna1 col-2 offset-fixed f-left pt-2">
 
                     <!--INICIO SESION DE USUARIO-->
-                    <div id="fondoLinks" class="row col-lg-12 side-left">
-                        <div class="d-flex">
-                            <div>
-                                <img class="rounded-circle" src="fotos/chico.png" width="90" alt="">
-                            </div>
-                            <div class="ml-3 h7">
-                                <a href="profile.html">ACA OBTENER EL NOMBRE DEL USUARIO</a>
-                            </div>
-                        </div>            
-                    </div> 
+                     <div id="profileUser" class="row col-lg-12 side-left"></div>
                     <!--FIN SESION DE USUARIO-->
                     <hr>
                     <!--INICIA OPCIONES-->   
@@ -137,6 +144,14 @@
                                     <img src="icons/it.png" alt="ENCUENTROSIT" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
                                 <p id="detalleOpciones">Encuentros IT</p>
+                            </li>
+                        </ul>
+
+                        <ul class="titleRegister list-inline">
+                            <li class="list-inline-item"><a titles="CUVL" href="https://www.vicentelopez.gov.ar/centrouniversitariovl" target="_blank">
+                                    <img src="icons/cuvl.png" alt="CUVL" /></a></li>
+                            <li class="list-inline-item"><a href="#"></a>
+                                <p id="detalleOpciones">CUVL</p>
                             </li>
                         </ul>
                     </div>
@@ -220,10 +235,9 @@
                             <!--INICIO BOTONES DE ELECCION / Mas colores info, light, dark, link-->
                             <div class="botons card-footer p-2">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <input type="button" name="Links" id="btnLinks" value="Links" onclick="formLinks(btnLinks)" class="btn btn-primary"/>                                    
-                                    <input type="button" name="Post" id="btnPosted" value="Post" onclick="formPosted(btnPosted)" class="btn btn-success"/>
-                                    <input type="button" name="Photos" id="btnPhotos" value="Photos" onclick="formPhotos(btnPhotos)" class="btn btn-danger"/> 
-                                    <input type="button" name="Message" id="btnMessage" value="Message" onclick="formMessage(btnMessage)" class="btn btn-warning"/>                                      
+                                    <input type="button" name="Links" id="btnLinks" value="New Links" onclick="formLinks(btnLinks)" class="btn btn-primary"/>                                    
+                                    <input type="button" name="Post" id="btnPosted" value="Post Text" onclick="formPosted(btnPosted)" class="btn btn-success"/>
+                                    <input type="button" name="Photos" id="btnPhotos" value="Post Text & Photos" onclick="formPhotos(btnPhotos)" class="btn btn-danger"/>
                                 </div>
                             </div>
                             <!--FIN BOTONES DE ELECCION-->                            
@@ -231,7 +245,9 @@
                         </div>
                         <!-- FIN FORMULARIO DE PUBLICACIONES -->
 
-                        <div id="publicacionesPost" class="col-lg-12"></div>                       
+                        <!--INICIO IMPRESION Y MUESTRA DE PUBLICACIONES-->
+                        <div id="publicacionesPost" class="col-lg-12"></div> 
+                        <!--FIN IMPRESION Y MUESTRA DE PUBLICACIONES-->
 
                     </div>
                     <!--FIN PUBLICACIONES-->                    
@@ -286,16 +302,8 @@
         </div>
         <!--FIN CONTAINER FLUID PRIMERO DEL MAIN--> 
     </main>
-    <!--Fin del Main-->
+    <!--Fin del Main-->        
     
-    <script src="js/ui.js"></script>
-    <script src="js/links.js"></script>
-    <script src="js/photos.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/sweetalert2.all.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

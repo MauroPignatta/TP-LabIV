@@ -1,6 +1,7 @@
-const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-const passRegex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/;
-const namesRegex = /^([a-zA-Z])+$/;
+// funcion que me trae del Register HTML
+function formRegister(btnRegister) {
+    registed();
+};
 
 // funcion que me trae del Login HTML 
 function formLogin(btnLogin) {		
@@ -12,168 +13,113 @@ function formForgot(btnForgot) {
 	forgoted();
 };
 
-// funcion que me trae del Register HTML
-function formRegister(btnRegister) {
-	registed();
-};
-
 // Funcion que atiende al Login
 function log(){
-    var loged = {};
-	loged.email = document.getElementById('email');
-	loged.pass = document.getElementById('password');
+    var urlLog = "http://localhost:8081/Devs/rest/service/login";
 
-	let resLogin = isNullEmpty(loged.email);
-    resLogin &= isNullEmpty(loged.pass);
-    resLogin &= isEmailCorrect(loged.email);
-	resLogin &= isPassCorrect(loged.pass);
+    var loged = {
+        email : document.getElementById('email').value,
+        pass : document.getElementById('password').value    
+    };	
 
-	if (resLogin){
-		$.ajax({
-			url: "rest/restServices",
-			type: "POST",
-			data: JSON.stringify(loged),
-			contentType: "application/json",
-			complete: resultado
-		});					
-		ui.withImg();
-	}else{
-		ui.danger();
-	}	
-	
-	// FALTA DEVOLVER AL FRONT Y CONTINUAR AL SITIO O QUE LO INGRESE NUEVAMENTE
+	let resLogin = op.isNotNullEmpty(loged.email);
+    resLogin &= op.isNotNullEmpty(loged.pass);
+    resLogin &= op.isEmailCorrect(loged.email);
+	resLogin &= op.isPassCorrect(loged.pass);
+
+	if (resLogin){var resulAjaxPostLog = JSON.parse(op.sendPostJson(loged, urlLog));}
+	if (resulAjaxPostLog.result){request();}else{ui.danger();}
 }
 
+// Funcion que solicita los datos del Perfil del Usuario
+function request(){
+    var urlUser = "http://localhost:8081/Devs/rest/service/login";  
+        resulAjaxGetUser = JSON.parse(op.sendGetJson(urlUser));
 
+    ui.withImg();
+    window.location.href = "index.html";
+    ui.addProfile(resulAjaxGetUser);
+}
+
+// Funcion que atiende a una nueva contraseña
 function forgoted(){
-    var forgot = {};
-	forgot.email = document.getElementById('email');
-    forgot.pass1 = document.getElementById('password1');
-    forgot.pass2 = document.getElementById('password2');
+    var urlForgot = "http://localhost:8081/Devs/rest/service/login";
+        pass2 = document.getElementById('password2').value;
 
-    let resForgot = isNullEmpty(forgot.email);
-    resForgot &= isNullEmpty(forgot.pass1);
-    resForgot &= isEmailCorrect(forgot.email);
-    resForgot &= isPassCorrect(forgot.pass1);
-    resForgot &= forgot.pass1 == forgot.pass2 ? true : false;
+    var forgot = {
+        email : document.getElementById('email').value,
+        pass1 : document.getElementById('password1').value
+    };    	
 
-    if (resForgot) {
-        $.ajax({
-            url: "rest/rest/restServices",
-            type: "POST",
-            data: JSON.stringify(forgot),
-            contentType: "application/json",
-            complete: resultado
-        });
-        ui.withImg();
-    } else {
-        ui.danger();
-    }
+    let resForgot = op.isNotNullEmpty(forgot.email);
+    resForgot &= op.isNotNullEmpty(forgot.pass1);
+    resForgot &= op.isEmailCorrect(forgot.email);
+    resForgot &= op.isPassCorrect(forgot.pass1);
+    resForgot &= forgot.pass1 == pass2 ? true : false;    
 
-    // FALTA DEVOLVER AL FRONT Y CONTINUAR AL SITIO O QUE LO INGRESE NUEVAMENTE
+    if (resForgot){var resulAjaxPostForgot = JSON.parse(op.sendPostJson(forgot, urlForgot));}
+    if (resulAjaxPostForgot.result){
+        ui.correct();
+        window.location.href = "login.html";
+    }else{
+        ui.invalidAdd('Ha ingresado erroneamente su contraseña. Intentelo nuevamente. Gracias!');
+        window.location.href = "forgot.html";
+    }    
 }
 
+// Funcion que atiende al Registro de un Nuevo Usuario
 function registed(){
-    var checkin = {};
-	checkin.name = document.getElementById('firstName');
-    checkin.lastName = document.getElementById('lastName');
-    checkin.email1 = document.getElementById('email1');
-    let email2 = document.getElementById('email2');
-    checkin.address1 = document.getElementById('address1');
-    let address2 = document.getElementById('address2');
-    checkin.year = document.getElementById('year');
-    checkin.month = document.getElementById('month');
-    checkin.day = document.getElementById('day');
-    checkin.photo = localStorage.getItem("myPhoto");
+    var urlRegister = "http://localhost:8081/Devs/rest/service/login";
+    var checkin = {
+        name : document.getElementById('firstName').value,
+        lastName : document.getElementById('lastName').value,
+        email : document.getElementById('email1').value,        
+        address : document.getElementById('address1').value,
+        year : document.getElementById('year').value,
+        month : document.getElementById('month').value,
+        day : document.getElementById('day').value,
+        photo : localStorage.getItem('myPhotoPerfil')
+    };    
+    var cemail2 = document.getElementById('email2').value;
+        caddress2 = document.getElementById('address2').value;
 
-    let resCheck = isNullEmpty(checkin.name);
-    resCheck &= isNullEmpty(checkin.lastName);
-    resCheck &= isNullEmpty(checkin.email1);
-    resCheck &= isNullEmpty(checkin.address1);
-    resCheck &= isNullEmpty(checkin.year);
-    resCheck &= isNullEmpty(checkin.month);
-    resCheck &= isNullEmpty(checkin.day);
-    resCheck &= isEmailCorrect(checkin.email1);
-    resCheck &= isPassCorrect(checkin.address1);
-    resCheck &= isNameCorrect(checkin.name);
-    resCheck &= isNameCorrect(checkin.lastName);
-    resCheck &= checkin.email1 == email2 ? true : false;
-    resCheck &= checkin.address1 == address2 ? true : false;
-    resCheck &= isYearCorrect(checkin.year);
-    resCheck &= isMonthCorrect(checkin.month);
-    resCheck &= isDayCorrect(checkin.day);
+    let resCheck = op.isNotNullEmpty(checkin.name);
+    resCheck &= op.isNotNullEmpty(checkin.lastName);
+    resCheck &= op.isNotNullEmpty(checkin.email);
+    resCheck &= op.isNotNullEmpty(checkin.address);
+    resCheck &= op.isNotNullEmpty(checkin.year);    
+    resCheck &= op.isNotNullEmpty(checkin.month);
+    resCheck &= op.isNotNullEmpty(checkin.day);  
+    resCheck &= op.isNumber(checkin.year);  
+    resCheck &= op.isNumber(checkin.month);
+    resCheck &= op.isNumber(checkin.day);
+    resCheck &= op.isEmailCorrect(checkin.email);
+    resCheck &= op.isPassCorrect(checkin.address);
+    resCheck &= op.isNameCorrect(checkin.name);
+    resCheck &= op.isNameCorrect(checkin.lastName);    
+    resCheck &= checkin.email == cemail2 ? true : false;
+    resCheck &= checkin.address == caddress2 ? true : false;
+    resCheck &= op.isFecha(checkin);
 
-    if (resCheck) {
-        $.ajax({
-            url: "rest/rest/restServices",
-            type: "POST",
-            data: JSON.stringify(checkin),
-            contentType: "application/json",
-            complete: resultado
-        });
-        ui.withImg();
+    if (resCheck){var resulAjaxPostRegister = JSON.parse(op.sendPostJson(checkin, urlRegister));}
+    if (resulAjaxPostRegister.result){
+        ui.correct();
+        window.location.href = "login.html";
+        //localStorage.removeItem('myPhotoPerfil');
     } else {
-        ui.danger();
+        ui.invalidAdd('Ha ingresado erroneamente su contraseña. Intentelo nuevamente. Gracias!');
+        window.location.href = "register.html";
     }
-
-    // FALTA DEVOLVER AL FRONT Y CONTINUAR AL SITIO O QUE LO INGRESE NUEVAMENTE
 }
 
-// FUNCTION AND METHODS
+// DOM EVENTS
 
-// Funcion que supervisa que el campo no este nulo ni vacío
-function isNullEmpty(text) {
-    if(text===null || text===' '){ui.danger();}
-}
-
-// Funcion que supervisa si el email cumple con los requisitos
-function isEmailCorrect(mail){
-    let ress=false; 
-    if(!emailRegex.test(mail.value){ui.invalidAdd('Email inválido. Vuelve a cargarlo.');
-    }else{ress=true;}
-    return ress;
-}
-// // Funcion que supervisa si el password cumple con los requisitos
-function isPassCorrect(passView){
-    let resPass=false;  
-    if(!passRegex.test(passView.value){ui.invalidAdd('Debe contener Números, Letras Mayúsculas y Minúsculas, algunos caracteres.');
-    }else{resPass=true;}
-    return resPass;
-}
-
-// Funcion que supervisa el ingreso de Name y lastName
-function isNameCorrect(names) {
-    let resName=false;
-    if(!namesRegex.test(names.value){ui.invalidAdd('Debe contener solo letras.');}else{resName=true;}
-    return resName;
-}
-
-// Funcion que supervisa que el año de nacimiento sea válido
-function isYearCorrect(year) {
-    let resYear=false;
-    if(!year>1915 && year<=2020){ui.invalidAdd('Debes ingresar un año válido.');}else{resYear=true;}
-    return resYear;
-}
-
-// Funcion que supervisa que el mes de nacimiento sea válido
-function isMonthCorrect(month) {
-    let resMonth=false;
-    if(!month>0 && month<=12){ui.invalidAdd('Debes ingresar un mes válido.');}else{resMonth=true;}
-    return resMonth;
-}
-
-// Funcion que supervisa que el día de nacimiento sea válido
-function isDayCorrect(day) {
-    let resDay=false;
-    if(!day>0 && day<=31){ui.invalidAdd('Debes ingresar un día válido.');}else{resDay=true;}
-    return resDay;
-}
-
-// funcion que capta la img y la guarda en localStorage
-document.querySelector('#fotoPerfil').addEventListener('change', (e)=>{   
+// Funcion que capta la img y la guarda en localStorage
+document.querySelector('#fotoPerfil').addEventListener('change', (e) => {   
     const reader = new FileReader();    
     reader.addEventListener("load", () => {
-        localStorage.setItem("myPhoto", reader.result); 
+        localStorage.setItem("myPhotoPerfil", reader.result); 
     });
     reader.readAsDataURL(e.target.files[0]);
 }); 
+

@@ -1,9 +1,25 @@
 class UI {
+    addProfile(profiles){
+        let names = profiles.name + " " + profiles.lastName;
+        const profileList = document.getElementById('profileUser');
+        const elementProfile = document.createElement('div');
+        element.innerHTML = `
+            <div class="d-flex">
+                <div>
+                    <img class="rounded-circle" src="${profiles.img}" width="90" alt="">
+                </div>
+                <div class="ml-3 h7">
+                    <a href="profile.html">${names}</a>
+                </div>
+            </div>                      
+        `;
+        profileList.appendChild(elementProfile);
+    }
     addLinks(link) {
         const linksList = document.getElementById('links-list');
         const element = document.createElement('div');
         element.innerHTML = `
-						<div class="card-body text-center mb-2">	
+						<div class="card-body text-center mb-2">                	
                 <a tittles="Links" href="${link}" target="_blank">${link}</a>
 				<a href="" class="btn btn-danger" id="btnDelete" name="delete">X</a>
 			</div>
@@ -49,11 +65,9 @@ class UI {
         postLists.appendChild(element);
     }    
 
-    addPostPhotos(dato) {
+    addPostPhotos(list) {
         const postLists = document.getElementById('publicacionesPost');
-        var list = getPhotosList();
         const postPhoto = document.createElement('div');
-        /*<img id="image-preview" src="" alt="Preview">*/
         
         for (let i = 0; i < list.length; i++){
             if(dato == list[i].texto){
@@ -67,7 +81,7 @@ class UI {
                                     <p><b>${imgs.name}</b></p>
                                 </div>
                                 <div class="card-img">							
-                                    <img id="image-preview" src="${newImage.src}" alt="Preview">                            
+                                    <img src="${newImage.src}" alt="Preview">                            
                                 </div>
                                 <div class="card my-3 card-body pt-0 pb-2">
                                     ${imgs.texto}
@@ -96,18 +110,8 @@ class UI {
                                 </div>				
                     </div>
                 `;  
-                postLists.appendChild(postPhoto); 
-                
-            }  
-            /* 
-            const recentImageDataUrl = localStorage.getItem("recent-image");
-            console.log(recentImageDataUrl)
-            console.log(divs.texto)
-            console.log(divs.img)
-            if (recentImageDataUrl) {
-                document.querySelector("#i").setAttribute("src", recentImageDataUrl);
-            } 
-            */             
+                postLists.appendChild(postPhoto);                 
+            }    
         }                           
     }
 

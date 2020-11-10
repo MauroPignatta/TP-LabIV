@@ -199,6 +199,12 @@ div.imagen img:hover{
 #btnDelete{
     border-radius: 100%;
 }
+#addFriends{
+    background: green;
+}
+#notFriends{
+    background: red;
+}
 
 
 /* MEDIAS QUERIES*/
