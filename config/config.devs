@@ -20,3 +20,6 @@ attempts=5
 
 [POST]
 buffer=140
+
+[TOMCAT]
+URL=http://localhost:8080/TPService/
