@@ -1,4 +1,4 @@
-const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/;
 const passRegex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/;
 const namesRegex = /^([a-zA-Z])+$/;
 const numberRegex = /^([0-9])+$/;
@@ -37,7 +37,7 @@ class UIFunctions {
 	// Funcion que supervisa que los numeros asi lo sean
 	isNumber(num){
 	    let resNumber = true;
-	    if(!numberRegex.test(num.value)){ui.invalidAdd('Los datos deben ser numéricos.');resName=false;}
+	    if(!numberRegex.test(num.value)){ui.invalidAdd('Los datos deben ser numéricos.');resNumber=false;}
 	    return resNumber;
 	}
 
@@ -69,7 +69,7 @@ class UIFunctions {
 	    xhr.setRequestHeader("Content-Type", "application/json");    
 	    xhr.setRequestHeader("Connection", "close");
 
-	    xhr.onreadystatechange = function() {
+	    xhr.onload = function() {
 	      if(xhr.readyState === 4 && xhr.status === 200) {
 	        return this.responseText;
 	      }
@@ -89,7 +89,7 @@ class UIFunctions {
 
 	    // ver tema load
 	    
-	    xhr.onreadystatechange = function() {
+	    xhr.onload = function() {
 	      if(xhr.readyState === 4 && xhr.status === 200) {
 	        return this.responseText;
 	      }
