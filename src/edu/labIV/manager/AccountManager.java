@@ -65,30 +65,36 @@ public class AccountManager {
         return isSigned;
     }
 
-    public void activateAccount(String email){
-        Account account = accountMapper.get(email);
+    public boolean activateAccount(int id){
+        Account account = accountMapper.get(id);
+        boolean isActivated = false;
         try {
             accountValidator.validateAccount(account);
-            account.setActive(true);
-            accountMapper.update(account);
+            if(isActivated = !account.isActive()){
+                account.setActive(true);
+                accountMapper.update(account);
+            }
         } catch (AccountException e) {
             logger.logError(e.getError());
         }
+        return isActivated;
     }
 
-    public void changePassword(String email, String newPassword){
+    public boolean changePassword(String email, String newPassword){
         Account account = accountMapper.get(email);
         PasswordEncryptor encryptor = new PasswordEncryptor();
+        boolean changed = false;
         try {
             accountValidator.validatePass(newPassword);
             accountValidator.validateAccount(account);
             String securedPassword = encryptor.generateSecurePassword(newPassword);
             account.setPassword(securedPassword);
             account.setAttempts(Account.TRIES);
-            accountMapper.update(account);
+            changed = accountMapper.update(account);
         } catch (AccountException e) {
             logger.logError(e.getError());
         }
+        return changed;
     }
 
     public boolean deleteAccount(String email){

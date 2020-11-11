@@ -14,7 +14,8 @@ public enum ConfigKey {
     ENC_ITERATIONS("iterations"),
     ENC_KEY_LENGTH("key_length"),
     ACC_ATTEMPTS("attempts"),
-    POST_BUFFER("buffer");
+    POST_BUFFER("buffer"),
+    TOMCAT_URL("URL");
 
     private final String key;
 

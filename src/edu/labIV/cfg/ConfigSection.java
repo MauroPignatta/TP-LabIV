@@ -5,5 +5,6 @@ public enum ConfigSection {
     MAIL,
     ENCRYPTOR,
     ACCOUNT,
-    POST
+    POST,
+    TOMCAT
 }

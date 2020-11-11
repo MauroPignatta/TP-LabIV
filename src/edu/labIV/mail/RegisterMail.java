@@ -1,34 +1,30 @@
 package edu.labIV.mail;
 
-import java.io.*;
+public class RegisterMail extends Mail {
 
-public class RegisterMail {
-
-    private static String htmlContent;
+    private static String subject = "Devs Social Network - Registro";
+    private static String USER_REPLACEMENT = "$USER$";
+    private static String URL_REPLACEMENT = "$URL$";
+    
     private static boolean isInitialized;
+    private static String htmlContent;
 
-    private static void init(){
-        File htmlFile = new File("res/mail/activation.html");
-        StringBuilder builder = new StringBuilder();;
-        try {
-            FileReader fileReader = new FileReader(htmlFile);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            while( (line = bufferedReader.readLine()) != null){
-                builder.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        htmlContent = builder.toString();
+    private static void init() {
+        htmlContent = getHTMLContent("res/mail/register.html");
         isInitialized = true;
     }
 
-    public static String getRegisterMailBody(String userName, String url){
-        if(!isInitialized)
+    public static String getBody(String userName, String url) {
+        if (!isInitialized) {
             init();
-        String html = htmlContent.replace("$USER$", userName);
-        return html.replace("$URL$", url);
+        }
+
+        String html = htmlContent.replace(USER_REPLACEMENT, userName);
+        return html.replace(URL_REPLACEMENT, url);
+    }
+
+    public static String getSubject() {
+        return subject;
     }
 
 }

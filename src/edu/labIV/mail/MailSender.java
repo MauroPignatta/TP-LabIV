@@ -3,6 +3,7 @@ package edu.labIV.mail;
 import edu.labIV.cfg.Config;
 import edu.labIV.cfg.ConfigKey;
 import edu.labIV.cfg.ConfigSection;
+import edu.labIV.exception.MailException;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -43,7 +44,7 @@ public class MailSender {
         return instance;
     }
 
-    public void sendMail(String recipient, String subject, String body) throws Exception {
+    public void sendMail(String recipient, String subject, String body) throws MailException {
         Properties props = System.getProperties();
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", account);
@@ -54,29 +55,33 @@ public class MailSender {
 
         Session session = Session.getDefaultInstance(props);
 
-        MimeMessage message = new MimeMessage(session);
-        InternetAddress address = new InternetAddress(recipient);
-        message.setFrom(address);
-        message.addRecipient(Message.RecipientType.TO, address);
-        message.setSubject(subject);
+        try {
+            MimeMessage message = new MimeMessage(session);
+            InternetAddress address = new InternetAddress(recipient);
+            message.setFrom(address);
+            message.addRecipient(Message.RecipientType.TO, address);
+            message.setSubject(subject);
 
-        MimeMultipart multipart = new MimeMultipart("related");
+            MimeMultipart multipart = new MimeMultipart("related");
 
-        BodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent(body, "text/html");
-        multipart.addBodyPart(messageBodyPart);
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(body, "text/html");
+            multipart.addBodyPart(messageBodyPart);
 
-        messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setDataHandler(new DataHandler(logoSource));
-        messageBodyPart.setHeader("Content-ID", "<image>");
-        multipart.addBodyPart(messageBodyPart);
+            messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setDataHandler(new DataHandler(logoSource));
+            messageBodyPart.setHeader("Content-ID", "<image>");
+            multipart.addBodyPart(messageBodyPart);
 
-        message.setContent(multipart);
+            message.setContent(multipart);
 
-        Transport transport = session.getTransport(protocol);
-        transport.connect(host, account, pass);
-        transport.sendMessage(message, message.getAllRecipients());
-        transport.close();
+            Transport transport = session.getTransport(protocol);
+            transport.connect(host, account, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        } catch (Exception e){
+            throw new MailException(recipient);
+        }
     }
 
 }

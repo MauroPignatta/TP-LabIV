@@ -19,6 +19,10 @@ public class Config {
         }
     }
 
+    public String getTomcatURL(){
+        return getString(ConfigSection.TOMCAT, ConfigKey.TOMCAT_URL);
+    }
+
     public int getLoginAttempts(){
         return getInt(ConfigSection.ACCOUNT, ConfigKey.ACC_ATTEMPTS);
     }
