@@ -15,15 +15,14 @@ import edu.labIV.mail.RegisterMail;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerGod {
-    //TODO cambiar nombre a la clase xd jaja lol mariano (profesor) te amo <3. por: Yago
+public class BackEndManager {
 
     private final AccountManager accountManager;
     private final UserManager userManager;
     private final FriendManager friendManager;
     private final PostManager postManager;
 
-    public ManagerGod() {
+    public BackEndManager() {
         ManagerFactory factory = new ManagerFactory();
         this.accountManager = factory.createAccountManager();
         this.userManager = factory.createUserManager();
@@ -32,7 +31,7 @@ public class ManagerGod {
     }
 
     public boolean logIn(String email, String encryptedPassword){
-        boolean hasLoggedIn = false;
+        boolean hasLoggedIn;
         if(hasLoggedIn = accountManager.login(email, encryptedPassword)){
             Account account = accountManager.getAccount(email);
             User user = userManager.getUser(account.getId());
@@ -42,12 +41,16 @@ public class ManagerGod {
         return hasLoggedIn;
     }
 
-    public void logOut(String email){
-        //TODO: Hay que verificar que el mail exista sino rompe
+    public boolean logOut(String email){
         Account account = accountManager.getAccount(email);
-        User user = userManager.getUser(account.getId());
-        user.setStatus(UserStatus.OFFLINE);
-        userManager.updateUser(user);
+        boolean logOut = false;
+        if (account != null) {
+            User user = userManager.getUser(account.getId());
+            user.setStatus(UserStatus.OFFLINE);
+            userManager.updateUser(user);
+            logOut = true;
+        }
+        return logOut;
     }
 
     public void delete(String email){
