@@ -1,4 +1,4 @@
-.body{    
+.log{    
   background-image: url(../img/fondo.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -9,22 +9,17 @@
   padding: 0;
   font-family: 'Open Sans', sans-serif;
 }
-
-.devcolor-text{ 
-  color: #ff840c;
-}
-
-.login-dark {
+.loguerin-dark {
     /*background: linear-gradient(145deg, #575b5d, #252b2d);*/
     background: black;
 }
-.login-card-purple {
+.loguerin-card-purple {
     background: linear-gradient(145deg, #673AB7, #9C27B0);
 }
-.login-blue {
+.loguerin-blue {
     background: linear-gradient(145deg, #2196F3, #3F51B5);
 }
-.login-purple-pink {
+.loguerin-purple-pink {
     background: linear-gradient(145deg, #3F51B5, #E91E63);
 }
 .loguer{    
@@ -32,37 +27,35 @@
     margin: auto;
     top: 0; left: 0; bottom: 0; right: 0;
     width: 500px;
-    height: 600px;
+    height: 90vh;
     overflow: hidden;
+}
+.title{
+  font-size: 50px;    
 }
 
 .g-recaptcha{
   padding: 10% 20%;
 }
 
-@media (min-width: 576px) {
-    .loguer {
-      max-width: 540px;
-    }
-  }
+/* MEDIAS QUERIES*/
+
+@media (min-width: 450px) {
+    .loguer{max-width: 380px;}    
+}
+
+@media (min-width: 600px) {
+    .loguer{max-width: 540px;}
+}
   
-  @media (min-width: 768px) {
-    .loguer {
-      max-width: 720px;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .loguer {
-      max-width: 960px;
-    }
-  }
-  
-  @media (min-width: 1200px) {
-    .loguer {
-      max-width: 1140px;
-    }
-  }
-  .title{
-    font-size: 50px;    
-  }
+@media (min-width: 768px) {
+    .loguer{max-width: 720px;}
+}  
+
+@media (min-width: 992px) {
+    .loguer{max-width: 960px;}
+}
+
+@media (min-width: 1200px) {
+    .loguer{max-width: 100%;}
+}

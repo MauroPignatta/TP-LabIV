@@ -1,95 +1,35 @@
-body{
-            background-color: #e9ebee;
-        }
-        .bg-fbook {
-            background-color: #4267b2 !important;
-            padding: .1rem 1rem;
-        }
-        .btn-fbook{
-            color: #4a4a4a;
-            background-color: #ffffff;
-            border-color: transparent;
-            font-weight: 700;
-            transition: all .5s;
-        }
-        .btn-fbook:hover{
-            background-color: #f0f0f0;
-            border-color: transparent;
-        }
-        .btn-fposts{
-            background-color: #f0f0f0;
-            border-color: transparent;
-            border-radius: 5rem;
-            transition: all 0.5s;
-        }
-        .btn-fposts:hover{
-            background-color: rgba(0,0,0,.05);
-            border-color: transparent;
-        }
-        .h7{
-            font-size: 0.87rem;
-            font-weight: 400;
-        }
-        .h8{
-            font-size: 0.78rem;
-            font-weight: 600;
-        }
-
-        .offset-fixed{
-            position: fixed;
-            top: 0;
-            bottom: 0;
-        }
-        .f-left{
-            margin-left: 0%;
-            left: 0
-        }
-        .f-right{
-            margin-right: 0%;
-            right: 0;
-        }
-        .side-left{
-            margin-top: 4rem;
-            margin-left: 8.07rem;            
-        }
-        .side-right{
-            margin-top: 4rem;
-            overflow-x: hidden;
-            overflow-y: auto;
-            justify-content: center;            
-            height: calc(50vh - 8rem);
-            width: calc(15vh - 8rem);            
-        }
-        .img-circle{
-            width: 5rem;
-            height: 3.1rem;
-            background-color: #f7f7f7;
-            border-radius: 50%;
-            border: 1px solid #dddddd;
-        }
-        .state{
-            width: 0.5rem;
-            height: 0.5rem;
-            background-color: green;
-            border-radius: 50%
-        }
-        .friend-state{
-            padding: 0.57rem 0.3rem;
-            cursor: pointer;
-            transition: all 0.1s;
-        }
-        .friend-state:hover{
-            background-color: #f7f7f7;
-        }
-        
-        @media (min-width: 1200px){
-            .container {
-                max-width: 1125px;
-            }
-            .c-navbar{
-                margin-left: 7rem !important;
-            }
-        }
+.offset-fixed{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+.f-left{
+    margin-left: 0%;
+    left: 0
+}
+.f-right{
+    margin-right: 0%;
+    right: 0;
+}
+.side-left{
+    margin-top: 4rem;
+    margin-left: 8.07rem;            
+}
+.side-right{
+    margin-top: 4rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    justify-content: center;            
+    height: calc(50vh - 8rem);
+    width: calc(15vh - 8rem);            
+}
+.img-circle{
+    width: 5rem;
+    height: 3.1rem;
+    background-color: #f7f7f7;
+    border-radius: 50%;
+    border: 1px solid #dddddd;
+}
 .menu{
     background: black;    
 }
@@ -99,14 +39,6 @@ body{
 #fondoLink{
     height: calc(50vh - 8rem);
 }
-
-#titleLinks{
-    font-family: Verdana;
-    font-size: 2rem;
-    color: darkblue;
-    margin-top: 3%;
-    margin-left: 10%;
-}
 #titleRealizaPublicaciones{
     font-family: Verdana;
     font-size: 2rem;
@@ -114,7 +46,7 @@ body{
     background-color: #440202;
     border-radius: 5%;    
 }
-#btnLinks, #btnHistory, #btnPosted, #btnPhotos, #btnMessage{
+#btnLinks, #btnPosted, #btnPhotos{
     padding-bottom: 3%;
     padding-block: 2%;
     padding-right: 5%;
@@ -128,8 +60,8 @@ body{
 div.carousel-fotos{
 	background-color: rgba(17, 8, 8, 0.979);  /*rgba(148, 3, 3, 0.7);*/
 	padding: 5px 0 50px;
-    margin: 18px 0 10px;}
-
+    margin: 18px 0 10px;
+}
 div.galeria{    
     width:95%;
 	margin:0 auto;
@@ -141,12 +73,10 @@ div.imagen{
 	margin: 2px 2px;
     width: 24%;
 }
-
 div.imagen img{
 	transition: 0.6s;
     max-width: 100%;    
 }
-
 div.imagen img:hover{
 	transform: scale(1.2);
 	overflow: hidden;
@@ -156,15 +86,23 @@ div.imagen img:hover{
     font-size: 1rem;
     color: chartreuse;
 }
-#titlePublicidades{
+#titlePubli{
     font-family: Impact;
-    font-size: 3rem;
-    justify-content: center;    
+    font-size: 2rem;
+    margin-top: 3%;
+    margin-left: 10%;
+    text-align: center;
 }
-.publicidades{
-    /*max-height: 50vh;    */
+#publicidades{
 	padding: 5px 0 5px;
     margin: 10px 0 0px;
+}
+#titleLink{
+    font-family: Impact;
+    font-size: 2rem;
+    margin-top: 3%;
+    margin-left: 10%;
+    text-align: center;
 }
 .galeriaPublicaciones{
     min-width: 48vh;
@@ -181,9 +119,7 @@ div.imagen img:hover{
 #detalleOpciones{
     font-family: Verdana;
     font-size: 18px;
-    color: black;
 }
-
 .socialweb{
     max-width: 100%;
     max-height: 100%;
@@ -210,31 +146,31 @@ div.imagen img:hover{
 /* MEDIAS QUERIES*/
 
 @media (min-width: 450px) {
-    .columna1, .columna2, .columna3, .botons{
-      max-width: 380px;
+        .columna1, .columna2, .columna3{
+          max-width: 380px;
     }    
-  }
+}
 
 @media (min-width: 600px) {
-    .columna1, .columna2, .columna3, .botons{
-      max-width: 540px;
+        .columna1, .columna2, .columna3{
+          max-width: 540px;
     }
-  }
+}
   
-  @media (min-width: 768px) {
-    .columna1, .columna2, .columna3, .botons{
-      max-width: 720px;
+@media (min-width: 768px) {
+        .columna1, .columna2, .columna3{
+          max-width: 720px;
     }
-  }  
-  
-  @media (min-width: 992px) {
-    .columna1, .columna2, .columna3, .botons{
-      max-width: 960px;
+}  
+
+@media (min-width: 992px) {
+        .columna1, .columna2, .columna3{
+          max-width: 960px;
     }
-  }
-  
-  @media (min-width: 1200px) {
-    .columna1, .columna2, .columna3, .botons{
-      max-width: 100%;
+}
+
+@media (min-width: 1200px) {
+        .columna1, .columna2, .columna3{
+          max-width: 100%;
     }
-  }
+}

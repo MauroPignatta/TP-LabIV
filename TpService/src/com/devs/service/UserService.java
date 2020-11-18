@@ -2,7 +2,7 @@ package com.devs.service;
 
 import com.google.gson.Gson;
 import edu.labIV.entity.User;
-import edu.labIV.manager.ManagerGod;
+import edu.labIV.manager.BackEndManager;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,10 +15,10 @@ import java.util.List;
 @Path("user")
 public class UserService {
 
-    private ManagerGod managerGod;
+    private BackEndManager manager;
 
     public UserService(){
-        managerGod = new ManagerGod();
+        manager = new BackEndManager();
     }
 
     @GET
@@ -26,7 +26,7 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserList(){
         Gson gson = new Gson();
-        List<User> userList = managerGod.getUserManager().getUserList();
+        List<User> userList = manager.getUserManager().getUserList();
 
         return Response.ok(gson.toJson(userList)).build();
     }
@@ -36,7 +36,7 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     public String getUser(@PathParam("id") int id){
         Gson gson = new Gson();
-        User user = managerGod.getUserManager().getUser(id);
+        User user = manager.getUserManager().getUser(id);
 
         return gson.toJson(user);
     }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
@@ -11,25 +11,11 @@
     <link rel="stylesheet" href="../css/sweetalert2.min.css">
     <link rel="stylesheet" href="../css/animate.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/efectos.js"></script>
 
     <title>DEVS</title>
 </head>
 
-<body>
-
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/efectos.js"></script>
-    <script src="../js/friendsUsers.js"></script>
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/links.js"></script>
-    <script src="../js/login.js"></script>
-    <script src="../js/photos.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/profile.js"></script>
-    <script src="../js/sweetalert2.all.min.js"></script>
-    <script src="../js/ui.js"></script>
-    <script src="../js/uiFunctions.js"></script>
+<body >   
     
 	<!--Comienzo del Header-->
     <header>
@@ -51,13 +37,14 @@
                                     <a id="buscar" class="nav-link" href="users.html"><img src="../icons/buscar.png" alt=""></a>
                                     <a id="solicitud" class="nav-link" href="toMe.html"><img src="../icons/solicitud.png" alt=""></a>
                                     <a id="logout" class="nav-link" href=""><img src="../icons/logout.png" alt=""></a>
-                                </ul> 
+                                </ul>
 
-                                <form class="form-inline my-2 my-lg-0">
-                                    <a id="dia" class="nav-link" href=""><img src="../icons/dia.png" alt=""></a>
-                                    <a id="noche" class="nav-link" href=""><img src="../icons/noche.png" alt=""></a>
-                                </form>
-                                
+                                <!-- INICIO BOTONES DE DIA Y NOCHE-->
+                                <button class="btn btn-dark" id="btnInicio" onclick="formColorsInicio(btnInicio)"><img src="../icons/inicio.png" alt=""></button>
+                                <button class="btn btn-dark" id="btnSunrise" onclick="formColorsSunrise(btnSunrise)"><img src="../icons/amanecer.png" alt=""></button>
+                                <button class="btn btn-dark" id="btnDays" onclick="formColorsDay(btnDays)"><img src="../icons/dom.png" alt=""></button> 
+                                <button class="btn btn-dark" id="btnNight" onclick="formColorsNight(btnNight)"><img src="../icons/noche.png" alt=""></button>
+                                <!-- FIN BOTONES DE DIA Y NOCHE-->                                
                             </div>
                         </nav>
                         <!--Fin de la Barra de Menu-->
@@ -81,13 +68,13 @@
                     <!--FIN SESION DE USUARIO-->
                     <hr>
                     <!--INICIA OPCIONES-->   
-                    <div class=" py-3 pt-2">
+                    <div id="detalleOpciones" class="py-3 pt-2">
 
                         <ul class="titleRegister list-inline">
                             <li class="list-inline-item"><a tittles="JUEGOS" href="https://www.juegosjuegos.com/" target="_blank">
                                     <img src="../icons/juegos.png" alt="JUEGOS"/></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Juegos</p>
+                                <p id="juegos" class="allLinks">Juegos</p>
                             </li>
                         </ul>
 
@@ -95,7 +82,7 @@
                             <li class="list-inline-item"><a titles="EMPLEOS" href="https://www.computrabajo.com.ar/" target="_blank">
                                     <img src="../icons/maletin.png" alt="EMPLEOS" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Empleos</p>
+                                <p id="empleos" class="allLinks">Empleos</p>
                             </li>
                         </ul>
 
@@ -103,7 +90,7 @@
                             <li class="list-inline-item"><a titles="OFERTAS" href="https://www.mercadolibre.com.ar/" target="_blank">
                                     <img src="../icons/ofertas.png" alt="OFERTAS" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Ofertas</p>
+                                <p id="ofertas" class="allLinks">Ofertas</p>
                             </li>
                         </ul>
 
@@ -111,7 +98,7 @@
                             <li class="list-inline-item"><a titles="CLIMA" href="https://www.accuweather.com/es/ar/buenos-aires/7894/weather-forecast/7894" target="_blank">
                                     <img src="../icons/clima.png" alt="CLIMA" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Clima</p>
+                                <p id="clima" class="allLinks">Clima</p>
                             </li>
                         </ul>
 
@@ -119,7 +106,7 @@
                             <li class="list-inline-item"><a titles="PELICULAS" href="https://cuevana3.io/" target="_blank">
                                     <img src="../icons/video.png" alt="PELICULAS" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Películas</p>
+                                <p id="peliculas" class="allLinks">Películas</p>
                             </li>
                         </ul>
 
@@ -127,7 +114,7 @@
                             <li class="list-inline-item"><a titles="CALENDARIO" href="https://doodle.com/es/calendario-online" target="_blank">
                                     <img src="../icons/calendario.png" alt="CALENDARIO" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Calendario</p>
+                                <p id="calendario" class="allLinks">Calendario</p>
                             </li>
                         </ul>
 
@@ -135,7 +122,7 @@
                             <li class="list-inline-item"><a titles="CURSOSYCARRERAS" href="http://www.cursosycarreras.com/" target="_blank">
                                     <img src="../icons/estudiar.png" alt="CURSOSYCARRERAS" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Cursos y Carreras</p>
+                                <p id="cursos" class="allLinks">Cursos y Carreras</p>
                             </li>
                         </ul>
 
@@ -143,25 +130,26 @@
                             <li class="list-inline-item"><a titles="ENCUENTROSIT" href="https://escuela.it/cursos/encuentros-it-quedateencasa" target="_blank">
                                     <img src="../icons/it.png" alt="ENCUENTROSIT" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">Encuentros IT</p>
+                                <p id="encuentros" class="allLinks">Encuentros IT</p>
                             </li>
                         </ul>
 
                         <ul class="titleRegister list-inline">
-                            <li class="list-inline-item"><a titles="CUVL" href="https://www.vicentelopez.gov.ar/centrouniversitariovl" target="_blank">
+                            <li class="list-inline-item">
+                                <a titles="CUVL" href="https://www.vicentelopez.gov.ar/centrouniversitariovl" target="_blank">
                                     <img src="../icons/cuvl.png" alt="CUVL" /></a></li>
                             <li class="list-inline-item"><a href="#"></a>
-                                <p id="detalleOpciones">CUVL</p>
+                                <p id="cuvl" class="allLinks">CUVL</p>
                             </li>
                         </ul>
                     </div>
                     <!--FIN OPCIONES-->
 
                     <!--Inicio del Footer-->
-                    <footer class="piePagina col-12 s12 m6">
+                    <footer class="col-12 s12 m6">
                         <div class="col-12 s12 m6 text-muted text-center text-small">
-                            <div class="datos">
-                                <p class="">&copy; 2020 DEVS</p>
+                            <div>
+                                <p class="datos">&copy; 2020 DEVS</p>
                                 <ul class="list-inline">
                                     <li class="list-inline-item"><a href="devsNosotros.html">Nosotros</a></li>
                                     <li class="list-inline-item"><a href="devsManual.html">Manual</a></li>
@@ -174,11 +162,9 @@
                                     <li class="list-inline-item"><img src="../logos/smallLogos/linkedin.png" alt=""></li>
                                     <li class="list-inline-item"><img src="../logos/smallLogos/whatsapp.png" alt=""></li>
                                     <li class="list-inline-item"><img src="../logos/smallLogos/youtube.png" alt=""></li>           
-                                </ul>
-                    
+                                </ul>                    
                             </div>
                         </div>
-                        <br><br>
                     </footer>
                     <!--Fin del Footer-->   
 
@@ -186,23 +172,23 @@
                 <!--FIN COLUMNA 1-->
 
                 <!--INICIA COLUMNA 2-->
-                <section class="columna2 col-7 offset-fixed my-5 pt-2"> <!--class="col-lg-7 offset-lg-3"-->                    
+                <section class="columna2 col-7 offset-fixed my-5 pt-2">                   
 
                     <!--INICIO CARROUSEL EVENTOS DE TECNOLOGIA-->
                     <div class="carousel-fotos carousel slide w-100 pb-4" data-ride="carousel">
                         <p class="titleEvents text-center">TECHNOLOGY EVENTS</p> 
                         <div class="galeria carousel-inner w-100" role="listbox"> 
                             <div class="carousel-item row no-gutters active">
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="IBM" href="https://www.ibm.com/events/think/" target="_blank"><img src="img/ibm.jpg" alt="IBM"/></a>IBM THINK</div>
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="GAMERS" href="https://gdconf.com/" target="_blank"><img src="img/gameDevelopers.png" alt="GAMERS"/></a>GAME DEVELOPERS</div>
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="ADOBE" href="https://summit.adobe.com/na/" target="_blank"><img src="img/adobe.jpg" alt="ADOBE"/></a>ADOBE SUBMIT</div>
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="GOOGLE" href="https://cloud.withgoogle.com/next18/sf/" target="_blank"><img src="img/google.jpg" alt="GOOGLE"/></a>GOOGLE CLOUD</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="IBM" href="https://www.ibm.com/events/think/" target="_blank"><img src="../img/ibm.jpg" alt="IBM"/></a>IBM THINK</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="GAMERS" href="https://gdconf.com/" target="_blank"><img src="../img/gameDevelopers.png" alt="GAMERS"/></a>GAME DEVELOPERS</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="ADOBE" href="https://summit.adobe.com/na/" target="_blank"><img src="../img/adobe.jpg" alt="ADOBE"/></a>ADOBE SUBMIT</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="GOOGLE" href="https://cloud.withgoogle.com/next18/sf/" target="_blank"><img src="../img/google.jpg" alt="GOOGLE"/></a>GOOGLE CLOUD</div>
                             </div>
                             <div class="carousel-item row no-gutters">
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="SLACK" href="https://slackfrontiers.com/" target="_blank"><img src="img/slack.jpg" alt="SLACK"/></a>SLACK FRONTIERS</div>
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="DELL" href="https://www.delltechnologiesworld.com/index.htm#" target="_blank"><img src="img/dell.jpg" alt="DELL"/></a>DELL TECHNOLOGIES</div>
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="ORACLE" href="https://www.oracle.com/openworld/" target="_blank"><img src="img/oracle.jpg" alt="ORACLE"/></a>ORACLE REIMAGINED</div>
-                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="SALESFORCE" href="https://www.salesforce.com/dreamforce/" target="_blank"><img src="img/salesforce.jpg" alt="SALESFORCE"/></a>SALESFORCE</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="SLACK" href="https://slackfrontiers.com/" target="_blank"><img src="../img/slack.jpg" alt="SLACK"/></a>SLACK FRONTIERS</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="DELL" href="https://www.delltechnologiesworld.com/index.htm#" target="_blank"><img src="../img/dell.jpg" alt="DELL"/></a>DELL TECHNOLOGIES</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="ORACLE" href="https://www.oracle.com/openworld/" target="_blank"><img src="../img/oracle.jpg" alt="ORACLE"/></a>ORACLE REIMAGINED</div>
+                                <div id="textPhotosCarousel" class="imagen col-3 float-left text-center"><a titles="SALESFORCE" href="https://www.salesforce.com/dreamforce/" target="_blank"><img src="../img/salesforce.jpg" alt="SALESFORCE"/></a>SALESFORCE</div>
                             </div>
                         </div>                        
                     </div>
@@ -259,28 +245,28 @@
                 <section class="columna3 col-3 offset-fixed f-right my-4 pt-4">
 
                     <!--INICIO PUBLICIDADES-->
-                    <div class="publicidades">
-                        <p id="titlePublicidades">PUBLICIDADES</p>
+                    <div id="publicidades">
+                        <p id="titlePubli">PUBLICIDADES</p>
                         <div class="" role="listbox" > <!--carousel-inner w-180-->
                             <div class="galeriaPublicaciones carousel-item row no-gutters active">
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="TURISMO" href="" ><img
-                                            src="publicidades/turismo.jpg" alt="TURISMO" /></a>TURISMO</div>                                                             
+                                            src="../publicidades/turismo.jpg" alt="TURISMO" /></a>TURISMO</div>                                                             
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="INSTITUTO" href="" ><img
-                                            src="publicidades/instituto.jpg" alt="INSTITUTO" /></a>INSTITUTO</div>
+                                            src="../publicidades/instituto.jpg" alt="INSTITUTO" /></a>INSTITUTO</div>
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="ELECTRO"
-                                        href="" ><img src="publicidades/electro.jpg" alt="ELECTRO" /></a>ELECTRO</div>
+                                        href="" ><img src="../publicidades/electro.jpg" alt="ELECTRO" /></a>ELECTRO</div>
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="HAMBUR"
-                                        href=""><img src="publicidades/hamburgueza.jpg" alt="HAMBUR" /></a>HAMBUR</div> 
+                                        href=""><img src="../publicidades/hamburgueza.jpg" alt="HAMBUR" /></a>HAMBUR</div> 
                             </div>
                             <div class="galeriaPublicaciones carousel-item row no-gutters active">
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="SUPER" href="" ><img
-                                            src="publicidades/super.jpg" alt="SUPER" /></a>SUPER</div>
+                                            src="../publicidades/super.jpg" alt="SUPER" /></a>SUPER</div>
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="PROJECTOR" href="" ><img
-                                            src="publicidades/projector.jpg" alt="PROJECTOR" /></a>PROJECTOR</div>
+                                            src="../publicidades/projector.jpg" alt="PROJECTOR" /></a>PROJECTOR</div>
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="ROPA" href="" ><img
-                                            src="publicidades/ropa.jpg" alt="ROPA" /></a>ROPA</div>
+                                            src="../publicidades/ropa.jpg" alt="ROPA" /></a>ROPA</div>
                                 <div id="textPhotosPubli" class="imagen col-3 float-left text-center"><a titles="ICE" href="" ><img
-                                            src="publicidades/ice.png" alt="ICE" /></a>ICE</div>
+                                            src="../publicidades/ice.png" alt="ICE" /></a>ICE</div>
                             </div>                            
                         </div>                        
                     </div>
@@ -289,7 +275,7 @@
                     <div class="card"></div>                    
 
                     <!--INICIO TUS LINKS-->
-                    <p id="titleLinks">Agregá aquí tus Links</p><br>
+                    <p id="titleLink">Agregá aquí tus Links</p><br>
                     <div id="links-list"></div>   
                     <!--FIN TUS LINKS-->                                     
 
@@ -302,8 +288,20 @@
         </div>
         <!--FIN CONTAINER FLUID PRIMERO DEL MAIN--> 
     </main>
-    <!--Fin del Main-->        
-    
+    <!--Fin del Main-->
+            
+    <!--<script src="../js/bootstrap.min.js"></script>-->
+    <script src="../js/colorEfects.js"></script>
+    <script src="../js/friendsUsers.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/links.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/photos.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/profile.js"></script>
+    <script src="../js/sweetalert2.all.min.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/uiFunctions.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

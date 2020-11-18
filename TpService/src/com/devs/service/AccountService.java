@@ -5,7 +5,7 @@ import com.mauroPignatta.Base64Image;
 import com.devs.helper.ImageHelper;
 import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
-import edu.labIV.manager.ManagerGod;
+import edu.labIV.manager.BackEndManager;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,10 +16,10 @@ import java.time.LocalDate;
 @Path("account")
 public class AccountService {
 
-    private final ManagerGod managerGod;
+    private final BackEndManager manager;
 
     public AccountService(){
-        managerGod = new ManagerGod();
+        manager = new BackEndManager();
     }
 
     @GET
@@ -27,9 +27,24 @@ public class AccountService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAccount(@PathParam("email") String email){
         Gson gson = new Gson();
-        Account account = managerGod.getAccountManager().getAccount(email);
+        Account account = manager.getAccountManager().getAccount(email);
 
         return Response.ok(gson.toJson(account)).build();
+    }
+
+    @POST
+    @Path("login")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(String json){
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+
+        String email = jsonObject.get("email").getAsString().toLowerCase();
+        String password = jsonObject.get("password").getAsString();
+
+        boolean login = manager.logIn(email, password);
+        return Response.ok().entity(login).build();
     }
 
     @POST
@@ -51,14 +66,14 @@ public class AccountService {
 
         boolean isSignedIn = false;
 
-        if(isSignedIn = managerGod.signIn(email, password, user)){
+        if(isSignedIn = manager.signIn(email, password, user)){
 
             if(!photo.isJsonNull() && !photo.getAsString().isEmpty()){
                 Base64Image image = new Base64Image(jsonObject.get("photo").getAsString());
-                int userId = managerGod.getAccountManager().getAccount(email).getId();
+                int userId = manager.getAccountManager().getAccount(email).getId();
                 user.setId(userId);
                 user.setProfilePicturePath(ImageHelper.saveImage(userId, image));
-                managerGod.getUserManager().updateUser(user);
+                manager.getUserManager().updateUser(user);
             }
         }
 
@@ -69,8 +84,8 @@ public class AccountService {
     @Path("activate/{id}")
     @Produces(MediaType.TEXT_HTML)
     public Response activate(@PathParam("id") int id) throws IOException {
-        boolean active = managerGod.activate(id);
-        return Response.ok(active).build();
+        boolean active = manager.activate(id);
+        return Response.ok().entity(active).build();
 
     }
 

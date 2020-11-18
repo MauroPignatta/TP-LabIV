@@ -1,12 +1,16 @@
 class UI {
     addProfile(profiles){
-        let names = profiles.name + " " + profiles.lastName;
+        var names = profiles.name + " " + profiles.lastName;        
+        var imgProfile = new Image();
+        imgProfile.src = profiles.img;
+        imgProfile.with = imgProfile.height = "120";
+
         const profileList = document.getElementById('profileUser');
         const elementProfile = document.createElement('div');
         element.innerHTML = `
             <div class="d-flex">
                 <div>
-                    <img class="rounded-circle" src="${profiles.img}" width="90" alt="">
+                    <img class="rounded-circle" src="${imgProfile.src}" width="90" alt="">
                 </div>
                 <div class="ml-3 h7">
                     <a href="profile.html">${names}</a>
@@ -19,7 +23,7 @@ class UI {
         const linksList = document.getElementById('links-list');
         const element = document.createElement('div');
         element.innerHTML = `
-						<div class="card-body text-center mb-2">                	
+						<div class="linkss card-body text-center mb-2">                	
                 <a tittles="Links" href="${link}" target="_blank">${link}</a>
 				<a href="" class="btn btn-danger" id="btnDelete" name="delete">X</a>
 			</div>
@@ -30,10 +34,12 @@ class UI {
     addPost(dato) {
         const postLists = document.getElementById('publicacionesPost');
         const element = document.createElement('div');
+        var getProfileText = sessionStorage.getItem('profile');
+        var namePostText = getProfileText.name + ' ' + getProfileText.lastName;
         element.innerHTML = `
 			<div class="card my-3">
 						<div class="card userName d-flex justify-content-center">
-                            <p><b>Nombre del Usuario</b></p>
+                            <p><b>${namePostText}</b></p>
                     	</div>
 						<div class="card my-3 card-body pt-0 pb-2">
 							${dato}
@@ -75,10 +81,12 @@ class UI {
                 var newImage = new Image();
                 newImage.src = imgs.img;
                 newImage.with = newImage.height = "120";
+                var getProfile = sessionStorage.getItem('profile');
+                var namePost = getProfile.name + ' ' + getProfile.lastName;
                 postPhoto.innerHTML = `
                     <div class="card my-3">
                                 <div class="card userName d-flex justify-content-center">
-                                    <p><b>${imgs.name}</b></p>
+                                    <p><b>${namePost}</b></p>
                                 </div>
                                 <div class="card-img">							
                                     <img src="${newImage.src}" alt="Preview">                            
@@ -181,6 +189,86 @@ class UI {
             imageAlt: 'A tall image',
             title: 'Welcome',
         });
+    }
+
+    invalidNull(text) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text,
+        });   
+    }
+
+    invalidName(text1) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text1,
+        });   
+    }
+    
+    invalidEmail(text2) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text2,
+        });   
+    }
+    invalidEqualsEmail(text3) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text3,
+        });   
+    }
+    invalidPass(text4) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text4,
+        });   
+    }
+    invalidEqualsPass(text5) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text5,
+        });   
+    }
+    invalidNumber(text6) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text6,
+        });   
+    }
+    invalidYear(text7) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text7,
+        });   
+    }
+    invalidMonth(text8) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text8,
+        });   
+    }
+    invalidDay(text9) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text9,
+        });   
+    }
+    invalidBisiesto(text10) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text10,
+        });   
     }
 }
 const ui = new UI();
