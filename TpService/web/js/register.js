@@ -1,23 +1,28 @@
+document.querySelector('#fotoPerfil').addEventListener('change', (e)=>{
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+        localStorage.setItem("photoProfile", reader.result);
+    });
+    reader.readAsDataURL(e.target.files[0]);
+});
+
 // funcion que me trae del Register HTML
 function formRegister(btnRegister) {
-    var newImages = new Image();
-    newImages = document.getElementById('fotoPerfil').value;
-    sessionStorage.setItem("photoregile", newImages); 
-   
+
     var checkin = {
         name : document.getElementById('firstName').value,
         lastName : document.getElementById('lastName').value,
-        email : document.getElementById('email1').value,        
+        email : document.getElementById('email1').value,
         password : document.getElementById('password1').value,
         year : document.getElementById('year').value,
         month : document.getElementById('month').value,
         day : document.getElementById('day').value,
-        photo : sessionStorage.getItem('photoregile')
-    };  
+        photo : localStorage.getItem('photoProfile')
+    };
     var mail2 = document.getElementById('email2').value;
-        pass2 = document.getElementById('password2').value;
+    pass2 = document.getElementById('password2').value;
 
-    sessionStorage.removeItem("photoregile");
+    localStorage.removeItem("photoProfile");
 
     let resCheck = op.isNotNullEmpty(checkin.name, "El Nombre");
     resCheck &= op.isNameCorrect(checkin.name, "El Nombre");    

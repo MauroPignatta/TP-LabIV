@@ -17,7 +17,7 @@ function taked() {
 };
 
 // funcion que recibe el texto, y agrega la Foto publicada.
-function createPostPhotos(dato){
+function ñcreatePostPhotos(dato){
 	const urlPhotos = "http://localhost:8081/Devs/rest/service/login";
 	const recentImageDataUrl = localStorage.getItem("recent-image");
 	localStorage.removeItem("recent-image");

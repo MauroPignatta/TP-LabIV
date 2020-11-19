@@ -1,4 +1,4 @@
-const emailRegex = /^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$/;
+const emailRegex = /^([a-zA-Z0-9-._ñ]+)@([a-zA-Z0-9-._ñ]+).([a-zA-Z]{2,5})$/;
 const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 const namesRegex = /^([a-zA-Z])$/;
 const numberRegex = /^([0-9])+$/;

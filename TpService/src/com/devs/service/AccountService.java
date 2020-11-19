@@ -5,12 +5,12 @@ import com.mauroPignatta.Base64Image;
 import com.devs.helper.ImageHelper;
 import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
+import edu.labIV.manager.AccountManager;
 import edu.labIV.manager.BackEndManager;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.*;
 import java.time.LocalDate;
 
 @Path("account")
@@ -35,7 +35,7 @@ public class AccountService {
     @POST
     @Path("login")
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response login(String json){
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
@@ -64,7 +64,7 @@ public class AccountService {
         User user = new User(name, lastName, LocalDate.of(year, month, day));
         JsonElement photo = jsonObject.get("photo");
 
-        boolean isSignedIn = false;
+        boolean isSignedIn;
 
         if(isSignedIn = manager.signIn(email, password, user)){
 
@@ -82,11 +82,26 @@ public class AccountService {
 
     @GET
     @Path("activate/{id}")
-    @Produces(MediaType.TEXT_HTML)
-    public Response activate(@PathParam("id") int id) throws IOException {
-        boolean active = manager.activate(id);
-        return Response.ok().entity(active).build();
+    public Response activate(@PathParam("id") int id) {
+        boolean response = manager.activate(id);
 
+        return Response.ok().entity(response).build();
+    }
+
+    @POST
+    @Path("forgot")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response forgot(String json){
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+
+        String email = jsonObject.get("email").getAsString().toLowerCase();
+        String newPassword = jsonObject.get("password").getAsString();
+
+        AccountManager accountManager = manager.getAccountManager();
+        boolean response = accountManager.changePassword(email, newPassword);
+
+        return Response.ok().entity(response).build();
     }
 
 

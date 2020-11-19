@@ -67,17 +67,17 @@ function request(dataLogin){
 
 // funcion que me trae del Forgot HTML
 function formForgot(btnForgot) {
-    var pass2 = document.getElementById('password2').value;
+    let pass2 = document.getElementById('password2').value;
 
-    var forgot = {
+    let forgot = {
         email : document.getElementById('email').value,
-        pass1 : document.getElementById('password1').value
+        password : document.getElementById('password1').value
     };
     let resForgot = op.isNotNullEmpty(forgot.email,"El Email");
     resForgot &= op.isEmailCorrect(forgot.email,"El Email");
-    resForgot &= op.isNotNullEmpty(forgot.pass1,"La Contraseña");
-    resForgot &= op.isPassCorrect(forgot.pass1,"La Contraseña");
-    resForgot &= op.isPasswordEquals(forgot.pass1,pass2);
+    resForgot &= op.isNotNullEmpty(forgot.password,"La Contraseña");
+    resForgot &= op.isPassCorrect(forgot.password,"La Contraseña");
+    resForgot &= op.isPasswordEquals(forgot.password,pass2);
 
     if (resForgot){sendingForgot(JSON.stringify(forgot));}
 }
