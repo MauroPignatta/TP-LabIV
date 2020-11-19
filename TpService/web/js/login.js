@@ -46,7 +46,16 @@ function sendingLoged(dataLogin) {
     })
     .then(function(response) {
         if(response.ok){
-            request(dataLogin);
+
+            response.json().then(data=>{
+            
+                if(data){
+                    request(dataLogin);
+                }else{
+                    console.log("contrasenia incorrecta")
+                }
+            })
+
         } else {
             throw 'Error en la llamada a Ajax';
         }
@@ -54,6 +63,7 @@ function sendingLoged(dataLogin) {
     .catch(function(err) {
         sessionStorage.setItem('errores', err);
     });
+
 }
 
 // Funcion que solicita los datos del Perfil del Usuario

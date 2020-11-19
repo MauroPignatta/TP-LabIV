@@ -8,9 +8,8 @@ document.querySelector('#profiles').addEventListener("click", async() => {
 
     var newImage = new Image();
     newImage.src = user.img;
-    newImage.with = newImage.height = "120";        
+    newImage.width = newImage.height = "120";
 
-    document.getElementByID('idUser').value = user.id;
     document.getElementByID('firstNameProfile').value = user.name;
     document.getElementByID('lastNameProfile').value = user.lastName;
     document.getElementByID('yearProfile').value = user.year;
