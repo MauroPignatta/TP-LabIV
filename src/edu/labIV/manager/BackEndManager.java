@@ -72,7 +72,7 @@ public class BackEndManager {
             } else {
                 String subject = RegisterMail.getSubject();
                 String username = user.getName();
-                String url = Config.getInstance().getTomcatURL() + "activate/" + user.getId();
+                String url = Config.getInstance().getTomcatURL() + "account/activate/" + user.getId();
 
                 try {
                     MailSender.getInstance().sendMail(email, subject, RegisterMail.getBody(username, url));
