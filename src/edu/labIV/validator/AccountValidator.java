@@ -32,7 +32,7 @@ public class AccountValidator {
         if (email == null)
             throw new InvalidEmailException("null");
 
-        if (!Pattern.matches("^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$",email))
+        if (!Pattern.matches("^([a-zA-Z0-9-._ñ]+)@([a-zA-Z0-9-._ñ]+).([a-zA-Z]{2,5})$",email))
             throw new InvalidEmailException(email);
     }
 
