@@ -8,7 +8,6 @@ public class Main {
 
         BackEndManager manager = new BackEndManager();
 
-
     }
 }
 

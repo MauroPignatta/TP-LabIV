@@ -41,8 +41,8 @@ public class UserDao extends Dao<User> {
     public boolean update(User entity) {
         boolean executed = false;
         String sql = "UPDATE " + USR_TABLE + " SET " + USR_STATUS + " = ?," + USR_NAME + " = ?," +
-                        USR_LAST_NAME + " = ?," + USR_BIRTH_DATE + " = ?" +
-                        USR_BIRTH_DATE + " = ? " +
+                        USR_LAST_NAME + " = ?," + USR_BIRTH_DATE + " = ?," +
+                        USR_PIC_PATH + " = ? " +
                         "WHERE " + USR_ID + " = ?";
         try{
             PreparedStatement statement = db.createPrepareStatement(sql);

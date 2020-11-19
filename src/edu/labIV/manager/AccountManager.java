@@ -1,11 +1,14 @@
 package edu.labIV.manager;
 
+import edu.labIV.exception.MailException;
 import edu.labIV.factory.entity.AccountFactory;
 import edu.labIV.logger.Logger;
 import edu.labIV.entity.Account;
 import edu.labIV.exception.AccountException;
 import edu.labIV.exception.InactiveAccount;
 import edu.labIV.exception.WrongPasswordExcepcion;
+import edu.labIV.mail.BlockedAccountMail;
+import edu.labIV.mail.MailSender;
 import edu.labIV.mapper.AccountMapper;
 import edu.labIV.util.PasswordEncryptor;
 import edu.labIV.validator.AccountValidator;
@@ -25,9 +28,7 @@ public class AccountManager {
     public boolean login(String email, String encryptedPassword){
         boolean isConnected = false;
         Account account = accountMapper.get(email);
-        if(account.getAttempts() == 0){
-            //TODO mandar formulario para cambiar contraseña
-        } else {
+        if(account != null && account.getAttempts() > 0){
             try{
                 accountValidator.validateAccount(account);
                 accountValidator.validateIsActive(account);
@@ -38,13 +39,26 @@ public class AccountManager {
                 logger.logError(e.getError());
             }catch (WrongPasswordExcepcion e){
                 account.setAttempts(account.getAttempts() - 1);
+                if(account.getAttempts() == 0){
+                    sendBlockedAccountMail(account);
+                }
                 accountMapper.update(account);
                 logger.logError(e.getError());
-            }catch (AccountException e) {
-                logger.logError(e.getError());
+            } catch (AccountException e) {
+                e.printStackTrace();
             }
         }
         return isConnected;
+    }
+
+    private void sendBlockedAccountMail(Account account) {
+        String subject = BlockedAccountMail.getSubject();
+        String body = BlockedAccountMail.getBody();
+        try {
+            MailSender.getInstance().sendMail(account.getEmail(), subject, body);
+        } catch (MailException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean signIn(String email, String password) {
