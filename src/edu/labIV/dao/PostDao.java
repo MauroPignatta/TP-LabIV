@@ -19,6 +19,21 @@ public class PostDao extends Dao<Post> {
     private static final String POST_IMAGE = "image_path";
     private static final String POST_DATE = "date";
 
+    public int getPostId(int userId){
+        String sql = "SELECT MAX("+POST_ID+") FROM " + POST_TABLE + " WHERE " + POST_USER_ID + " = " + userId;
+        int postId = -11;
+        try{
+            Statement statement = db.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            if(resultSet.next()){
+                postId = resultSet.getInt("max");
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return postId;
+    }
+
     @Override
     public boolean save(Post entity) {
         boolean executed = false;
@@ -31,10 +46,14 @@ public class PostDao extends Dao<Post> {
             statement.setString(3, entity.getImagePath());
             statement.setObject(4, entity.getDate());
             executed = statement.executeUpdate() == 1;
+            if(executed){
+                entity.setPostId(getPostId(entity.getUserId()));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return executed;
+
     }
 
     @Override
@@ -110,7 +129,7 @@ public class PostDao extends Dao<Post> {
     public List<Post> getAll(int id) {
         Post post;
         List<Post> postList =  new ArrayList<>();
-        String sql = "SELECT * FROM " + POST_DATE + " WHERE " + POST_USER_ID + " = " + id + ";";
+        String sql = "SELECT * FROM " + POST_TABLE + " WHERE " + POST_USER_ID + " = " + id + ";";
         try {
             Statement statement = db.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);

@@ -1,13 +1,14 @@
 package edu.labIV;
 
-import edu.labIV.manager.BackEndManager;
+import edu.labIV.dao.PostDao;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        BackEndManager manager = new BackEndManager();
-
+        PostDao postDao = new PostDao();
+        int n = postDao.getPostId(103);
+        System.out.println(n);
     }
 }
 
