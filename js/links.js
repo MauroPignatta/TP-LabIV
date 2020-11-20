@@ -6,12 +6,12 @@ const urlLinksList = "http://localhost:8081/Devs/rest/service/login";
 // funcion que me trae del HTML central a formLinks	
 function formLinks(btnLinks) {		
 	take(1);
-};
+}
 
 // funcion que me trae del HTML central a formPost	
 function formPosted(btnPosted) {
 	take(2);
-};
+}
 
 // funcion que realiza de acuerdo al tipo de publicacion que debe hacer
 function take(numero){
@@ -22,22 +22,18 @@ function take(numero){
 	if (dataLinkName === "" || dataPostText === ""){
 		ui.showMessage("Please insert data in this field", "danger");
 		ui.danger();
-	}
-	switch(numero){
-		case 1:
-			requestLinks(dataLinkName);			
-			break;
-		case 2:
-			requestText(dataPostText);
-			break;
-		default:
-			ui.danger();
-			break;
-	}
-};
+	} else if (numero === 1){
+		requestLinks(dataLinkName);	
+	} else if (numero === 2) {
+		requestText(dataPostText);
+	}	
+}
 
 // Funcion que envia el Link publicado, y pide la lista de links para mostrarlo
 function requestLinks(dataLink){
+
+
+	
 	var resulAjaxPostLinks = JSON.parse(op.sendPostJson(dataLink, urlLinks));
     if (resulAjaxPostLinks.result){
     	var resulAjaxGetLinksPostList = JSON.parse(op.sendGetJson(urlLinksList)); 

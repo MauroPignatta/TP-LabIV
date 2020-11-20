@@ -19,7 +19,7 @@ function taked() {
 // funcion que recibe el texto, y agrega la Foto publicada.
 function createPostPhotos(dato){
 	const urlPhotos = "http://localhost:8081/Devs/rest/service/login";
-		recentImageDataUrl = localStorage.getItem("recent-image");
+	const recentImageDataUrl = localStorage.getItem("recent-image");
 	localStorage.removeItem("recent-image");
 
 	var phName = document.getElementById("firstNameProfile").value + " " + document.getElementById("lastNameProfile").value;
@@ -66,4 +66,4 @@ document.querySelector('#fileFoto').addEventListener('change', (e)=>{
 		localStorage.setItem("recent-image", reader.result); 
 	});
 	reader.readAsDataURL(e.target.files[0]);
-});	
+});

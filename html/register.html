@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="../css/contact.css"> 
     </head>
 
-    <body class="contacto bg-light">  <!--class="bg-light"-->
-        
+    <body class="contacto bg-light">   
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
         <header></header>        
 
@@ -66,40 +66,49 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-5">
-                                            <label id="labels" for="password">Contraseña para su Usuario</label>
+                                            <label id="labels" for="password1">Contraseña para su Usuario</label>
                                             <input type="text" class="form-control" id="password1" placeholder="Por favor ingrese su contraseña">
                                             <div class="invalid-feedback">
                                                 Por favor ingrese su contraseña.
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-5">
-                                            <label id="labels" for="password">Repita Contraseña</label>
+                                            <label id="labels" for="password2">Repita Contraseña</label>
                                             <input type="text" class="form-control" id="password2" placeholder="Por favor repita su contraseña">
                                             <div class="invalid-feedback">
                                                 Por favor repita su contraseña.
                                             </div>
                                         </div>
                                         <div class="col-md-3 mb-5">
-                                            <label id="labels" for="birthdate">Nacido en:   Año</label> 
+                                            <label id="labels" for="year">Año</label> 
                                             <input type="text" class="form-control" id="year" placeholder="AAAA" value="" required>                 
                                         </div>  
                                         <div class="col-md-3 mb-5">
-                                            <label id="labels" for="birthdate">Mes</label>
+                                            <label id="labels" for="month">Mes</label>
                                             <input type="text" class="form-control" id="month" placeholder="MM" value="" required>                 
                                         </div>  
                                         <div class="col-md-3 mb-5">               
-                                            <label id="labels" for="birthdate">Día</label>
+                                            <label id="labels" for="day">Día</label>
                                             <input type="text" class="form-control" id="day" placeholder="DD" value="" required>               
                                         </div> 
                                         <div class="col-md-12 mb-5">
-                                            <label id="labels" for="birthdate">
+                                            <label id="labels" for="foto">
                                             Podés ingresar tu Foto de Perfil no mayor a 1 mega</label>
-                                            <input type="file"  id="fotoPerfil"/>
-                                        </div> 
-                                </div>
-                                <!--onclick="formProfilePhoto(btnProfilePhoto)"-->
+                                            
+                                            <!-- BOTON EXAMINAR DE LA FOTO PERFIL-->
+                                            <input type="file" id="fotoPerfil"/>  
 
-                                <input type="button" name="Register" id="btnRegister" value="Register" onclick="formRegister(btnRegister)" class="btn btn-primary btn-lg btn-block"/>
+                                        </div> 
+                                </div>                                
+
+                                <!-- BOTON REGISTRAR AZUL -->
+                                <input type="button" name="Register" id="btnRegister" value="Register" onclick="formRegister(btnRegister)" class="btn btn-primary"/>
+                                <br><br>
+
+                                <!--INICIA CAPTCHA-->
+                                <div class="g-recaptcha" data-sitekey="6Le9zh8UAAAAAKn-kpHg2Ls7MfqsiOznS7Pp94ja"
+                                    data-callback="enableCaptcha"></div>
+                                <!--FIN CAPTCHA-->
 
                             </form>
                             <!--FIN DEL FORMULARIO REGISTER-->                            
@@ -132,9 +141,9 @@
             </section>
 
         </main>
-        <!--Fin Main-->
-            
-        <script src="../js/login.js"></script>
+        <!--Fin Main-->            
+
+        <script src="../js/register.js"></script>
         <script src="../js/ui.js"></script>
         <script src="../js/uiFunctions.js"></script>
         <script src="../js/jquery-3.3.1.min.js"></script>

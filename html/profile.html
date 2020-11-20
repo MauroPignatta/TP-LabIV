@@ -15,53 +15,48 @@
     </header>    
 
     <!--INICIO DEL MAIN-->
-    <main class="cvMain my-2 pt-5">
+    <main class="my-2 pt-5">
         <div class="container-fluid">
 
             <!--INICIO DEL PERFIL-->
             <div class="inicio row ">  
-                <section class="columna1Inicio col-2 offset-fixed ">
-                </section>
-                <section class="columna1Inicio col-6 offset-fixed "> 
+                <section class="columna1Inicio col-2 offset-fixed "></section>
+                <form id="formularioPerfil" class="columna1Inicio col-6 offset-fixed ">            
                     <div class="col-md-6 mb-3">
-                        <label id="labels" for="firstName">ID</label>
-                        <input id="idUser" type="text" class="form-control" placeholder="" value="">
-                    </div>  
-                    <div class="col-md-6 mb-3">
-                        <label id="labels" for="firstName">Nombre</label>
+                        <label id="labels" for="firstNameProfile">Nombre</label>
                         <input id="firstNameProfile" type="text" class="form-control" placeholder="" value="">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label id="labels" for="firstName">Apellido</label>
+                        <label id="labels" for="lastNameProfile">Apellido</label>
                         <input id="lastNameProfile" type="text" class="form-control" placeholder="" value="">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label id="labels" for="birthdate">Fecha de Nacimiento</label> 
                     </div>  
                     <div class="col-md-3 mb-3">
-                        <label id="labels" for="birthdate">Año</label> 
+                        <label id="labels" for="yearProfile">Año</label> 
                         <input type="text" class="form-control" id="yearProfile" placeholder="AAAA" value="" required>                 
                     </div>  
                     <div class="col-md-3 mb-3">
-                        <label id="labels" for="birthdate">Mes</label>
+                        <label id="labels" for="monthProfile">Mes</label>
                         <input type="text" class="form-control" id="monthProfile" placeholder="MM" value="" required>                 
                     </div>  
                     <div class="col-md-3 mb-3">               
-                        <label id="labels" for="birthdate">Día</label>
+                        <label id="labels" for="dayProfile">Día</label>
                         <input type="text" class="form-control" id="dayProfile" placeholder="DD" value="" required>               
                     </div> 
                     <br><hr><br>
 
-                    <input type="button" name="Profiles" id="btnProfile" value="Save Change" onclick="formProfile(btnProfile)" class="btn btn-warning btn-lg"/>
+                    <input type="button" name="Profiles" id="btnChangeProfile" value="Save Change" onclick="formChangeProfile(btnChangeProfile)" class="btn btn-warning btn-lg"/>
 
                     <a href="index.html" class="btn btn-primary btn-lg">Return Web Site</a>   
 
-                </section>
+                </form>
 
                 <section class="columna2Inicio col-4 offset-fixed ">
-                    <div class="foto row col-lg-12">
-                        <img id="fotoProfile" src="" alt="">
-                    </div>
+                    <div id="photoProfileUser" >
+                        <img src="../fotos/chico.png" width="300" height="300" class="foto row col-lg-10">
+                    </div> <!--class="foto row col-lg-12"-->
                 </section>
 
             </div>
@@ -89,9 +84,14 @@
     </footer>
     <!--Fin Footer-->
     
-    <script src="js/profile.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/uiFunctions.js"></script>        
+    <script src="../js/profile.js"></script>
+    <script src="../js/changeProfile.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/uiFunctions.js"></script> 
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/sweetalert2.all.min.js"></script>           
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
