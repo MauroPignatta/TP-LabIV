@@ -14,21 +14,13 @@ import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 
 @Path("account")
-public class AccountService {
-
-    private final BackEndManager manager;
-
-    public AccountService(){
-        manager = new BackEndManager();
-    }
+public class AccountService extends Service {
 
     @GET
     @Path("/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAccount(@PathParam("email") String email){
-        Gson gson = new Gson();
         Account account = manager.getAccountManager().getAccount(email);
-
         return Response.ok(gson.toJson(account)).build();
     }
 
@@ -37,7 +29,6 @@ public class AccountService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response login(String json){
-        Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
 
         String email = jsonObject.get("email").getAsString().toLowerCase();
@@ -51,9 +42,7 @@ public class AccountService {
     @Path("register")
     @Consumes(MediaType.TEXT_PLAIN)
     public Response register(String json){
-        Gson gson = new GsonBuilder().serializeNulls().create();
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-
         String email = jsonObject.get("email").getAsString().toLowerCase();
         String password = jsonObject.get("password").getAsString();
         String name = jsonObject.get("name").getAsString();
@@ -72,7 +61,7 @@ public class AccountService {
                 Base64Image image = new Base64Image(jsonObject.get("photo").getAsString());
                 int userId = manager.getAccountManager().getAccount(email).getId();
                 user.setId(userId);
-                user.setProfilePicturePath(ImageHelper.saveImage(userId, image));
+                user.setProfilePicturePath(ImageHelper.saveUserImage(userId, image));
                 manager.getUserManager().updateUser(user);
             }
         }
@@ -84,7 +73,6 @@ public class AccountService {
     @Path("activate/{id}")
     public Response activate(@PathParam("id") int id) {
         boolean response = manager.activate(id);
-
         return Response.ok().entity(response).build();
     }
 
@@ -92,9 +80,7 @@ public class AccountService {
     @Path("forgot")
     @Consumes(MediaType.TEXT_PLAIN)
     public Response forgot(String json){
-        Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-
         String email = jsonObject.get("email").getAsString().toLowerCase();
         String newPassword = jsonObject.get("password").getAsString();
 

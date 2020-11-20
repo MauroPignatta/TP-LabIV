@@ -16,7 +16,6 @@ public class FriendService extends Service{
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFriendList(@PathParam("id") int id){
         List<Friend> friends = manager.getFriendManager().getFriendList(id);
-
         return Response.ok().entity(friends).build();
     }
 
@@ -24,7 +23,6 @@ public class FriendService extends Service{
     @Path("add")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addFriend(String json){
-        
 
         return Response.ok().build();
     }
