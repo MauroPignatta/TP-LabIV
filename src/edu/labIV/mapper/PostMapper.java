@@ -28,4 +28,6 @@ public class PostMapper {
     public List<Post> getAll(int userId){
         return postDao.getAll(userId);
     }
+
+    public boolean update(Post post){return postDao.update(post);}
 }

@@ -43,4 +43,6 @@ public class PostManager {
     public List<Post> getAllPost(int userId){
         return postMapper.getAll(userId);
     }
+
+    public boolean updatePost(Post post){return postMapper.update(post);}
 }

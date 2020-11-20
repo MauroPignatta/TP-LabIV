@@ -38,10 +38,23 @@ public class PostDao extends Dao<Post> {
     }
 
     @Override
-    protected boolean update(Post entity) {
-        return false;
+    public boolean update(Post entity) {
+        boolean executed = false;
+        String sql = "UPDATE " + POST_TABLE + " SET " + POST_DATE + " = ?," + POST_TEXT +
+                " = ?," + POST_IMAGE + " = ?" + " WHERE " + POST_ID + " = ?" + " AND " + POST_USER_ID + " = ?";
+        try{
+            PreparedStatement statement = db.createPrepareStatement(sql);
+            statement.setObject(1, entity.getDate());
+            statement.setString(2, entity.getText());
+            statement.setString(3, entity.getImagePath());
+            statement.setInt(4, entity.getPostId());
+            statement.setInt(5, entity.getUserId());
+            executed = statement.executeUpdate() == 1;
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return executed;
     }
-
     @Override
     protected boolean delete(int id) {
         return false;
