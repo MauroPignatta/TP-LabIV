@@ -22,4 +22,4 @@ attempts=5
 buffer=140
 
 [TOMCAT]
-URL=http://localhost:8080/TPService/
+URL=http://localhost:8080/TpService/rest/
