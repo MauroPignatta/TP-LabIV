@@ -46,27 +46,103 @@ function formRegister(btnRegister) {
 }
 
 function sendingRegister(datas) {    
-    let info;
     fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', {
         method: 'POST',
         body: datas
     })
-    .then(function(response) {
-        if(response.ok){            
-            window.location.href = "../login.html";            
-        } else {
+    .then(function(response){
+        if (response.ok){
+            response.json().then(data=>{
+                if(data){
+                    msg.correct()
+                    window.location.href = "../login.html";        
+                }else{
+                    console.log("contrasenia incorrecta")
+                }
+            })
+        }else {
             throw 'Error en la llamada a Ajax';
         }
+    })  
+    .catch(function(err){
+        msg.danger();
+    });     
+}
+
+
+/*
+    var resp = ser.postFetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', datas);    
+    if (resp){
+        console.log(resp)
+        msg.correct();
+        //window.location.href = "../login.html";
+    } else {
+        throw 'Error en la llamada a Ajax';
+    }
+    
+    
+    fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', {
+        method: 'POST',
+        body: datas
     })
-    /*
     .then(response => response.json())   
-    .then(data => {
-        info=data.nombre
-        console.log(info)
+    .then(datos => {
+        msg.correct();
+        console.log(data)
         window.location.href = "../login.html";
     })
-    */
-    .catch(function(err) {        
-        sessionStorage.setItem('errores', err);
+    .catch(function(err) {
+        op.saveErrorsList(err);
+        msg.danger()
     });
-}
+    */
+
+    /*
+    fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', {
+        method: 'POST',
+        body: datas
+    })
+    .then(function(response){
+        if (response.ok){
+            response.json().then(data=>{
+                if(data){
+                    msg.correct()
+                    window.location.href = "../login.html";        
+                }else{
+                    console.log("contrasenia incorrecta")
+                }
+            })
+        }else {
+            throw 'Error en la llamada a Ajax';
+        }
+    })  
+    .catch(function(err){
+        msg.danger();
+    });     
+    */
+
+
+    /*
+    fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', {
+        method: 'POST',
+        body: datas
+    })
+    .then(function(response){
+        if (response.ok){
+            response.json().then(data=>{
+                if(data){
+                    msg.correct()
+                    window.location.href = "../login.html";        
+                }else{
+                    console.log("contrasenia incorrecta")
+                }
+            })
+        }else {
+            throw 'Error en la llamada a Ajax';
+        }
+    })  
+    .catch(function(err) {
+        op.saveErrorsList(err);
+        msg.danger()
+    });
+    */

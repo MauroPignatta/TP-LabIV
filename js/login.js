@@ -21,7 +21,7 @@ function miFuncion(a) {
 
 */
 
-// funcion que me trae del Login HTML 
+// Funcion que me trae del Login HTML 
 function formLogin(btnLogin) {		
 
     var loged = {
@@ -37,22 +37,32 @@ function formLogin(btnLogin) {
     if (resLogin){sendingLoged(JSON.stringify(loged));}
 }
 
+// Funcion que envia el Post con los datos del logueo
 function sendingLoged(dataLogin) {    
-    fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/login.html', {
+    fetch('http://localhost:8080/TpService/rest/account/login', {
         method: 'POST',
         body: dataLogin
     })
     .then(function(response) {
         if(response.ok){
-            ui.addProfile(dataLogin);
-            ui.withImg();
-            window.location.href = "html/index.html";
+
+            response.json().then(data=>{
+            
+                if(data){
+                    msg.correct()
+                    window.location.href = "../login.html"; 
+                }else{
+                    console.log("contrasenia incorrecta")
+                }
+            })
+
         } else {
             throw 'Error en la llamada a Ajax';
         }
-    })   
+    })
     .catch(function(err) {
-        sessionStorage.setItem('errores', err);
+        op.saveErrorsList(err);
+        msg.danger()
     });
 }
 
@@ -77,14 +87,17 @@ function sendingForgot(dataForgot) {
         method: 'POST',
         body: dataForgot
     })
-    .then(function(response) {
-        if(response.ok){
-            window.location.href = "../login.html";
+    .then(response => response.json()
+    .then(data => {
+        if (data) {
+            msg.correct()
+            window.location.href = "../login.html"; 
         } else {
-            throw 'Error en la llamada a Ajax';
+            throw 'Error en la llamada a Ajax en Login';
         }
-    })   
+    })    
     .catch(function(err) {
-        sessionStorage.setItem('errores', err);
+        op.saveErrorsList(err);
+        msg.danger()
     });
 }

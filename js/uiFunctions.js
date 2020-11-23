@@ -2,6 +2,7 @@ const emailRegex = /^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$/;
 const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 const namesRegex = /^([a-zA-Z])$/;
 const numberRegex = /^([0-9])+$/;
+var errorsList = [];
 
 class UIFunctions {
 
@@ -101,40 +102,22 @@ class UIFunctions {
 	    return years % 100 === 0? years % 400 === 0 : years % 4 === 0;
 	}
 
-	// Funcion que pide GET 
-	sendGetJson(urls){
-	    var xhr = new XMLHttpRequest();
-	    xhr.open("GET",urls,true);
-	    xhr.withCredentials = true;
-	    xhr.setRequestHeader("Content-Type", "application/json");    
-	    xhr.setRequestHeader("Connection", "close");
-	    
-
-	    xhr.onload = function() {
-	      if(xhr.readyState === 4 && xhr.status === 200) {
-	        return this.responseText;
-	      }
-	    };
-	    xhr.send();
+	// Funcion que agrega errores a la lista de errores
+	saveErrorsList(text){
+		errorsList.push(text)
+		sessionStorage.setItem('errores', JSON.stringify(errorsList));
 	}
 
-	// Funcion cartero envio POST
-	sendPostJson(datta, url){	    
-	    try{
-	    	var xhr = new XMLHttpRequest();
-		    xhr.open("POST",url,true);
-		    xhr.setRequestHeader("Content-Type", "application/json");
-		    xhr.onload = () => {
-				if(xhr.status == 200){
-					return this.responseText;
-				} else {
-					alert('no funciono')
-				}
-			}	    	
-			xhr.send(JSON.stringify(datta));    
-	    } catch (e){
-	    	console.log('que pasa')
-	    }
+	// Devuelve la lista de errores guardada temporalmente en sessionStorage
+	getErrorList(){
+		var auxError = sessionStorage.getItem('errores');
+		var getErrorList = [];
+		if (auxError == null){
+			getErrorList = [];
+		} else {
+			getErrorList = JSON.parse(auxError);			
+		}
+		return getErrorList;
 	}
 
 }

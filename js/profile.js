@@ -1,53 +1,37 @@
-var infoProfile = [];
-
-function formProfileUser() {
-    /*var user = await takeProfile();*/
-    let uno = '1';
-        dos = 'Pepe';
-        tres = 'Argento';
-        cuatro = 2020;
-        cinco = 11;
-        seis = 20;
+// Funcion que solicita al Back los datos del perfil cuando el usuario 
+// toca el boton de Perfil en la barra de menú del index.html
+// Inserta los datos en el archivo profile.html
+var requestProfileUser = async() => {
+    var user = await ser.getFetch('ACA VA EL URL');    
+    var infoProfile = [];
+       
+    document.getElementById('firstNameProfile').value = user.name;
+    document.getElementById('lastNameProfile').value = user.lastName;
+    document.getElementById('yearProfile').value = user.birthday.year;
+    document.getElementById('monthProfile').value = user.birthday.month;
+    document.getElementById('dayProfile').value = user.birthday.day;
     
-    document.getElementById('firstNameProfile').value = dos;
-    document.getElementById('lastNameProfile').value = tres;
-    document.getElementById('yearProfile').value = cuatro;
-    document.getElementById('monthProfile').value = cinco;
-    document.getElementById('dayProfile').value = seis;
+    ui.addPhotoProfileUser(user);     
 
-    /*ui.addPhotoProfileUser(); //pasarle el objeto */
-    
     let profile = {
-        id: uno,
-        name: dos,
-        lastName: tres
+        id: user.id,
+        name: user.name,
+        lastName: user.lastName
     }
+    
     infoProfile.push(profile)
     sessionStorage.setItem('elementProfile', JSON.stringify(infoProfile)); 
 }
 
+// Funcion que devuelve los datos del perfil guardados en sessionStorage elementProfile
 function getProfileList() {
     var profList = sessionStorage.getItem('elementProfile');
-    var listPhotos = [];
+    var dataProfile = [];
     if (profList == null) {
-        listPhotos = [];
+        dataProfile = [];
     } else {
-        listPhotos = JSON.parse(profList);
+        dataProfile = JSON.parse(profList);
     }
-    return listPhotos;
+    return dataProfile;
 }
-
-formProfileUser()
-/*
-
-function takeProfile(){
-    return fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json())
-}
-
-
-
-document.querySelector('#btnProfiles').addEventListener("click", () => { async
-    
-});
-*/
+requestProfileUser()

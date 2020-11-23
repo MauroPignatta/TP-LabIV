@@ -1,31 +1,53 @@
-function formLogout(logout) {
-	let user = sessionStorage.getItem('elementProfile');
-	sendingLogout(user)
+function formLogout(logout) {    
+    sendingLogout();    
+    sendingErrorsLists();
 }
 
-function sendingLogout(datas) {    
-    let info;
+function sendingLogout() {    
+    let user = sessionStorage.getItem('elementProfile');
+    if (ser.postFetch('url', user)) {
+        msg.correct()
+        window.location.href = "../login.html";
+    } else {
+        throw 'Error en la llamada a Ajax';
+    }
+
+    /*
     fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', {
         method: 'POST',
-        body: datas
+        body: user
     })
     .then(function(response) {
-        if(response.ok){            
+        if(response.ok){     
+            msg.correct()       
             window.location.href = "../login.html";            
         } else {
             throw 'Error en la llamada a Ajax';
         }
     })
-    /*
-    .then(response => response.json())   
-    .then(data => {
-        info=data.nombre
-        console.log(info)
-        window.location.href = "../login.html";
-    })
-    */
     .catch(function(err) {
-        throw 'Error en la llamada a Ajax';
-        sessionStorage.setItem('errores', err);
+        op.saveErrorsList(err);
+        msg.danger()
+    });
+    */
+
+}
+
+function sendingErrorsLists() {
+    var lista = op.getErrorList;
+    fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', {
+        method: 'POST',
+        body: lista
+    })
+    .then(function (response) {
+        if (response.ok) {
+            console.log('okok') // ver para sacarlo
+        } else {
+            throw 'Error en la llamada a Ajax';
+        }
+    })
+    .catch(function (err) {
+        op.saveErrorsList(err);
+        msg.danger()
     });
 }
