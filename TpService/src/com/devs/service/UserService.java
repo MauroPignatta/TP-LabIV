@@ -24,9 +24,9 @@ public class UserService extends Service{
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUser(@PathParam("id") int id){
+    public Response getUser(@PathParam("id") int id){
         User user = manager.getUserManager().getUser(id);
-        return gson.toJson(user);
+        return Response.ok(gson.toJson(user)).build();
     }
 
 }

@@ -1,26 +1,16 @@
-function takeProfile(){
-    return fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json())
+// Funcion que solicita al Back los datos del perfil cuando el usuario 
+// toca el boton de Perfil en la barra de menú del index.html
+// Inserta los datos en el archivo profile.html
+var requestProfileUser = () => {
+    
+    var user = JSON.parse(sessionStorage.getItem('user'));
+  
+    document.getElementById('firstNameProfile').value = user.name;
+    document.getElementById('lastNameProfile').value = user.lastname;
+    document.getElementById('yearProfile').value = user.birthdate.year;
+    document.getElementById('monthProfile').value = user.birthdate.month;
+    document.getElementById('dayProfile').value = user.birthdate.day;
+
+    ui.addPhotoProfileUser(user);
 }
-
-document.querySelector('#profiles').addEventListener("click", async() => {
-    let user = await takeProfile();
-
-    var newImage = new Image();
-    newImage.src = user.img;
-    newImage.width = newImage.height = "120";
-
-    document.getElementByID('firstNameProfile').value = user.name;
-    document.getElementByID('lastNameProfile').value = user.lastName;
-    document.getElementByID('yearProfile').value = user.year;
-    document.getElementByID('monthProfile').value = user.month;
-    document.getElementByID('dayProfile').value = user.day;
-    document.querySelector("#fotoProfile").setAttribute("src", newImage.src);
-
-    var profile = {
-        id: user.id,
-        name: user.name,
-        lastName: user.lastName
-    }
-    sessionStorage.setItem('profile', profile)
-});
+requestProfileUser()

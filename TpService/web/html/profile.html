@@ -21,7 +21,7 @@
             <!--INICIO DEL PERFIL-->
             <div class="inicio row ">  
                 <section class="columna1Inicio col-2 offset-fixed "></section>
-                <form id="formularioPerfil" class="columna1Inicio col-6 offset-fixed ">
+                <form id="formularioPerfil" class="columna1Inicio col-6 offset-fixed ">            
                     <div class="col-md-6 mb-3">
                         <label id="labels" for="firstNameProfile">Nombre</label>
                         <input id="firstNameProfile" type="text" class="form-control" placeholder="" value="">
@@ -47,16 +47,16 @@
                     </div> 
                     <br><hr><br>
 
-                    <input type="button" name="Profiles" id="btnProfile" value="Save Change" onclick="formProfile(btnProfile)" class="btn btn-warning btn-lg"/>
+                    <input type="button" name="Profiles" id="btnChangeProfile" value="Save Change" onclick="formChangeProfile(btnChangeProfile)" class="btn btn-warning btn-lg"/>
 
                     <a href="index.html" class="btn btn-primary btn-lg">Return Web Site</a>   
 
                 </form>
 
                 <section class="columna2Inicio col-4 offset-fixed ">
-                    <div class="foto row col-lg-12">
-                        <img id="fotoProfile" src="" alt="">
-                    </div>
+                    <div id="photoProfileUser" >
+                        <img src="res/user/user105.png" width="300" height="300" class="foto row col-lg-10">
+                    </div> <!--class="foto row col-lg-12"-->
                 </section>
 
             </div>
@@ -87,7 +87,9 @@
     <script src="../js/profile.js"></script>
     <script src="../js/changeProfile.js"></script>
     <script src="../js/ui.js"></script>
-    <script src="../js/uiFunctions.js"></script> 
+    <script src="../js/uiFunctions.js"></script>
+    <script src="../js/uiMessages.js"></script>
+    <script src="../js/uiService.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>

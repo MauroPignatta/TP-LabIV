@@ -1,13 +1,8 @@
-const urlLoadFriends = "http://localhost:8081/Devs/rest/service/login"; 
-const urlLoadUsers = "http://localhost:8081/Devs/rest/service/login";  
-const urlPendientsToMe = "http://localhost:8081/Devs/rest/service/login"; 
-const urlSendUser = "http://localhost:8081/Devs/rest/service/login";
-const urlAddFriends = "http://localhost:8081/Devs/rest/service/login";
-const urlNotAcept = "http://localhost:8081/Devs/rest/service/login";
-
+var userPendients = getProfileList();
+// Funcion que trae la lista de Amigos y la muestra en friends.html
 function loadFriend(){
-	var resulAjaxGetFriends = JSON.parse(op.sendGetJson(urlLoadFriends));
-    	tbody = document.querySelector('#friendsTable tbody');
+	var resulAjaxGetFriends = ser.getFetch('GET URL A LISTA AMIGOS');
+    var	tbody = document.querySelector('#friendsTable tbody');
 
 	tbody.innerHTML = '';
     resulAjaxGetFriends.forEach(element => {
@@ -35,10 +30,10 @@ function loadFriend(){
 	});	
 }
 
-function loadUser(){
-	
-	var resulAjaxGetUsers = JSON.parse(op.sendGetJson(urlLoadUsers));
-    	tbody = document.querySelector('#usersTable tbody');
+// Funcion que trae la lista de Todos los Usuarios y la muestra en users.html
+function loadUser(){	
+	var resulAjaxGetUsers = ser.getFetch('URL A LISTA DE USUARIOS');
+    var	tbody = document.querySelector('#usersTable tbody');
 
 	tbody.innerHTML = '';
     resulAjaxGetUsers.forEach(element => {
@@ -66,9 +61,10 @@ function loadUser(){
 	});	
 }
 
-function pendients(){
-	var resulAjaxGetToMe = JSON.parse(op.sendGetJson(urlPendientsToMe));
-    	tbody = document.querySelector('#pendientsToMe tbody');
+// Funcion que trae las solicitudes pendientes de quien lo solicita y lo muestra en toMe.html
+function pendients(){	
+	var resulAjaxGetToMe = ser.postFetch('URL A LISTADO DE SOLICITUDES PENDIENTES', userPendients.id);
+	var	tbody = document.querySelector('#pendientsToMe tbody');
 
 	tbody.innerHTML = '';
     resulAjaxGetToMe.forEach(element => {
@@ -76,7 +72,7 @@ function pendients(){
     		idCell = row.insertCell(0),
 			nameCell = row.insertCell(1),
 			lastNameCell = row.insertCell(2),
-			selectAddCell = row.insertCell(3);
+			selectAddCell = row.insertCell(3),
 			selectNotCell = row.insertCell(4);
 
 		idCell.innerHTML = element.id;
@@ -101,37 +97,37 @@ function pendients(){
 	});	
 }
 
+// Funcion que selecciona el usuario para enviar una solicitud de amistad
 function formUsers(btnSendUsers) {
-	var id = btnSendUsers.value;
-		resUser = JSON.parse(op.sendPostJson(urlSendUser));
+	var sendSolFriend = {
+		userId: userPendients.id,
+		friendId: btnSendUsers.value
+	}
+	var	resUser = ser.postFetch('URL A ENVIAR SOLICITUD DE AMISTAD', sendSolFriend);
 
-	if (resUser.result){
-        ui.correct();
-    }else{
-        ui.danger();
-    }
+	if (resUser){ ui.correct();}else{ui.danger();}
 }
 
+// Funcion que Acepta la solicitud de amistad de la lista de Pendientes
 function formAdd(btnAddFriends) {
-	var id = btnAddFriends.value;
-		resAdd = JSON.parse(op.sendPostJson(urlAddFriends));
+	var acceptSolFriend = {
+		userId: userPendients.id,
+		friendId: btnAddFriends.value
+	}
+	var	resAdd = ser.postFetch('URL QUE ACEPTA SOLICITUD AMISTAD', acceptSolFriend);
 		
-	if (resAdd.result){
-        ui.correct();
-    }else{
-        ui.danger();
-    }
+	if (resAdd){ui.correct();}else{ui.danger();}
 }
 
+// Funcion que Rechaza la solicitud de amistad de la lista de Pendientes
 function formNot(btnNotFriends) {
-	var id = btnNotFriends.value;
-		resNotAdd = JSON.parse(op.sendPostJson(urlNotAcept));
+	var notAcceptSolFriend = {
+		userId: userPendients.id,
+		friendId: btnNotFriends.value
+	}
+	var	resNotAdd = ser.postFetch('URL QUE RECHAZA SOLICITUD DE AMISTAD', notAcceptSolFriend);
 		
-	if (resNotAdd.result){
-        ui.correct();
-    }else{
-        ui.danger();
-    }	
+	if (resNotAdd){ui.correct();}else{ui.danger();}	
 }
 
 // DOM EVENTS

@@ -1,7 +1,8 @@
-const emailRegex = /^([a-zA-Z0-9-._ñ]+)@([a-zA-Z0-9-._ñ]+).([a-zA-Z]{2,5})$/;
+const emailRegex = /^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$/;
 const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 const namesRegex = /^([a-zA-Z])$/;
 const numberRegex = /^([0-9])+$/;
+var errorsList = [];
 
 class UIFunctions {
 
@@ -9,7 +10,7 @@ class UIFunctions {
 	isNotNullEmpty(text, typeText) {
 	    let resul = true;
 	    if(text===null || text===' '){
-	    	setTimeout(ui.invalidNull(typeText + 'Esta vacío. Ingrese los datos por favor.'),2000);
+	    	setTimeout(msg.invalidNull(typeText + 'Esta vacío. Ingrese los datos por favor.'),2000);
 	    	resul=false;
 	    }	    
 	    return resul;
@@ -21,18 +22,18 @@ class UIFunctions {
 	    if (/^([a-zA-Z])+$/.test(namesAndSureName)){
 	    	resName = true;
 	    } else{
-	    	setTimeout(ui.invalidName(typeNames + ' ' + 'Debe contener solo letras.'), 2000);
+	    	setTimeout(msg.invalidName(typeNames + ' ' + 'Debe contener solo letras.'), 2000);
 	    }
 	    return resName;
 	}
 
-	// Funcion que supervisa si el email cumple con los requisitos
+	// Funcion que supervisa si el email cumple con los reqmsgsitos
 	isEmailCorrect(emailAddRegister, typeEmail){
 	    let resEmail = false;
 	    if (/^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})+$/.test(emailAddRegister)){
 	    	resEmail = true;
 	    } else{
-	    	setTimeout(ui.invalidEmail(typeEmail + ' ' + 'Email ingresado incorrectamente. Intentelo nuevamente por favor.'),2000);
+	    	setTimeout(msg.invalidEmail(typeEmail + ' ' + 'Email ingresado incorrectamente. Intentelo nuevamente por favor.'),2000);
 	    }
 	    return resEmail;
  	}
@@ -43,18 +44,18 @@ class UIFunctions {
  		if (uno == dos){
  			emailEquals = true;
  		} else{
- 			setTimeout(ui.invalidEqualsEmail('Los campos de Emails no son iguales. Ingreselos nuevamente por favor.'),2000);
+ 			setTimeout(msg.invalidEqualsEmail('Los campos de Emails no son iguales. Ingreselos nuevamente por favor.'),2000);
  		}
  		return emailEquals;
  	}
 
-	// Funcion que supervisa si el password cumple con los requisitos
+	// Funcion que supervisa si el password cumple con los reqmsgsitos
 	isPassCorrect(passView, typePass){
 		let resPass = false;
 		if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(passView)){
 			resPass = true;
 		} else{
-			setTimeout(ui.invalidPass(typePass + ' ' + 'Debe contener Números, Letras Mayúsculas y Minúsculas, algunos caracteres.'),2000);
+			setTimeout(msg.invalidPass(typePass + ' ' + 'Debe contener Números, Letras Mayúsculas y Minúsculas, algunos caracteres.'),2000);
 		}
 	    return resPass;
 	}
@@ -65,7 +66,7 @@ class UIFunctions {
 		if (p1 == p2){
 			equalsPass = true;
 		} else {
-			setTimeout(ui. invalidEqualsPass('Los campos de Password no son iguales. Ingreselos nuevamente por favor.'),2000);
+			setTimeout(msg. invalidEqualsPass('Los campos de Password no son iguales. Ingreselos nuevamente por favor.'),2000);
 		}
 		return equalsPass;
 	}
@@ -76,7 +77,7 @@ class UIFunctions {
 	    if (/^([0-9])+$/.test(num)){
 	    	resNumber = true;
 	    } else{
-	    	setTimeout(ui.invalidNumber('Los datos deben ser numéricos.'),2000);
+	    	setTimeout(msg.invalidNumber('Los datos deben ser numéricos.'),2000);
 	    }	
 	    return resNumber;
 	}
@@ -84,12 +85,12 @@ class UIFunctions {
 	// Funcion que revisa toda la fecha por cada campo y condición
 	isFecha(checkin){
 	    let resulFecha = true;
-	    if(checkin.year<1915 || checkin.year>2005){setTimeout(ui.invalidYear('Debes ingresar un año válido. No se permiten menores de 15 años.'),2000);resulFecha=false;}
-	    if(checkin.month<=0 || checkin.month>12){setTimeout(ui.invalidMonth('Debes ingresar un mes válido. Son del 1 al 12'),2000);resulFecha=false;}
-	    if(checkin.day<=0 || checkin.day>31){setTimeout(ui.invalidDay('Debes ingresar un día válido. Son del 1 al 31.'),2000);resulFecha=false;}
+	    if(checkin.year<1915 || checkin.year>2005){setTimeout(msg.invalidYear('Debes ingresar un año válido. No se permiten menores de 15 años.'),2000);resulFecha=false;}
+	    if(checkin.month<=0 || checkin.month>12){setTimeout(msg.invalidMonth('Debes ingresar un mes válido. Son del 1 al 12'),2000);resulFecha=false;}
+	    if(checkin.day<=0 || checkin.day>31){setTimeout(msg.invalidDay('Debes ingresar un día válido. Son del 1 al 31.'),2000);resulFecha=false;}
 	    if(checkin.month == 2 && checkin.day == 29){
 	        if(!isBisiesto(checkin.year)){
-	            setTimeout(ui.invalidBisiesto('El año ingresado no es bisiesto. Revise la fecha completa. Gracias.'),2000);
+	            setTimeout(msg.invalidBisiesto('El año ingresado no es bisiesto. Revise la fecha completa. Gracias.'),2000);
 	            resulFecha=false;
 	        }
 	    }
@@ -101,40 +102,22 @@ class UIFunctions {
 	    return years % 100 === 0? years % 400 === 0 : years % 4 === 0;
 	}
 
-	// Funcion que pide GET 
-	sendGetJson(urls){
-	    var xhr = new XMLHttpRequest();
-	    xhr.open("GET",urls,true);
-	    xhr.withCredentials = true;
-	    xhr.setRequestHeader("Content-Type", "application/json");    
-	    xhr.setRequestHeader("Connection", "close");
-	    
-
-	    xhr.onload = function() {
-	      if(xhr.readyState === 4 && xhr.status === 200) {
-	        return this.responseText;
-	      }
-	    };
-	    xhr.send();
+	// Funcion que agrega errores a la lista de errores
+	saveErrorsList(text){
+		errorsList.push(text)
+		sessionStorage.setItem('errores', JSON.stringify(errorsList));
 	}
 
-	// Funcion cartero envio POST
-	sendPostJson(datta, url){	    
-	    try{
-	    	var xhr = new XMLHttpRequest();
-		    xhr.open("POST",url,true);
-		    xhr.setRequestHeader("Content-Type", "application/json");
-		    xhr.onload = () => {
-				if(xhr.status == 200){
-					return this.responseText;
-				} else {
-					alert('no funciono')
-				}
-			}	    	
-			xhr.send(JSON.stringify(datta));    
-	    } catch (e){
-	    	console.log('que pasa')
-	    }
+	// Devuelve la lista de errores guardada temporalmente en sessionStorage
+	getErrorList(){
+		var auxError = sessionStorage.getItem('errores');
+		var getErrorList = [];
+		if (auxError == null){
+			getErrorList = [];
+		} else {
+			getErrorList = JSON.parse(auxError);			
+		}
+		return getErrorList;
 	}
 
 }

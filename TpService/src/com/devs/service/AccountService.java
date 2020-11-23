@@ -1,13 +1,15 @@
 package com.devs.service;
 
-import com.google.gson.*;
-import com.mauroPignatta.Base64Image;
 import com.devs.helper.ImageHelper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mauroPignatta.Base64Image;
 import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
 import edu.labIV.manager.AccountManager;
-import edu.labIV.manager.BackEndManager;
+import sun.security.krb5.internal.crypto.RsaMd5CksumType;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,15 +29,20 @@ public class AccountService extends Service {
     @POST
     @Path("login")
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response login(String json){
+        User user = null;
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
 
         String email = jsonObject.get("email").getAsString().toLowerCase();
         String password = jsonObject.get("password").getAsString();
 
         boolean login = manager.logIn(email, password);
-        return Response.ok().entity(login).build();
+
+        if(login){
+            user = manager.getUserManager().getUser(manager.getAccountManager().getAccount(email).getId());
+        }
+        return Response.ok().entity(gson.toJson(user)).build();
     }
 
     @POST
@@ -90,5 +97,12 @@ public class AccountService extends Service {
         return Response.ok().entity(response).build();
     }
 
+    @GET
+    @Path("logout/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response logout(@PathParam("id") int id){
+        boolean response = manager.logOut(manager.getAccountManager().getAccount(id).getEmail());
+        return Response.ok().entity(response).build();
+    }
 
 }

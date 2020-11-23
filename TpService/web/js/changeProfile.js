@@ -1,5 +1,5 @@
 // funcion que me trae del Login HTML 
-function formProfile(btnProfile) {		    
+function formChangeProfile(btnChangeProfile) {		    
     var changeProfile = {
             id : document.querySelector('#idUser').value,
             name : document.querySelector('#firstNameProfile').value,
@@ -24,36 +24,46 @@ function formProfile(btnProfile) {
     if (resProfile){sendingChangeProfile(JSON.stringify(changeProfile));}    
 }
 
-function sendingChangeProfile(data) {    
+function sendingChangeProfile(newProfile) {    
     fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/profile.html', {
         method: 'POST',
-        body: data
+        body: newProfile
     })
-    .then(function(response) {
+    .then((response) => {
         if(response.ok){
-            addProfileData(data)
+            response.json().then(data=>{
+                if(data){
+                    msg.correct()
+                    addProfileData(newProfile)        
+                }
+            })            
         } else {
             throw 'Error en la llamada a Ajax';
         }
     })   
     .catch(function(err) {
-        sessionStorage.setItem('errores', err);
+        op.saveErrorsList(err);
+        msg.danger()
     });
 }
 
-function addProfileData(data){
-    var prof = JSON.parse(data)
+function addProfileData(newProfile){
+    var prof = JSON.parse(newProfile)
     var newImage = new Image();
     newImage.src = prof.img;
-    newImage.with = newImage.height = "120";        
+
+    ui.addProfile(prof)
+    ui.addPhotoProfileUser(prof);   
 
     document.querySelector('#idUser').value = prof.id;
     document.querySelector('#firstNameProfile').value = prof.name;
     document.querySelector('#lastNameProfile').value = prof.lastName;
-    document.querySelector('#yearProfile').value = prof.year;
-    document.querySelector('#monthProfile').value = prof.month;
-    document.querySelector('#dayProfile').value = prof.day;
-    document.querySelector("#fotoProfile").setAttribute("src", newImage.src);    
-    sessionStorage.removeItem('profile');
-    sessionStorage.setItem('profile', prof);
+    document.querySelector('#yearProfile').value = prof.birthday.year;
+    document.querySelector('#monthProfile').value = prof.birthday.month;
+    document.querySelector('#dayProfile').value = prof.birthday.day;
+
+    sessionStorage.removeItem('elementProfile');
+    let listChangeProfile = []
+    listChangeProfile.push(prof)
+    sessionStorage.setItem('elementProfile', JSON.stringify(listChangeProfile));    
 }
