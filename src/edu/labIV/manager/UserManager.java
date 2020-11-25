@@ -50,7 +50,7 @@ public class UserManager {
                 logger.logError("Fallo al cargar la imagen usuario, User Id: " + user.getId());
             }
         }
-        return userMapper.get(id);
+        return user;
     }
 
     public void deleteUser(int id){
