@@ -2,6 +2,8 @@ package edu.labIV.util;
 
 import com.mauroPignatta.Base64Image;
 import com.mauroPignatta.Base64ImageConvertor;
+import edu.labIV.entity.Post;
+import edu.labIV.entity.User;
 
 import java.io.IOException;
 
@@ -27,6 +29,16 @@ public class ImageHelper {
             e.printStackTrace();
         }
         return output;
+    }
+
+    public static String loadUserImage(User user) throws IOException {
+        Base64Image base64Image = Base64ImageConvertor.convertImageToBase64(user.getProfilePicturePath());
+        return base64Image.toString();
+    }
+
+    public static String loadPostImage(Post post) throws IOException {
+        Base64Image base64Image = Base64ImageConvertor.convertImageToBase64(post.getImagePath());
+        return base64Image.toString();
     }
 
 }

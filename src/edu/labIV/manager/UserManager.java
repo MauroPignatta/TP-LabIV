@@ -8,6 +8,7 @@ import edu.labIV.mapper.UserMapper;
 import edu.labIV.util.ImageHelper;
 import edu.labIV.validator.UserValidator;
 
+import java.io.IOException;
 import java.util.List;
 
 public class UserManager {
@@ -40,6 +41,15 @@ public class UserManager {
     }
 
     public User getUser(int id){
+        User user = userMapper.get(id);
+
+        if (!user.getProfilePicturePath().isEmpty()){
+            try {
+                user.setProfilePicturePath(ImageHelper.loadUserImage(user));
+            } catch (IOException e) {
+                logger.logError("Fallo al cargar la imagen usuario, User Id: " + user.getId());
+            }
+        }
         return userMapper.get(id);
     }
 
