@@ -27,8 +27,7 @@ function createPostPhotos(dato){
 		if (response.ok) {
 			response.json().then(data=>{
 				if(data){
-					msg.correct();
-					takeListPosted();
+					window.location.href="index.html"
 				}
 			})			
 		} else {
@@ -45,8 +44,8 @@ function createPostPhotos(dato){
 
 
 // Funcion que toma Get lista de Posteos, recorre y envia a producir objetos
-const takeListPosted = async () => {
-	var url = 'http://localhost:8080/TpService/rest/post/list/' + user.id
+var takeListPosted = async () => {
+	const url = 'http://localhost:8080/TpService/rest/post/list/' + user.id;
 	fetch(url)
 		.then(response => response.json())
 		.then(data => {
@@ -78,22 +77,22 @@ document.getElementById('publicacionesPost').addEventListener('click', function 
 	let objPostTextDelete = e.target;
 	let numIdPostText;
 	if (objPostTextDelete.name === 'delete') {
-		numIdPostText = objPostTextDeletenumero.parentElement.parentElement.parentElement.parentElement.id;
+		numIdPostText = objPostTextDelete.parentElement.parentElement.parentElement.parentElement.id;
 	}
 	var postTextDelete = {
-		userId: id,
+		userId: user.id,
 		postId: numIdPostText
 	}
-	fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/register.html', {
+	let body = JSON.stringify(postTextDelete);
+	fetch('http://localhost:8080/TpService/rest/post/delete', {
 		method: 'POST',
-		body: postTextDelete
+		body: body
 	})
 		.then((response) => {
 			if (response.ok) {
 				response.json().then(data=>{
 					if(data){
-						takeListPosted();
-						msg.correct();
+						window.location.href = "index.html"
 					}
 				})				
 			} else {
@@ -106,3 +105,6 @@ document.getElementById('publicacionesPost').addEventListener('click', function 
 		});
 	e.preventDefault();
 });
+
+takeListPosted()
+ui.addProfile(user)

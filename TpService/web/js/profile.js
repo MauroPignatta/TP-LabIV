@@ -11,6 +11,6 @@ var requestProfileUser = () => {
     document.getElementById('monthProfile').value = user.birthdate.month;
     document.getElementById('dayProfile').value = user.birthdate.day;
 
-    ui.addPhotoProfileUser(user);
+    ui.addPhotoProfileUser();
 }
 requestProfileUser()

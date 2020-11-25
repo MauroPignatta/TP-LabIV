@@ -1,17 +1,13 @@
 class UI {
     // Funcion que inserta la Foto mas Nombre y Apellido en index.html
     addProfile(dataLogin){       
-        var names = dataLogin.name + " " + dataLogin.lastName;        
-        var imgProfile = new Image();
-        imgProfile.src = dataLogin.profilePicturePath;
-        imgProfile.with = imgProfile.height = "120";
-
-        const profileList = document.getElementById('photoProfileUser');
+        var names = dataLogin.name + " " + dataLogin.lastname;
+        const profileList = document.getElementById('profileUser');
         const elementProfile = document.createElement('div');
-        element.innerHTML = `
+        elementProfile.innerHTML = `
             <div class="d-flex">
-                <div>
-                    <img class="rounded-circle" src="${imgProfile.src}" alt="">
+                <div>                
+                    <img class="rounded-circle" src=${user.profilePicturePath} width="60" height="60" alt="">
                 </div>
                 <div class="ml-3 h7">
                     <a href="profile.html">${names}</a>
@@ -22,19 +18,19 @@ class UI {
     }
 
     // Funcion que Actualiza los datos del perfil en profile.html del usuario
-    addPhotoProfileUser(prof){
-        // Hay que ver si necesita que se parsee o no el JSON
+    addPhotoProfileUser(){
+
+        //Hay que ver si necesita que se parsee o no el JSON
         const ppu = document.getElementById('photoProfileUser');
         const elementPPU = document.createElement('div');
-        var imgPPU = new Image();
-        //imgPPU.src = prof.profilePicturePath;
+
         elementPPU.innerHTML = `
             <div class="d-flex">
-                <div>                    
-                    <img class="rounded-circle" src="${prof.profilePicturePath}" 
+                <div>
+                    <img src=${user.profilePicturePath}
                     width="300" height="300" class="foto row col-lg-10" alt="">
-                </div>                
-            </div>                      
+                </div>
+            </div>
         `;
         ppu.appendChild(elementPPU);
     }
@@ -43,12 +39,9 @@ class UI {
     addPostPhotos(post) {
         const postLists = document.getElementById('publicacionesPost');
         const postPhoto = document.createElement('div');
-        
-        var newImage = new Image();
-        newImage.src = post.imagePath;
 
         var getProfile = JSON.parse(sessionStorage.getItem('user'));
-        console.log(getProfile)
+
         var name = getProfile.name + ' ' + getProfile.lastname
 
         if(post.imagePath === ''){
@@ -82,7 +75,7 @@ class UI {
                     <p><b>${name}</b></p>
                 </div>
                 <div class="card-img">							
-                    <img src="${newImage.src}" width="800" height="700" alt="">
+                    <img src=${post.imagePath} width="800" height="450" alt="">
                 </div>
                 <div class="card my-3 card-body pt-0 pb-2">
                     ${post.text}
@@ -103,7 +96,7 @@ class UI {
             </div>
         `;
         }
-        postLists.appendChild(postPhoto);                 
+        postLists.appendChild(postPhoto);
     }
 
     deletePost(element) {
@@ -111,5 +104,7 @@ class UI {
             element.parentElement.parentElement.parentElement.parentElement.remove();
         }
     }
+
 }
 const ui = new UI();
+

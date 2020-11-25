@@ -53,7 +53,7 @@ function addProfileData(newProfile){
     newImage.src = prof.img;
 
     ui.addProfile(prof)
-    ui.addPhotoProfileUser(prof);   
+    ui.addPhotoProfileUser();
 
     document.querySelector('#idUser').value = prof.id;
     document.querySelector('#firstNameProfile').value = prof.name;

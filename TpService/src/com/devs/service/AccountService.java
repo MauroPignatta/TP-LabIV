@@ -1,15 +1,12 @@
 package com.devs.service;
 
-import com.devs.helper.ImageHelper;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mauroPignatta.Base64Image;
 import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
 import edu.labIV.manager.AccountManager;
-import sun.security.krb5.internal.crypto.RsaMd5CksumType;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -65,11 +62,10 @@ public class AccountService extends Service {
         if(isSignedIn = manager.signIn(email, password, user)){
 
             if(!photo.isJsonNull() && !photo.getAsString().isEmpty()){
-                Base64Image image = new Base64Image(jsonObject.get("photo").getAsString());
+
                 int userId = manager.getAccountManager().getAccount(email).getId();
                 user.setId(userId);
-                user.setProfilePicturePath(ImageHelper.saveUserImage(userId, image));
-                manager.getUserManager().updateUser(user);
+                manager.getUserManager().updatePhoto(user, photo.getAsString());
             }
         }
 

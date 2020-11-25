@@ -1,9 +1,7 @@
 package com.devs.service;
 
-import com.devs.helper.ImageHelper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mauroPignatta.Base64Image;
 import edu.labIV.entity.Post;
 
 import javax.ws.rs.*;
@@ -28,10 +26,7 @@ public class PostService extends Service {
         boolean isPosted = manager.getPostManager().savePost(post);
 
         if(isPosted && !photo.isJsonNull() && !photo.getAsString().isEmpty()){
-
-            Base64Image image = new Base64Image(jsonObject.get("photo").getAsString());
-            post.setImagePath(ImageHelper.savePostImage(post.getUserId(), post.getPostId(), image));
-            manager.getPostManager().updatePost(post);
+            getPostManager().updatePostPhoto(post, photo.getAsString());
         }
         return Response.ok().entity(isPosted).build();
     }
@@ -42,5 +37,16 @@ public class PostService extends Service {
     public Response getList(@PathParam("id") int id){
         List<Post> list = manager.getPostManager().getAllPost(id);
         return Response.ok().entity(gson.toJson(list)).build();
+    }
+
+    @POST
+    @Path("delete")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response delete(String json){
+        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+        int userId = jsonObject.get("userId").getAsInt();
+        int postId = jsonObject.get("postId").getAsInt();
+        boolean isDeleted = getPostManager().deletePost(userId, postId);
+        return getOkResponse(isDeleted);
     }
 }
