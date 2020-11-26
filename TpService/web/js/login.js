@@ -48,13 +48,12 @@ function sendingLoged(dataLogin) {
         if(response.ok){
 
             response.json().then(data=>{
-                console.log(data)
                 if(data !== null){
                     sessionStorage.setItem('user', JSON.stringify(data))
                     msg.correct()
                     window.location.href = "html/index.html";
                 }else{
-                    console.log("contrasenia incorrecta")
+                    msg.invalidPassword("Contraseña Incorrecta")
                 }
             })
 
@@ -74,13 +73,13 @@ function formForgot(btnForgot) {
 
     var forgot = {
         email : document.getElementById('email').value,
-        pass1 : document.getElementById('password1').value
+        password : document.getElementById('password1').value
     };    	
     let resForgot = op.isNotNullEmpty(forgot.email,"El Email");
     resForgot &= op.isEmailCorrect(forgot.email,"El Email");
-    resForgot &= op.isNotNullEmpty(forgot.pass1,"La Contraseña");    
-    resForgot &= op.isPassCorrect(forgot.pass1,"La Contraseña");    
-    resForgot &= op.isPasswordEquals(forgot.pass1,pass2);
+    resForgot &= op.isNotNullEmpty(forgot.password,"La Contraseña");
+    resForgot &= op.isPassCorrect(forgot.password,"La Contraseña");
+    resForgot &= op.isPasswordEquals(forgot.password,pass2);
 
     if (resForgot){sendingForgot(JSON.stringify(forgot));}        
 }

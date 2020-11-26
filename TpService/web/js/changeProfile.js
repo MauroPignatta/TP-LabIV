@@ -1,31 +1,35 @@
 // funcion que me trae del Login HTML 
 function formChangeProfile(btnChangeProfile) {		    
+
     var changeProfile = {
-            id : document.querySelector('#idUser').value,
+            id : user.id,
             name : document.querySelector('#firstNameProfile').value,
-            lastName : document.querySelector('#lastNameProfile').value,
-            year : document.querySelector('#yearProfile').value,
-            month : document.querySelector('#monthProfile').value,
-            day : document.querySelector('#dayProfile').value
+            lastname : document.querySelector('#lastNameProfile').value,
+            birthdate: {
+                year : document.querySelector('#yearProfile').value,
+                month : document.querySelector('#monthProfile').value,
+                day : document.querySelector('#dayProfile').value,
+            }
         };	
             
     let resProfile = op.isNotNullEmpty(changeProfile.name, "El Nombre");
     resProfile &= op.isNameCorrect(changeProfile.name, "El Nombre");    
-    resProfile &= op.isNotNullEmpty(changeProfile.lastName, "El Apellido");
-    resProfile &= op.isNameCorrect(changeProfile.lastName, "El Apellido");   
-    resProfile &= op.isNotNullEmpty(changeProfile.year);  
-    resProfile &= op.isNumber(changeProfile.year);    
-    resProfile &= op.isNotNullEmpty(changeProfile.month);
-    resProfile &= op.isNumber(changeProfile.month);
-    resProfile &= op.isNotNullEmpty(changeProfile.day);  
-    resProfile &= op.isNumber(changeProfile.day);    
-    resProfile &= op.isFecha(changeProfile);
+    resProfile &= op.isNotNullEmpty(changeProfile.lastname, "El Apellido");
+    resProfile &= op.isNameCorrect(changeProfile.lastname, "El Apellido");
+    resProfile &= op.isNotNullEmpty(changeProfile.birthdate.year);
+    resProfile &= op.isNumber(changeProfile.birthdate.year);
+    resProfile &= op.isNotNullEmpty(changeProfile.birthdate.month);
+    resProfile &= op.isNumber(changeProfile.birthdate.month);
+    resProfile &= op.isNotNullEmpty(changeProfile.birthdate.day);
+    resProfile &= op.isNumber(changeProfile.birthdate.day);
+    resProfile &= op.isFechaComplete(changeProfile);
+
 
     if (resProfile){sendingChangeProfile(JSON.stringify(changeProfile));}    
 }
 
-function sendingChangeProfile(newProfile) {    
-    fetch('file:///home/mariano/Documentos/TP-MIO-LABO4/IndexCentral/html/profile.html', {
+function sendingChangeProfile(newProfile) {
+    fetch('http://localhost:8080/TpService/rest/user/edit', {
         method: 'POST',
         body: newProfile
     })
@@ -33,6 +37,8 @@ function sendingChangeProfile(newProfile) {
         if(response.ok){
             response.json().then(data=>{
                 if(data){
+                    sessionStorage.removeItem("user")
+                    sessionStorage.setItem("user", JSON.stringify(data))
                     msg.correct()
                     addProfileData(newProfile)        
                 }

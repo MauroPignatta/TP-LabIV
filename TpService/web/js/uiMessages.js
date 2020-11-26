@@ -139,5 +139,13 @@ class UIMessages {
             text: 'No contienes ningún elemento en tu lista de Links.',
         });
     }
+
+    invalidPassword(text11) {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: text11,
+        });
+    }
 }
 const msg = new UIMessages();

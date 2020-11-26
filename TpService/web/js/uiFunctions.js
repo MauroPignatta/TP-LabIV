@@ -97,6 +97,21 @@ class UIFunctions {
 	    return resulFecha;
 	}
 
+	isFechaComplete(checkin){
+		let resulFecha = true;
+		if(checkin.birthdate.year<1915 || checkin.birthdate.year>2005){setTimeout(msg.invalidYear('Debes ingresar un año válido. No se permiten menores de 15 años.'),2000);resulFecha=false;}
+		if(checkin.birthdate.month<=0 || checkin.birthdate.month>12){setTimeout(msg.invalidMonth('Debes ingresar un mes válido. Son del 1 al 12'),2000);resulFecha=false;}
+		if(checkin.birthdate.day<=0 || checkin.birthdate.day>31){setTimeout(msg.invalidDay('Debes ingresar un día válido. Son del 1 al 31.'),2000);resulFecha=false;}
+		if(checkin.birthdate.month == 2 && checkin.birthdate.day == 29){
+			if(!isBisiesto(checkin.birthdate.year)){
+				setTimeout(msg.invalidBisiesto('El año ingresado no es bisiesto. Revise la fecha completa. Gracias.'),2000);
+				resulFecha=false;
+			}
+		}
+		return resulFecha;
+	}
+
+
 	// Funcion que analiza un año bisiesto o no
 	isBisiesto(years){
 	    return years % 100 === 0? years % 400 === 0 : years % 4 === 0;

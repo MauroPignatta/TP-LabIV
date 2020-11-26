@@ -1,12 +1,8 @@
-function formLogout() {
-    let user = JSON.parse(sessionStorage.getItem('user'));
-    let url = 'http://localhost:8080/TpService/rest/account/logout/' + user.id
+function formLogout(logout) {
 
+    let url = 'http://localhost:8080/TpService/rest/account/logout/' + user.id
     fetch(url)
-        .then(response => {
-            console.log(response)
-            window.location.href = "http://localhost:8080/TpService/";
-        })
+    sessionStorage.removeItem("user")
 
     //sendingErrorsLists();
 }
