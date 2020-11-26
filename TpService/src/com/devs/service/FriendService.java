@@ -23,8 +23,8 @@ public class FriendService extends Service{
     @Path("add")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addFriend(String json){
-
-        return Response.ok().build();
+        //TODO: Implementar
+        return getOkResponse();
     }
 
 

@@ -1,4 +1,4 @@
-function formLogout(logout) {
+function formLogout() {
     let user = JSON.parse(sessionStorage.getItem('user'));
     let url = 'http://localhost:8080/TpService/rest/account/logout/' + user.id
 

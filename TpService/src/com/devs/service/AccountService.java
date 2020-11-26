@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import edu.labIV.entity.Account;
 import edu.labIV.entity.User;
-import edu.labIV.manager.AccountManager;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,8 +18,8 @@ public class AccountService extends Service {
     @Path("/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAccount(@PathParam("email") String email){
-        Account account = manager.getAccountManager().getAccount(email);
-        return Response.ok(gson.toJson(account)).build();
+        Account account = getAccountManager().getAccount(email);
+        return getOkResponse(gson.toJson(account));
     }
 
     @POST
@@ -36,10 +35,10 @@ public class AccountService extends Service {
 
         boolean login = manager.logIn(email, password);
 
-        if(login){
-            user = manager.getUserManager().getUser(manager.getAccountManager().getAccount(email).getId());
+        if(login) {
+            user = getUserManager().getUser(getAccountManager().getAccount(email).getId());
         }
-        return Response.ok().entity(gson.toJson(user)).build();
+        return getOkResponse(gson.toJson(user));
     }
 
     @POST
@@ -63,20 +62,20 @@ public class AccountService extends Service {
 
             if(!photo.isJsonNull() && !photo.getAsString().isEmpty()){
 
-                int userId = manager.getAccountManager().getAccount(email).getId();
+                int userId = getAccountManager().getAccount(email).getId();
                 user.setId(userId);
-                manager.getUserManager().updatePhoto(user, photo.getAsString());
+                getUserManager().updatePhoto(user, photo.getAsString());
             }
         }
 
-        return Response.status(200).entity(isSignedIn).build();
+        return getOkResponse(isSignedIn);
     }
 
     @GET
     @Path("activate/{id}")
     public Response activate(@PathParam("id") int id) {
-        boolean response = manager.activate(id);
-        return Response.ok().entity(response).build();
+        boolean isActivated = manager.activate(id);
+        return getOkResponse(isActivated);
     }
 
     @POST
@@ -87,18 +86,17 @@ public class AccountService extends Service {
         String email = jsonObject.get("email").getAsString().toLowerCase();
         String newPassword = jsonObject.get("password").getAsString();
 
-        AccountManager accountManager = manager.getAccountManager();
-        boolean response = accountManager.changePassword(email, newPassword);
+        boolean hasChanged = getAccountManager().changePassword(email, newPassword);
 
-        return Response.ok().entity(response).build();
+        return getOkResponse(hasChanged);
     }
 
     @GET
     @Path("logout/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response logout(@PathParam("id") int id){
-        boolean response = manager.logOut(manager.getAccountManager().getAccount(id).getEmail());
-        return Response.ok().entity(response).build();
+        boolean response = manager.logOut(getAccountManager().getAccount(id).getEmail());
+        return getOkResponse(response);
     }
 
 }

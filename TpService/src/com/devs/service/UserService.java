@@ -17,16 +17,16 @@ public class UserService extends Service{
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserList(){
-        List<User> userList = manager.getUserManager().getUserList();
-        return Response.ok(gson.toJson(userList)).build();
+        List<User> userList = getUserManager().getUserList();
+        return getOkResponse(gson.toJson(userList));
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@PathParam("id") int id){
-        User user = manager.getUserManager().getUser(id);
-        return Response.ok(gson.toJson(user)).build();
+        User user = getUserManager().getUser(id);
+        return getOkResponse(gson.toJson(user));
     }
 
 }
