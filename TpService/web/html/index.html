@@ -21,37 +21,37 @@
     <header>
         <div class="container">
             <span id="inicio"></span>
-                <!--Comienzo Area Menu-->
-                <div class="row">
-                    <div class="col-12">                        
-                        <!--Comienzo de la Barra de Menu -->
-                        <nav class="menu navbar navbar-expand-lg fixed-top  "> <!--Trabajando con los colores   navbar-black navbar-expand-lg bg-dark--> 
-                            <img src="../img/logo.png" alt="">
-                            <a class="nav-link" href="#"></a> 
-                            <div class=" iconsMenu collapse navbar-collapse right hide-on-med-and-down" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
-                                    <a class="nav-link" href="#inicio"><img src="../icons/hogar.png" alt=""></a>
-                                    <a id="profiles" class="nav-link" href="profile.html"><img src="../icons/perfil.png" alt=""></a>
-                                    <a id="contactos" class="nav-link" href="friends.html"><img src="../icons/contactos.png" alt=""></a>
+            <!--Comienzo Area Menu-->
+            <div class="row">
+                <div class="col-12">
+                    <!--Comienzo de la Barra de Menu -->
+                    <nav class="menu navbar navbar-expand-lg fixed-top  "> <!--Trabajando con los colores   navbar-black navbar-expand-lg bg-dark-->
+                        <img src="../img/logo.png" alt="">
+                        <a class="nav-link" href="#"></a>
+                        <div class=" iconsMenu collapse navbar-collapse right hide-on-med-and-down" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <a class="nav-link" href="#inicio"><img src="../icons/hogar.png" alt=""></a>
+                                <a id="profiles" class="nav-link" href="profile.html"><img src="../icons/perfil.png" alt=""></a>
+                                <a id="contactos" class="nav-link" href="friends.html"><img src="../icons/contactos.png" alt=""></a>
                                 <!--    <a class="nav-link" href="https://radio.x-team.com/"><img src="../icons/radio.png" alt="" target="_blank"></a> -->
-                                    <a id="buscar" class="nav-link" onclick="searchUser(buscar)" href="users.html"><img src="../icons/buscar.png" alt=""></a>
-                                    <a id="solicitud" class="nav-link" href="toMe.html"><img src="../icons/solicitud.png" alt=""></a>
-                                    <a id="logout" class="nav-link" href="" 
-                                    onclick="formLogout(logout)"><img src="../icons/logout.png" alt=""></a>
-                                </ul>
+                                <a id="buscar" class="nav-link" href="users.html"><img src="../icons/buscar.png" alt=""></a>
+                                <a id="solicitud" class="nav-link" href="pending.html"><img src="../icons/solicitud.png" alt=""></a>
+                                <a id="logout" class="nav-link" href=""
+                                   onclick="formLogout(logout)"><img src="../icons/logout.png" alt=""></a>
+                            </ul>
 
-                                <!-- INICIO BOTONES DE DIA Y NOCHE-->
-                                <button class="btn btn-dark" id="btnInicio" onclick="formColorsInicio(btnInicio)"><img src="../icons/inicio.png" alt=""></button>
-                                <button class="btn btn-dark" id="btnSunrise" onclick="formColorsSunrise(btnSunrise)"><img src="../icons/amanecer.png" alt=""></button>
-                                <button class="btn btn-dark" id="btnDays" onclick="formColorsDay(btnDays)"><img src="../icons/dom.png" alt=""></button> 
-                                <button class="btn btn-dark" id="btnNight" onclick="formColorsNight(btnNight)"><img src="../icons/noche.png" alt=""></button>
-                                <!-- FIN BOTONES DE DIA Y NOCHE-->                                
-                            </div>
-                        </nav>
-                        <!--Fin de la Barra de Menu-->
-                    </div>
+                            <!-- INICIO BOTONES DE DIA Y NOCHE-->
+                            <button class="btn btn-dark" id="btnInicio" onclick="formColorsInicio(btnInicio)"><img src="../icons/inicio.png" alt=""></button>
+                            <button class="btn btn-dark" id="btnSunrise" onclick="formColorsSunrise(btnSunrise)"><img src="../icons/amanecer.png" alt=""></button>
+                            <button class="btn btn-dark" id="btnDays" onclick="formColorsDay(btnDays)"><img src="../icons/dom.png" alt=""></button>
+                            <button class="btn btn-dark" id="btnNight" onclick="formColorsNight(btnNight)"><img src="../icons/noche.png" alt=""></button>
+                            <!-- FIN BOTONES DE DIA Y NOCHE-->
+                        </div>
+                    </nav>
+                    <!--Fin de la Barra de Menu-->
                 </div>
-                <!--Fin Area Menu-->                                
+            </div>
+            <!--Fin Area Menu-->
         </div>
     </header>
     <!--Fin del Header-->
@@ -62,7 +62,7 @@
             <div class="row">                    
 
                 <!--INICIO COLUMNA 1-->
-                <section class="columna1 col-2 offset-fixed f-left pt-2">
+                <section class="columna1 fixed-top col-2 offset-fixed f-left pt-2">
 
                     <!--INICIO SESION DE USUARIO-->
                      <div id="profileUser" class="row col-lg-12 side-left"></div>
@@ -241,7 +241,7 @@
                 <!--FIN COLUMNA 2-->
 
                 <!--INICIA COLUMNA 3-->
-                <section class="columna3 col-3 offset-fixed f-right my-4 pt-4">
+                <section class="columna3 fixed-top col-3 offset-fixed f-right my-4 pt-4">
 
                     <!--INICIO PUBLICIDADES-->
                     <div id="publicidades">

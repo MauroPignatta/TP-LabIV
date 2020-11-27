@@ -142,6 +142,13 @@ div.imagen img:hover{
     background: red;
 }
 
+.columna2{
+    margin-left: 15%;
+}
+
+.columna3{
+    margin-left: 74%;
+}
 
 /* MEDIAS QUERIES*/
 

@@ -1,11 +1,9 @@
 // Funcion que me trae del Login HTML
 function formLogin(btnLogin) {
 
-    var response = grecaptcha.getResponse();
-
-    if(response.length === 0){
+    if(!verifyCaptcha()){
         msg.invalidCaptcha()
-        return;
+        return
     }
 
     var loged = {
@@ -54,11 +52,9 @@ function sendingLoged(dataLogin) {
 // funcion que me trae del Forgot HTML
 function formForgot(btnForgot) {
 
-    var response = grecaptcha.getResponse();
-
-    if(response.length === 0){
+    if(!verifyCaptcha()){
         msg.invalidCaptcha()
-        return;
+        return
     }
 
     var pass2 = document.getElementById('password2').value;

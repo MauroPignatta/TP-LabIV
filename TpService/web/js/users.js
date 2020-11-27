@@ -1,21 +1,17 @@
-function searchUser(buscar){
+function searchUser(){
 
-	fetch('http://localhost:8080/TpService/rest/user/list')
-		.then(response => response.json())
-		.then(data => {
-			console.log("holaaaaaa")
-			if (data === null) {
-
-				msg.linksEmpty();
-				op.saveErrorsList('Lista de Usuarios vacía');
-			} else {
+	var userid = JSON.stringify(user.id)
+	fetch('http://localhost:8080/TpService/rest/user/list', {
+		method : "POST",
+		body : userid
+	}).then(function (response){
+		if(response.ok){
+			response.json().then(data =>{
 				printUsersHtml(data)
-			}
-		})
+			})
+		}
+	})
 }
-
-// Funcion que trae la lista de Todos los Usuarios y la muestra en users.html
-
 
 // Funcion que toma la lista de Usuarios y la muestra en users.html
 function printUsersHtml(listUser) {
@@ -62,17 +58,18 @@ document.getElementById('allUsers').addEventListener('click', function (e) {
 		userId: user.id,
 		friendId: numUserIdSend
 	}
-	let url = 'URL A ENVIAR SOLICITUD ' + user.id
+	var send = JSON.stringify(sendSolFriend)
+	let url = 'http://localhost:8080/TpService/rest/friend/add'
 	fetch(url, {
 		method: 'POST',
-		body: sendSolFriend
+		body: send
 	})
-	.then((response) => {
-		if (response.ok) {
+	.then(function (response){
+		if(response.ok){
 			response.json().then(data=>{
 				if(data){
 					msg.correct();
-					loadUser();
+					window.location.href="users.html"
 				}
 			})			
 		} else {
@@ -84,3 +81,5 @@ document.getElementById('allUsers').addEventListener('click', function (e) {
 		msg.danger()
 	});		
 })
+searchUser()
+

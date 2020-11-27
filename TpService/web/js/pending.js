@@ -1,21 +1,21 @@
-document.querySelector('#solicitud').addEventListener('click', (e)=>{pendientsAll();});
-
 // Funcion que trae la lista de Solicitudes Pendientes
-function pendientsAll(){
-	fetch('URL DONDE SE PIDE LA LISTA DE TODOS LAS SOLICITUDES PENDIENTES')
-	.then(response => response.json())
-	.then(data => {
-		if (data === null) {
-			msg.linksEmpty();
-			op.saveErrorsList('Lista de Pendientes vacía');
-		} else {
-			printPendingHtml(data)
-		}
-	})    
-}
+function searchPending(){
 
-// Funcion que trae las solicitudes pendientes de quien lo solicita y lo muestra en toMe.html
-function printPendingHtml(listPending){	
+	var userid = JSON.stringify(user.id)
+	fetch('http://localhost:8080/TpService/rest/friend/requestlist/'+ userid)
+		.then(function (response){
+		if(response.ok){
+			response.json().then(data =>{
+
+				printPendingHtml(data)
+			})
+		}
+	})
+}
+searchPending()
+// Funcion que trae las solicitudes pendientes de quien lo solicita y lo muestra en pending.html
+function printPendingHtml(listPending){
+	console.log(listPending)
 	listPending.forEach(element => {
 		const postPendingList = document.getElementById('pendingAll');
     	const postPendings = document.createElement('div');
@@ -24,7 +24,7 @@ function printPendingHtml(listPending){
 	            <div class="card-footer bg-white border-0 p-0">                                
 	                <div class="d-flex justify-content-between align-items-center my-1">
 		                <div>
-	                    	<img class="rounded-circle" src="${element.profilePicturePath}" alt="">
+	                    	<img class="rounded-circle" src=${element.profilePicturePath} height="60" width="60" alt="">
 	                	</div>
 	                    <div class="col">
 	                        <p>${element.name}</p>    
@@ -61,16 +61,17 @@ document.getElementById('pendingAll').addEventListener('click', function (e) {
 			userId: user.id,
 			friendId: numUserIdAdd
 		}
-		fetch('RUTA ADD PERSONAS PENDIENTES', {
+		var body = JSON.stringify(addPendient)
+		fetch('http://localhost:8080/TpService/rest/friend/accept', {
 		method: 'POST',
-		body: addPendient
+		body: body
 		})
 		.then((response) => {
 			if (response.ok) {
 				response.json().then(data=>{
 					if(data){
 						msg.correct();
-						pendientsAll()
+						window.location.href="pending.html"
 					}
 				})			
 			} else {
@@ -89,16 +90,17 @@ document.getElementById('pendingAll').addEventListener('click', function (e) {
 			userId: user.id,
 			friendId: numUserIdNo
 		}
-		fetch('RUTA NO QUIERO PERSONAS PENDIENTES', {
+		var body = JSON.stringify(notAddPendient)
+		fetch('http://localhost:8080/TpService/rest/friend/reject', {
 		method: 'POST',
-		body: notAddPendient
+		body: body
 		})
 		.then((response) => {
 			if (response.ok) {
 				response.json().then(data=>{
 					if(data){
 						msg.correct();
-						pendientsAll()
+						window.location.href="pending.html"
 					}
 				})			
 			} else {
@@ -111,3 +113,4 @@ document.getElementById('pendingAll').addEventListener('click', function (e) {
 		});		
 	}	
 })
+

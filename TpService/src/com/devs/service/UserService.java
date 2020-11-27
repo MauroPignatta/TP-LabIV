@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import edu.labIV.entity.User;
 
+import javax.persistence.SecondaryTable;
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,11 +16,13 @@ import java.util.List;
 @Path("user")
 public class UserService extends Service{
 
-    @GET
+    @POST
     @Path("list")
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserList(){
-        List<User> userList = getUserManager().getUserList();
+    public Response getUserList(String idString){
+        int id = Integer.parseInt(idString);
+        List<User> userList = manager.getAddableUserList(id);
         return getOkResponse(gson.toJson(userList));
     }
 
