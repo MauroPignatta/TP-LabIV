@@ -1,11 +1,14 @@
 package edu.labIV.manager;
 
+import com.mauroPignatta.Base64Image;
 import edu.labIV.entity.User;
 import edu.labIV.exception.UserException;
 import edu.labIV.logger.Logger;
 import edu.labIV.mapper.UserMapper;
+import edu.labIV.util.ImageHelper;
 import edu.labIV.validator.UserValidator;
 
+import java.io.IOException;
 import java.util.List;
 
 public class UserManager {
@@ -31,8 +34,23 @@ public class UserManager {
         return isSaved;
     }
 
+    public void updatePhoto(User user, String photo){
+        Base64Image base64Image = new Base64Image(photo);
+        user.setProfilePicturePath(ImageHelper.saveUserImage(user.getId(), base64Image));
+        updateUser(user);
+    }
+
     public User getUser(int id){
-        return userMapper.get(id);
+        User user = userMapper.get(id);
+
+        if (!user.getProfilePicturePath().isEmpty()){
+            try {
+                user.setProfilePicturePath(ImageHelper.loadUserImage(user));
+            } catch (IOException e) {
+                logger.logError("Fallo al cargar la imagen usuario, User Id: " + user.getId());
+            }
+        }
+        return user;
     }
 
     public void deleteUser(int id){

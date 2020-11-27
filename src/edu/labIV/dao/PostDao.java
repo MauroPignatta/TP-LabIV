@@ -129,7 +129,7 @@ public class PostDao extends Dao<Post> {
     public List<Post> getAll(int id) {
         Post post;
         List<Post> postList =  new ArrayList<>();
-        String sql = "SELECT * FROM " + POST_TABLE + " WHERE " + POST_USER_ID + " = " + id + ";";
+        String sql = "SELECT * FROM " + POST_TABLE + " WHERE " + POST_USER_ID + " = " + id + " ORDER BY " + POST_DATE + " DESC;";
         try {
             Statement statement = db.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
