@@ -8,6 +8,13 @@ document.querySelector('#fotoPerfil').addEventListener('change', (e)=>{
 
 // funcion que me trae del Register HTML
 function formRegister(btnRegister) {
+
+    var response = grecaptcha.getResponse();
+
+    if(response.length === 0){
+        msg.invalidCaptcha()
+        return;
+    }
    
     var checkin = {
         name : document.getElementById('firstName').value,

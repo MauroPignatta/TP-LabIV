@@ -1,28 +1,12 @@
-// probar esta o la que le sigue
-function enableCaptcha(token) {
-    document.getElementByName('login')[0].disable = false;
-}
+// Funcion que me trae del Login HTML
+function formLogin(btnLogin) {
 
-/*
-poner en el form  onsubmit="return miFuncion(this)" method="POST"
-
-function miFuncion(a) {
     var response = grecaptcha.getResponse();
 
-    if(response.length == 0){
-        alert("Captcha no verificado");
-        return false;
-      event.preventDefault();
-    } else {
-      alert("Captcha verificado");
-      return true;
+    if(response.length === 0){
+        msg.invalidCaptcha()
+        return;
     }
-  }
-
-*/
-
-// Funcion que me trae del Login HTML 
-function formLogin(btnLogin) {		
 
     var loged = {
         email : document.getElementById('email').value,
@@ -69,6 +53,14 @@ function sendingLoged(dataLogin) {
 
 // funcion que me trae del Forgot HTML
 function formForgot(btnForgot) {
+
+    var response = grecaptcha.getResponse();
+
+    if(response.length === 0){
+        msg.invalidCaptcha()
+        return;
+    }
+
     var pass2 = document.getElementById('password2').value;
 
     var forgot = {

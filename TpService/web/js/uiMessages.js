@@ -147,5 +147,13 @@ class UIMessages {
             text: text11,
         });
     }
+
+    invalidCaptcha() {
+        Swal.fire({
+            type: 'error',
+            title: 'Error',
+            text: 'Debe completar el captcha.',
+        });
+    }
 }
 const msg = new UIMessages();
