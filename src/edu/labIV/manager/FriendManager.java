@@ -44,6 +44,10 @@ public class FriendManager {
         return friendMapper.getAllFriend(userId);
     }
 
+    public List<Friend> getRequestList(int userId){
+        return friendMapper.getAllRequests(userId);
+    }
+
     public List<Friend> getAll(int userId){
         return friendMapper.getAll(userId);
     }

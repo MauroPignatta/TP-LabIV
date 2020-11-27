@@ -38,6 +38,16 @@ public class FriendMapper {
         return friendList;
     }
 
+    public List<Friend> getAllRequests(int userId){
+        List<Friend> friendList = new ArrayList<>();
+        for(Friend friend : friendDao.getAll(userId)){
+            if(friend.getStatus().equals(FriendStatus.RECEIVED)){
+                friendList.add(friend);
+            }
+        }
+        return friendList;
+    }
+
     public List<Friend> getAll(int userId){
         return friendDao.getAll(userId);
     }
