@@ -1,16 +1,12 @@
 package com.devs.service;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import edu.labIV.entity.User;
 
-import javax.persistence.SecondaryTable;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Path("user")

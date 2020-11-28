@@ -1,10 +1,14 @@
 function verifyCaptcha(){
-    // var response = grecaptcha.getResponse();
-    var verified = true
-    // if(response.length > 0){
-    //     verified = true
+    var response = grecaptcha.getResponse();
+    var verified = false
+    if(response.length > 0){
+         verified = true // Esta linea no deberia estar en realidad, leer abajo.
 
-        //no anda el servidor de google, alta porqueria >:/ tira algo de cors, ni idea jaja
+        /* Esta parte seria la que envia al respuesta al servidor de google para verificar correctamente.
+           No pudimos hacerlo andar, tiraba un error relacionado con algo de CORS, lo que estamos
+           haciendo es verificar al menos que haya completado el captcha.
+        */
+
         // var body = {
         //     secret : '6LcU6O4ZAAAAAKFzRhk6yAkEQ02XiY1LOUZcnX3n',
         //     response : response
@@ -20,7 +24,7 @@ function verifyCaptcha(){
         //             })
         //         }
         //     })
-    //}
+    }
     return verified
 }
 
