@@ -14,6 +14,26 @@ import java.time.LocalDate;
 @Path("account")
 public class AccountService extends Service {
 
+    private static  final String ACTIVATION_SUCCESS_HTML =
+            "<html>\n" +
+            "<head>\n" +
+            "<title>Redirigiendo...</title>\n" +
+            "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"5;URL=http://localhost:8080/TpService/login.html\">\n" +
+            "</head>\n" +
+            "\t<img src=\"http://localhost:8080/TpService/img/logos.png\" width=\"10%\" style=\"margin:0% 3.8%\">\n" +
+            "\t<p style=\"font-size:130%\">Su cuenta ha sido activada exitosamente!</p>\n" +
+            "</html> ";
+
+    private static  final String ACTIVATION_FAILED_HTML =
+            "<html>\n" +
+                    "<head>\n" +
+                    "<title>Redirigiendo...</title>\n" +
+                    "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"5;URL=http://localhost:8080/TpService/login.html\">\n" +
+                    "</head>\n" +
+                    "\t<img src=\"http://localhost:8080/TpService/img/logos.png\" width=\"10%\" style=\"margin:0% 3.8%\">\n" +
+                    "\t<p style=\"font-size:130%\">Fallo la activacion de la cuenta</p>\n" +
+                    "</html> ";
+
     @GET
     @Path("/{email}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,9 +93,13 @@ public class AccountService extends Service {
 
     @GET
     @Path("activate/{id}")
+    @Produces(MediaType.TEXT_HTML)
     public Response activate(@PathParam("id") int id) {
-        boolean isActivated = manager.activate(id);
-        return getOkResponse(isActivated);
+        String html = ACTIVATION_FAILED_HTML;
+        if(manager.activate(id)){
+            html = ACTIVATION_SUCCESS_HTML;
+        }
+        return getOkResponse(html);
     }
 
     @POST

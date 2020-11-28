@@ -24,18 +24,21 @@ function printFriendsHtml(listFriend) {
 		                <div>
 	                    	<img class="rounded-circle" src=${element.profilePicturePath} width="60" height="60" alt="">
 	                	</div>
-	                    <div class="col">
+	                    <div class="col"  id="name">
 	                        <p>${element.name}</p>    
 	                    </div>
-	                    <div class="col">
+	                    <div class="col" id="lastname">
 	                        <p>${element.lastname}</p>    
 	                    </div>
 	                    <div class="col">
 	                        <p>${element.birthdate.year}:${element.birthdate.month}:${element.birthdate.day}</p>    
 	                    </div>
 	                    <div class="col">
-	                        <a href="#" class="btn btn-info" id="btnVer" name="Ver">Ver Publicaciones</a>
-	                    </div>	                    
+	                        <a href="#" class="btn btn-info" id="btnVer" name="Ver">Ver Publicaciones</a>	                        
+	                    </div>	 
+	                    <div class="col">
+	                        <a href="#" class="btn btn-danger" id="btnEliminar" name="Eliminar">Eliminar</a>	                        
+	                    </div>	                     
 	                </div>
 	            </div>				
 	        </div>
@@ -48,31 +51,59 @@ function printFriendsHtml(listFriend) {
 document.getElementById('allFriends').addEventListener('click', function (e) {
 	let objBtnSee = e.target;
 	let numFriendIdSee;
-	if (objBtnSee.name === 'Enviar') {
+
+	if (objBtnSee.name === 'Eliminar') {
 		numFriendIdSee = objBtnSee.parentElement.parentElement.parentElement.parentElement.id;
-	}
-	var seeFriendRequest = {
-		userId: user.id,
-		friendId: numFriendIdSee
-	}
-	let url = //'http://localhost:8080/TpService/rest/post/friendpost'
-	fetch(url, {
-		method: 'POST',
-		body: seeFriendRequest
-	})
-	.then((response) => {
-		if (response.ok) {
-			response.json().then(data=>{
-				if(data){
-					msg.correct();
-				}
-			})
-		} else {
-			throw 'Error en la llamada a Ajax';
+		var seeFriendRequest = {
+			userId: user.id,
+			friendId: numFriendIdSee
 		}
-	})
-	.catch(function (err) {
-		op.saveErrorsList(err);
-		msg.danger()
-	});
+		var body = JSON.stringify(seeFriendRequest)
+		let url = 'http://localhost:8080/TpService/rest/friend/delete'
+			fetch(url, {
+				method: 'POST',
+				body: body
+			})
+				.then((response) => {
+					if (response.ok) {
+						response.json().then(data=>{
+							if(data){
+								msg.correct();
+								window.location.href="friends.html"
+							}
+						})
+					} else {
+						throw 'Error en la llamada a Ajax';
+					}
+				})
+				.catch(function (err) {
+					op.saveErrorsList(err);
+					msg.danger()
+				});
+	}else{
+		numFriendIdSee = objBtnSee.parentElement.parentElement.parentElement.parentElement.id;
+		var friend={
+			id: numFriendIdSee,
+			name: "",
+			lastname: ""
+		}
+
+		fetch("http://localhost:8080/TpService/rest/user/" + numFriendIdSee)
+		.then(function (response){
+			if(response.ok){
+				response.json()
+					.then(data =>{
+						friend.name = ""
+						friend.lastname = ""
+					})
+			}
+		})
+		var json = JSON.stringify(friend)
+		sessionStorage.setItem("friend", json)
+		window.location.href="friendpost.html"
+	}
 })
+
+
+
+

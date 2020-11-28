@@ -74,6 +74,17 @@ public class FriendService extends Service{
         return getOkResponse(gson.toJson(send));
     }
 
+    @POST
+    @Path("delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(String json){
+        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+        int userId = jsonObject.get("userId").getAsInt();
+        int friendId = jsonObject.get("friendId").getAsInt();
+        boolean deleted = getFriendManager().deleteFriend(userId, friendId);
+        return getOkResponse(gson.toJson(deleted));
+    }
+
 
 
 

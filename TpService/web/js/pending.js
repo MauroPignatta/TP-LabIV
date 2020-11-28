@@ -15,7 +15,6 @@ function searchPending(){
 searchPending()
 // Funcion que trae las solicitudes pendientes de quien lo solicita y lo muestra en pending.html
 function printPendingHtml(listPending){
-	console.log(listPending)
 	listPending.forEach(element => {
 		const postPendingList = document.getElementById('pendingAll');
     	const postPendings = document.createElement('div');
