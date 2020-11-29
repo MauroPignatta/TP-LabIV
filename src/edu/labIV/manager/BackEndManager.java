@@ -34,7 +34,7 @@ public class BackEndManager {
         boolean hasLoggedIn;
         if(hasLoggedIn = accountManager.login(email, encryptedPassword)){
             Account account = accountManager.getAccount(email);
-            User user = userManager.getUser(account.getId());
+            User user = userManager.getUserNoPhoto(account.getId());
             user.setStatus(UserStatus.ONLINE);
             userManager.updateUser(user);
         }
@@ -45,7 +45,7 @@ public class BackEndManager {
         Account account = accountManager.getAccount(email);
         boolean logOut = false;
         if (account != null) {
-            User user = userManager.getUser(account.getId());
+            User user = userManager.getUserNoPhoto(account.getId());
             user.setStatus(UserStatus.OFFLINE);
             userManager.updateUser(user);
             logOut = true;

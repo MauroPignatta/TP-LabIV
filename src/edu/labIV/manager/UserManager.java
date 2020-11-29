@@ -40,6 +40,10 @@ public class UserManager {
         updateUser(user);
     }
 
+    public User getUserNoPhoto(int id){
+        return userMapper.get(id);
+    }
+
     public User getUser(int id){
         User user = userMapper.get(id);
 
