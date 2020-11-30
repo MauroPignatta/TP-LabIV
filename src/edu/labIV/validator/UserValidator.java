@@ -59,7 +59,7 @@ public class UserValidator {
     private boolean validateString(String string) {
         boolean isValid = false;
 
-        if (!Pattern.matches("^([a-zA-Z])+$", string))
+        if (!Pattern.matches("^([a-zA-ZñÑ])+$", string))
             isValid = true;
 
         return isValid;
