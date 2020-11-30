@@ -7,9 +7,13 @@
 2-	Bajar el archivo Devs.war y pergarlo en la carpteta WebApps en la carpeta del Tomcat que hayas instalado.
 
 3-	Dependiendo de tu Sistema Operativo, debes iniciar primero el servidor Tomcat, :
-  A- SO Windows en la carpeta del servidor, subcarpeta Bin, doble click en startup.sh
-  B- Linux desde la terminal, ingresar a los directorios y subdirectorios del servidor tomcat, y dentro ya de la subcarpeta Bin, ejecutar el comando sh startup.sh
+
+A- SO Windows en la carpeta del servidor, subcarpeta Bin, doble click en startup.sh
+
+ B- Linux desde la terminal, ingresar a los directorios y subdirectorios del servidor tomcat, y dentro ya de la subcarpeta Bin, ejecutar el comando sh startup.sh
+
 4-  Luego desde tu navegador ingresar localhost:8080/Devs
+
 5-	Podés visitar el Sitio en:
 -	https://devs-swart.vercel.app/
 
