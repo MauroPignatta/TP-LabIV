@@ -1,6 +1,6 @@
-const emailRegex = /^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$/;
+const emailRegex = /^([a-zA-Z0-9-_.ñ]+)@([a-zA-Z0-9-_.ñ]+).([a-zA-Z]{2,5})$/;
 const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-const namesRegex = /^([a-zA-Z])$/;
+const namesRegex = /^([a-zA-ZñÑ])+$/;
 const numberRegex = /^([0-9])+$/;
 var errorsList = [];
 
@@ -19,7 +19,7 @@ class UIFunctions {
 	// Funcion que supervisa el ingreso de Name y lastName
 	isNameCorrect(namesAndSureName, typeNames) {	 
 	    let resName = false;
-	    if (/^([a-zA-Z])+$/.test(namesAndSureName)){
+	    if (namesRegex.test(namesAndSureName)){
 	    	resName = true;
 	    } else{
 	    	setTimeout(msg.invalidName(typeNames + ' ' + 'Debe contener solo letras.'), 2000);
@@ -30,7 +30,7 @@ class UIFunctions {
 	// Funcion que supervisa si el email cumple con los reqmsgsitos
 	isEmailCorrect(emailAddRegister, typeEmail){
 	    let resEmail = false;
-	    if (/^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})+$/.test(emailAddRegister)){
+	    if (emailRegex.test(emailAddRegister)){
 	    	resEmail = true;
 	    } else{
 	    	setTimeout(msg.invalidEmail(typeEmail + ' ' + 'Email ingresado incorrectamente. Intentelo nuevamente por favor.'),2000);
@@ -52,7 +52,7 @@ class UIFunctions {
 	// Funcion que supervisa si el password cumple con los reqmsgsitos
 	isPassCorrect(passView, typePass){
 		let resPass = false;
-		if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(passView)){
+		if (passRegex.test(passView)){
 			resPass = true;
 		} else{
 			setTimeout(msg.invalidPass(typePass + ' ' + 'Debe contener Números, Letras Mayúsculas y Minúsculas, algunos caracteres.'),2000);
@@ -74,7 +74,7 @@ class UIFunctions {
 	// Funcion que supervisa que los numeros asi lo sean
 	isNumber(num){
 	    let resNumber = false;
-	    if (/^([0-9])+$/.test(num)){
+	    if (numberRegex.test(num)){
 	    	resNumber = true;
 	    } else{
 	    	setTimeout(msg.invalidNumber('Los datos deben ser numéricos.'),2000);

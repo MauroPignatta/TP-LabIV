@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("user")
@@ -17,8 +18,13 @@ public class UserService extends Service{
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserList(String idString){
-        int id = Integer.parseInt(idString);
-        List<User> userList = manager.getAddableUserList(id);
+        List<User> userList = new ArrayList<>();
+        try{
+            int id = Integer.parseInt(idString);
+            userList = manager.getAddableUserList(id);
+        }catch (Exception ex){
+            logUknownError(ex.getStackTrace().toString());
+        }
         return getOkResponse(gson.toJson(userList));
     }
 
@@ -35,14 +41,19 @@ public class UserService extends Service{
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response editUser(String string){
-        JsonObject json = gson.fromJson(string, JsonObject.class);
-        int id = json.get("id").getAsInt();
-        User user = manager.getUserManager().getUserNoPhoto(id);
-        user.setName(json.get("name").getAsString());
-        user.setLastname(json.get("lastname").getAsString());
-        user.setBirthdate(gson.fromJson(json.get("birthdate"), LocalDate.class));
-        getUserManager().updateUser(user);
-        user = getUserManager().getUser(id);
+        User user = new User();
+        try{
+            JsonObject json = gson.fromJson(string, JsonObject.class);
+            int id = json.get("id").getAsInt();
+            user = manager.getUserManager().getUserNoPhoto(id);
+            user.setName(json.get("name").getAsString());
+            user.setLastname(json.get("lastname").getAsString());
+            user.setBirthdate(gson.fromJson(json.get("birthdate"), LocalDate.class));
+            getUserManager().updateUser(user);
+            user = getUserManager().getUser(id);
+        }catch (Exception ex){
+            logUknownError(ex.getStackTrace().toString());
+        }
         return getOkResponse(gson.toJson(user));
     }
 }

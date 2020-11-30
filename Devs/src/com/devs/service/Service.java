@@ -2,6 +2,7 @@ package com.devs.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import edu.labIV.logger.Logger;
 import edu.labIV.manager.*;
 
 import javax.ws.rs.core.Response;
@@ -38,5 +39,9 @@ public abstract class Service {
 
     public UserManager getUserManager(){
         return manager.getUserManager();
+    }
+
+    public void logUknownError(String message){
+        Logger.getInstance().logError(message);
     }
 }

@@ -17,16 +17,19 @@ public class PostService extends Service {
     @Path("new")
     @Consumes(MediaType.TEXT_PLAIN)
     public Response post(String json){
-        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        String id = jsonObject.get("id").getAsString();
-        String text = jsonObject.get("text").getAsString();
-        JsonElement photo = jsonObject.get("photo");
-
-        Post post = new Post(Integer.parseInt(id), text, "", LocalDateTime.now());
-        boolean isPosted = getPostManager().savePost(post);
-
-        if(isPosted && !photo.isJsonNull() && !photo.getAsString().isEmpty()){
-            getPostManager().updatePostPhoto(post, photo.getAsString());
+        boolean isPosted = false;
+        try{
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            String id = jsonObject.get("id").getAsString();
+            String text = jsonObject.get("text").getAsString();
+            JsonElement photo = jsonObject.get("photo");
+            Post post = new Post(Integer.parseInt(id), text, "", LocalDateTime.now());
+            isPosted = getPostManager().savePost(post);
+            if(isPosted && !photo.isJsonNull() && !photo.getAsString().isEmpty()){
+                getPostManager().updatePostPhoto(post, photo.getAsString());
+            }
+        }catch (Exception ex){
+            logUknownError(ex.getStackTrace().toString());
         }
         return getOkResponse(isPosted);
     }
@@ -43,10 +46,16 @@ public class PostService extends Service {
     @Path("delete")
     @Consumes(MediaType.TEXT_PLAIN)
     public Response delete(String json){
-        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        int userId = jsonObject.get("userId").getAsInt();
-        int postId = jsonObject.get("postId").getAsInt();
-        boolean isDeleted = getPostManager().deletePost(userId, postId);
+        boolean isDeleted = false;
+        try{
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            int userId = jsonObject.get("userId").getAsInt();
+            int postId = jsonObject.get("postId").getAsInt();
+            isDeleted = getPostManager().deletePost(userId, postId);
+
+        }catch (Exception ex){
+            logUknownError(ex.getStackTrace().toString());
+        }
         return getOkResponse(isDeleted);
     }
 }

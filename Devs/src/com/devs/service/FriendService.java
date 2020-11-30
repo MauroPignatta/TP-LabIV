@@ -42,11 +42,17 @@ public class FriendService extends Service{
     @Path("add")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addFriend(String json){
-        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        int userId = jsonObject.get("userId").getAsInt();
-        int friendId = jsonObject.get("friendId").getAsInt();
-        Friend sender = new Friend(userId, friendId, "");
-        boolean send = getFriendManager().sendFriendRequest(sender);
+        boolean send = false;
+        try{
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            int userId = jsonObject.get("userId").getAsInt();
+            int friendId = jsonObject.get("friendId").getAsInt();
+            Friend sender = new Friend(userId, friendId, "");
+            send = getFriendManager().sendFriendRequest(sender);
+        }
+        catch(Exception ex){
+            logUknownError(ex.getStackTrace().toString());
+        }
         return getOkResponse(gson.toJson(send));
     }
 
@@ -54,11 +60,16 @@ public class FriendService extends Service{
     @Path("reject")
     @Produces(MediaType.APPLICATION_JSON)
     public Response reject(String json){
-        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        int userId = jsonObject.get("userId").getAsInt();
-        int friendId = jsonObject.get("friendId").getAsInt();
-        Friend receiver = new Friend(userId, friendId, "");
-        boolean send = getFriendManager().declineRequest(receiver);
+        boolean send = false;
+        try{
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            int userId = jsonObject.get("userId").getAsInt();
+            int friendId = jsonObject.get("friendId").getAsInt();
+            Friend receiver = new Friend(userId, friendId, "");
+            send = getFriendManager().declineRequest(receiver);
+        }catch (Exception ex){
+            logUknownError(ex.getStackTrace().toString());
+        }
         return getOkResponse(gson.toJson(send));
     }
 
@@ -66,11 +77,16 @@ public class FriendService extends Service{
     @Path("accept")
     @Produces(MediaType.APPLICATION_JSON)
     public Response accept(String json){
-        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        int userId = jsonObject.get("userId").getAsInt();
-        int friendId = jsonObject.get("friendId").getAsInt();
-        Friend receiver = new Friend(userId, friendId, "");
-        boolean send = getFriendManager().acceptRequest(receiver);
+        boolean send = false;
+        try{
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            int userId = jsonObject.get("userId").getAsInt();
+            int friendId = jsonObject.get("friendId").getAsInt();
+            Friend receiver = new Friend(userId, friendId, "");
+            send = getFriendManager().acceptRequest(receiver);
+        }catch (Exception ex){
+            logUknownError(ex.getStackTrace().toString());
+        }
         return getOkResponse(gson.toJson(send));
     }
 
@@ -78,10 +94,15 @@ public class FriendService extends Service{
     @Path("delete")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(String json){
-        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        int userId = jsonObject.get("userId").getAsInt();
-        int friendId = jsonObject.get("friendId").getAsInt();
-        boolean deleted = getFriendManager().deleteFriend(userId, friendId);
+        boolean deleted = false;
+        try{
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            int userId = jsonObject.get("userId").getAsInt();
+            int friendId = jsonObject.get("friendId").getAsInt();
+            deleted = getFriendManager().deleteFriend(userId, friendId);
+        }catch (Exception ex){
+            logUknownError(ex.getStackTrace().toString());
+        }
         return getOkResponse(gson.toJson(deleted));
     }
 
